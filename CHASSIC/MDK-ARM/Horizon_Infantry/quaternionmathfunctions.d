@@ -1,0 +1,24 @@
+horizon_infantry/quaternionmathfunctions.o: \
+  ..\Middlewares\CMSIS\DSP\Src\QuaternionMathFunctions\QuaternionMathFunctions.c \
+  ..\Middlewares\CMSIS\DSP\Src\QuaternionMathFunctions\arm_quaternion_norm_f32.c \
+  ..\Middlewares\CMSIS\DSP\Inc\dsp\quaternion_math_functions.h \
+  ..\Middlewares\CMSIS\DSP\Inc\arm_math_types.h \
+  ..\Drivers\CMSIS\Include\cmsis_compiler.h \
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\stdint.h \
+  ..\Drivers\CMSIS\Include\cmsis_armclang.h \
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\arm_compat.h \
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\arm_acle.h \
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\string.h \
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\math.h \
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\float.h \
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\limits.h \
+  ..\Middlewares\CMSIS\DSP\Inc\arm_math_memory.h \
+  ..\Middlewares\CMSIS\DSP\Inc\dsp\none.h \
+  ..\Middlewares\CMSIS\DSP\Inc\dsp\utils.h \
+  ..\Middlewares\CMSIS\DSP\Src\QuaternionMathFunctions\arm_quaternion_inverse_f32.c \
+  ..\Middlewares\CMSIS\DSP\Src\QuaternionMathFunctions\arm_quaternion_conjugate_f32.c \
+  ..\Middlewares\CMSIS\DSP\Src\QuaternionMathFunctions\arm_quaternion_normalize_f32.c \
+  ..\Middlewares\CMSIS\DSP\Src\QuaternionMathFunctions\arm_quaternion_product_single_f32.c \
+  ..\Middlewares\CMSIS\DSP\Src\QuaternionMathFunctions\arm_quaternion_product_f32.c \
+  ..\Middlewares\CMSIS\DSP\Src\QuaternionMathFunctions\arm_quaternion2rotation_f32.c \
+  ..\Middlewares\CMSIS\DSP\Src\QuaternionMathFunctions\arm_rotation2quaternion_f32.c

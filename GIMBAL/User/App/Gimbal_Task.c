@@ -17,8 +17,8 @@ uint8_t MOTOR_PID_Gimbal_INIT(MOTOR_Typdef *MOTOR)
 	
     //云台电机初始化
     float PID_F_Pitch[3] = {   0.0f,   0.0f,   0.0f   };
-    float PID_P_Pitch[3] = {   -2.8f,   0.0f,   0.0f   };//{   -3.5f,   0.0f,   0.0f   };
-    float PID_S_Pitch[3] = {   /*150.0f*/28,   0.0f,   0.0f   };//{   /*150.0f*/27,   0.0f,   0.0f   };
+    float PID_P_Pitch[3] = {   -2.3f,   0.0f,   0.0f   };//{   -3.5f,   0.0f,   0.0f   };
+    float PID_S_Pitch[3] = {   /*150.0f*/20,   0.0f,   0.0f   };//{   /*150.0f*/27,   0.0f,   0.0f   };
 //    Feedforward_Init(&MOTOR->DJI_6020_Pitch.PID_F, 3000, PID_F_Pitch,
 //                     0.5f, 2, 2);
 		
@@ -214,7 +214,7 @@ uint8_t gimbal_task(CONTAL_Typedef *CONTAL,
 //}
 //if(a%2==1)
 //{
-	dm4310_current_set(&hcan1,0x3FE,tmp_G[0],tmp_G[1]/*-3500cos_caculate(IMU_Data)*/,0,0);
+	dm4310_current_set(&hcan1,0x3FE,tmp_G[0],tmp_G[1]-3400/*-3500cos_caculate(IMU_Data)*/,0,0);
 //}
 //	dm4310_current_set(&hcan1,0x4FE,0,/*cos_caculate(IMU_Data)*/0,0,tmp_G[1]);
 
@@ -298,7 +298,7 @@ uint8_t GimbalTXResovle(  DBUS_Typedef *DBUS)
 		CanCommunit_t.gmTOch.dataNeaten.vx += gimbal_t.Keyboard.vx;//键鼠，还没加
 		CanCommunit_t.gmTOch.dataNeaten.vy =  DBUS->Remote .CH1_int16 ;
 		CanCommunit_t.gmTOch.dataNeaten.vy += gimbal_t.Keyboard.vy;//
-		CanCommunit_t.gmTOch.dataNeaten.vr =  DBUS->Remote .Dial_int16 ;
+		CanCommunit_t.gmTOch.dataNeaten.vr =  -DBUS->Remote .Dial_int16 ;
 		CanCommunit_t.gmTOch.dataNeaten.vr += gimbal_t.Keyboard.vr;//
 		
 		//狙击模式底盘上锁
@@ -333,6 +333,8 @@ uint8_t GimbalTXResovle(  DBUS_Typedef *DBUS)
 //		CanCommunit_t.gmTOch.dataNeaten.romoteOnLine = remoteOnLine;
 //		CanCommunit_t.gmTOch.dataNeaten.topSate = topSate;
 		//CanCommunit_t.gmTOch.dataNeaten.ptichAgnle = (int16_t)(-QEKF_INS.Roll*100);	//陀螺仪角度，单位0.1°
+		CanCommunit_t.gmTOch .dataNeaten .S1 =DBUS->Remote .S1_u8 ;
+		CanCommunit_t.gmTOch .dataNeaten .S2 =DBUS->Remote .S2_u8 ;
 		CanCommunit_t.gmTOch.dataNeaten.target=VISION_V_DATA.RECEIVE .TARGET ;
 //		IMU_Data.angle.pitch = INS.Pitch;
 //		IMU_Data.angle.yaw = INS.YawTotalAngle;

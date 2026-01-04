@@ -1,0 +1,20 @@
+horizon_infantry/bayesfunctions.o: \
+  ..\Middlewares\CMSIS\DSP\Src\BayesFunctions\BayesFunctions.c \
+  ..\Middlewares\CMSIS\DSP\Src\BayesFunctions\arm_gaussian_naive_bayes_predict_f32.c \
+  ..\Middlewares\CMSIS\DSP\Inc\dsp\bayes_functions.h \
+  ..\Middlewares\CMSIS\DSP\Inc\arm_math_types.h \
+  ..\Drivers\CMSIS\Include\cmsis_compiler.h \
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\stdint.h \
+  ..\Drivers\CMSIS\Include\cmsis_armclang.h \
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\arm_compat.h \
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\arm_acle.h \
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\string.h \
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\math.h \
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\float.h \
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\limits.h \
+  ..\Middlewares\CMSIS\DSP\Inc\arm_math_memory.h \
+  ..\Middlewares\CMSIS\DSP\Inc\dsp\none.h \
+  ..\Middlewares\CMSIS\DSP\Inc\dsp\utils.h \
+  ..\Middlewares\CMSIS\DSP\Inc\dsp\statistics_functions.h \
+  ..\Middlewares\CMSIS\DSP\Inc\dsp\basic_math_functions.h \
+  ..\Middlewares\CMSIS\DSP\Inc\dsp\fast_math_functions.h
