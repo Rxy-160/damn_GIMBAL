@@ -96,11 +96,11 @@ uint8_t gimbal_task(CONTAL_Typedef *CONTAL,
 		
 ///底盘跟随记得改回来
 		/////VOFA调用
-		VOFA_justfloat(IMU->gyro_correct [0],
-		               IMU->gyro_correct [1] ,
-		               IMU->gyro_correct [2] ,
-		               IMU->gyro  [0] ,
-		               IMU->gyro  [1] ,
+		VOFA_justfloat(VISION_V_DATA.RECEIVE .PIT_DATA ,
+		               -IMU->pitch  ,
+		               VISION_V_DATA.RECEIVE .YAW_DATA  ,
+		               -IMU->YawTotalAngle,
+		               VISION_V_DATA.RECEIVE .TARGET  ,
 		               IMU->gyro  [2] ,0,0,0,0);
     /*底盘跟随变量赋值*/
     CONTAL->CG.RELATIVE_ANGLE = (int16_t) (CONTAL->CG.YAW_INIT_ANGLE  - MOTOR->m_dm4310_y_t .DATA .Angle_now);//////有yaw的车

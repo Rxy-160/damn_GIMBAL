@@ -3,7 +3,7 @@
 <title>Static Call Graph - [Horizon_Infantry\Horizon_Infantry.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image Horizon_Infantry\Horizon_Infantry.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6180002: Last Updated: Sun Jan  4 23:50:21 2026
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6180002: Last Updated: Thu Jan  8 21:34:55 2026
 <BR><P>
 <H3>Maximum Stack Usage =        480 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -2852,7 +2852,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Read_Data_first
 </UL>
 
-<P><STRONG><a name="[204]"></a>RobotTask</STRONG> (Thumb, 1212 bytes, Stack size 72 bytes, robot.o(.text.RobotTask))
+<P><STRONG><a name="[204]"></a>RobotTask</STRONG> (Thumb, 1192 bytes, Stack size 72 bytes, robot.o(.text.RobotTask))
 <BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = RobotTask &rArr; RUI_F_MATH_Limit_float
 </UL>
 <BR>[Calls]<UL><LI><a href="#[205]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RUI_F_CHASSIS_GET_MAX_TARGET
@@ -3848,7 +3848,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[201]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Read_Data_system
 </UL>
 
-<P><STRONG><a name="[e0]"></a>VisionSendInit</STRONG> (Thumb, 204 bytes, Stack size 16 bytes, vision.o(.text.VisionSendInit))
+<P><STRONG><a name="[e0]"></a>VisionSendInit</STRONG> (Thumb, 196 bytes, Stack size 16 bytes, vision.o(.text.VisionSendInit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = VisionSendInit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ControltoVision
@@ -4038,7 +4038,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartRootTask
 </UL>
 
-<P><STRONG><a name="[218]"></a>gimbal_task</STRONG> (Thumb, 604 bytes, Stack size 40 bytes, gimbal_task.o(.text.gimbal_task))
+<P><STRONG><a name="[218]"></a>gimbal_task</STRONG> (Thumb, 628 bytes, Stack size 40 bytes, gimbal_task.o(.text.gimbal_task))
 <BR><BR>[Stack]<UL><LI>Max Depth = 340 + Unknown Stack Size
 <LI>Call Chain = gimbal_task &rArr; MOTOR_PID_Gimbal_INIT &rArr; PID_Init &rArr; OLS_Init &rArr; pvPortMalloc &rArr; xTaskResumeAll &rArr; xTaskIncrementTick &rArr; vListInsertEnd
 </UL>

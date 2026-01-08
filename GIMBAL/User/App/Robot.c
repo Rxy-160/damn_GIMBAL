@@ -112,9 +112,10 @@ void RobotTask(uint8_t mode,
 									if(Vision->RECEIVE .TARGET ==1)
 									{		
 									counttt=0;
-									CONTAL->HEAD.Pitch = RUI_F_MATH_Limit_float(CONTAL->HEAD.Pitch_MAX,
-																						CONTAL->HEAD.Pitch_MIN,
-																						-Vision->RECEIVE .PIT_DATA  *22.75555555555556f);
+									CONTAL->HEAD.Pitch = Vision->RECEIVE .PIT_DATA  *22.75555555555556f;
+//										RUI_F_MATH_Limit_float(CONTAL->HEAD.Pitch_MAX,
+//																						CONTAL->HEAD.Pitch_MIN,
+//																						Vision->RECEIVE .PIT_DATA  *22.75555555555556f);
 
 
 

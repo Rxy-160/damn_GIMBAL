@@ -50,7 +50,7 @@ void VisionSendInit(union RUI_U_VISION_SEND*  Send_t,TYPEDEF_VISION *VISION_DATA
 {
     static uint8_t buff_flag = 0;
 //注意正负
-    Send_t->PIT_DATA = -IMU_Data ->pitch ;     // @note c板侧放，如果想用pitch建议改imu_temp...c中的IMU_QuaternionEKF_Update参数顺序和正负
+    Send_t->PIT_DATA = IMU_Data ->pitch ;     // @note c板侧放，如果想用pitch建议改imu_temp...c中的IMU_QuaternionEKF_Update参数顺序和正负
 	
     Send_t->YAW_DATA = -IMU_Data ->yaw ;
 	Send_t->ROLL_DATA =IMU_Data ->roll ;
