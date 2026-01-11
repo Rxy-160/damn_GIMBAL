@@ -285,7 +285,6 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef* hcan)
             case 0x302://云台Pitch
                 dm4310_RXdata(&ALL_MOTOR.m_dm4310_p_t, rx_data);
 //					                WHW_F_MOTOR_CAN_RX_6020RM(&ALL_MOTOR.DJI_6020_Yaw.DATA, rx_data);
- 
                 break;
 //            case 0x07:
 //							dm4310_fbdata(&ALL_MOTOR.m_dm4310_p_t.DATA,rx_data);
@@ -294,6 +293,10 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef* hcan)
 						case CHASSIC_kong:
              GimbalRXResolve(rx_data,CHASSIC_kong);
 						break;
+						case 0x203://拨弹
+		RUI_F_MOTOR_CAN_RX_2006RM(&ALL_MOTOR.DJI_3508_Shoot_M.DATA, rx_data);
+		break;
+
         }
 			
 	}
@@ -310,9 +313,6 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef* hcan)
                 RUI_F_MOTOR_CAN_RX_3508RM(&ALL_MOTOR.DJI_3508_Shoot_R.DATA, rx_data);
                 break;
 
-            case 0x203://拨弹
-                RUI_F_MOTOR_CAN_RX_2006RM(&ALL_MOTOR.DJI_3508_Shoot_M.DATA, rx_data);
-                break;
 
 //            case 0x204://底盘4
 //                RUI_F_MOTOR_CAN_RX_3508RM(&ALL_MOTOR.DJI_3508_Chassis_4.DATA, rx_data);

@@ -60,6 +60,8 @@ RUI_ROOT_STATUS_Typedef RUI_ROOT_STATUS;
 //VisionRxDataUnion VisionRxData;
 uint8_t VisionRx[30];
 uint8_t sd_v_buff[16];
+//uint8_t sd_v_buff[20];
+
 //电容
 CAPDATE_TYPDEF CAPDATE;
 

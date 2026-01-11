@@ -1,6 +1,6 @@
 #include "IMU_Task.h"
 
-#define correct_Time_define 1000    //上电去0飘 1000次取平均
+#define correct_Time_define 10000    //上电去0飘 1000次取平均
 #define temp_times 300       //探测温度阈值
 #define Destination_TEMPERATURE 40.f
 
@@ -77,9 +77,9 @@ void INS_Task(IMU_Data_t *IMU, pid_type_def *imu_temp_pid)
 #endif
 //////获得零飘
 #ifdef User_Release
-            IMU->gyro_correct[0] = 0.00052091426914557815f;
-            IMU->gyro_correct[1] = 0.00466583669185638428f;
-            IMU->gyro_correct[2] = 0.00103330705314874649f;
+            IMU->gyro_correct[0] = 0.000537209562026f;
+            IMU->gyro_correct[1] = 0.005109638441354f;
+            IMU->gyro_correct[2] = 0.001134428752691f;
             IMU->attitude_flag=2; //go to 2 state
 #endif
         }

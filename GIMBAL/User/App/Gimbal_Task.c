@@ -17,8 +17,8 @@ uint8_t MOTOR_PID_Gimbal_INIT(MOTOR_Typdef *MOTOR)
 	
     //云台电机初始化
     float PID_F_Pitch[3] = {   0.0f,   0.0f,   0.0f   };
-    float PID_P_Pitch[3] = {   -2.3f,   0.0f,   0.0f   };//{   -3.5f,   0.0f,   0.0f   };
-    float PID_S_Pitch[3] = {   /*150.0f*/20,   0.0f,   0.0f   };//{   /*150.0f*/27,   0.0f,   0.0f   };
+    float PID_P_Pitch[3] = {   -3.4f,   0.0f,   0.0f   };//{   -3.0f,   0.0f,   0.0f   };
+    float PID_S_Pitch[3] = {   /*150.0f*/36,   0.0f,   0.0f   };//{   /*150.0f*/25,   0.0f,   0.0f   };
 //    Feedforward_Init(&MOTOR->DJI_6020_Pitch.PID_F, 3000, PID_F_Pitch,
 //                     0.5f, 2, 2);
 		
@@ -97,13 +97,20 @@ uint8_t gimbal_task(CONTAL_Typedef *CONTAL,
 ///底盘跟随记得改回来
 		/////VOFA调用
 		VOFA_justfloat(VISION_V_DATA.RECEIVE .PIT_DATA ,
-		               -IMU->pitch  ,
+		               IMU->pitch  ,
 		               VISION_V_DATA.RECEIVE .YAW_DATA  ,
 		               -IMU->YawTotalAngle,
 		               VISION_V_DATA.RECEIVE .TARGET  ,
 		               IMU->gyro  [2] ,0,0,0,0);
+//				VOFA_justfloat(IMU->gyro_correct [0] ,
+//		               IMU->gyro_correct [1]  ,
+//		               IMU->gyro_correct [2]  ,
+//		               IMU->YawTotalAngle,
+//		               0 ,
+//		               0,0,0,0,0);
+
     /*底盘跟随变量赋值*/
-    CONTAL->CG.RELATIVE_ANGLE = (int16_t) (CONTAL->CG.YAW_INIT_ANGLE  - MOTOR->m_dm4310_y_t .DATA .Angle_now);//////有yaw的车
+//    CONTAL->CG.RELATIVE_ANGLE = (int16_t) (CONTAL->CG.YAW_INIT_ANGLE  - MOTOR->m_dm4310_y_t .DATA .Angle_now);//////有yaw的车
 		
 //    CONTAL->CG.RELATIVE_ANGLE = (int16_t) ( (IMU->YawTotalAngle * 22.75555555555556f )- CONTAL->HEAD.Yaw );
 
@@ -214,7 +221,7 @@ uint8_t gimbal_task(CONTAL_Typedef *CONTAL,
 //}
 //if(a%2==1)
 //{
-	dm4310_current_set(&hcan1,0x3FE,tmp_G[0],tmp_G[1]-3400/*-3500cos_caculate(IMU_Data)*/,0,0);
+	dm4310_current_set(&hcan1,0x3FE,tmp_G[0],tmp_G[1]-3400/*-cos_caculate(IMU_Data)*/,0,0);
 //}
 //	dm4310_current_set(&hcan1,0x4FE,0,/*cos_caculate(IMU_Data)*/0,0,tmp_G[1]);
 

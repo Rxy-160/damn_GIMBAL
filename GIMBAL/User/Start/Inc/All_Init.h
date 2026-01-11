@@ -53,6 +53,7 @@ extern IMU_Data_t IMU_Data;
 
 extern RUI_ROOT_STATUS_Typedef RUI_ROOT_STATUS;
 extern uint8_t sd_v_buff[16];
+//extern uint8_t sd_v_buff[20];
 
 //extern VisionRxDataUnion VisionRxData;
 extern uint8_t VisionRx[30];

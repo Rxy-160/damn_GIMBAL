@@ -313,22 +313,22 @@ void ATTACK_F_JAM_Aim(MOTOR_Typdef *MOTOR, DBUS_Typedef *DBUS, uint8_t autofire)
 //            ATTACK_V_PARAM.COUNT = 1;  // 检测到鼠标左键按下事件，发射一个弹丸
 //        }
 //    }
-		
+
     // 连发模式处理                            1
-    else if (DBUS->Remote .S2_u8 == DBUS_D_MOD_CONSIST /*|| DBUS->MOUSE.L_STATE == 2*/)
-    {
-//        if (autofire == 0 || ((autofire == 1) && VISION_V_DATA.RECEIVE.fire))
-//        {
-            // 视觉允许开火且为连发模式
-            ATTACK_V_PARAM.COUNT = 1;  // 持续小量增加目标角度，形成连续转动
-//        }
-    }
+//    else if (DBUS->Remote .S2_u8 == DBUS_D_MOD_CONSIST /*|| DBUS->MOUSE.L_STATE == 2*/)
+//    {
+////        if (/*autofire == 0 || ((autofire == 1) && VISION_V_DATA.RECEIVE.fire)*/VISION_V_DATA.RECEIVE.TARGET ==1)
+////        {
+//            // 视觉允许开火且为连发模式
+//            ATTACK_V_PARAM.COUNT = 1;  // 持续小量增加目标角度，形成连续转动
+////        }
+//    }
     // 关闭发射处理
     else if (DBUS->Remote.S2_u8 == DBUS_D_MOD_SHUT)
     {
         ATTACK_V_PARAM.COUNT = 0;  // 关闭状态不增加角度
     }
-    
+
     // 计算新的电机目标角度                              摩擦轮开启
     if (ATTACK_V_PARAM.COUNT > 0 && ATTACK_V_PARAM.fire_wheel_status /*&& MOTOR->DATA.ENABLE*/) // @debug  
     {
@@ -388,7 +388,7 @@ void ATTACK_F_FIRE_Aim(MOTOR_Typdef *MOTOR,DBUS_Typedef*DBUS)
 //				}
 //		}
 		
-    ATTACK_V_PARAM.SPEED = 8000.0f ;//+ TEMP;
+    ATTACK_V_PARAM.SPEED = 7200.0f ;//+ TEMP;
 //    ATTACK_V_PARAM.SPEED = MATH_D_LIMIT(6370.0f, 6180.0f, ATTACK_V_PARAM.SPEED);
 
     // @veision 3, final code, this code is a stable speed
@@ -467,11 +467,18 @@ void ATTACK_F_Ctl(DBUS_Typedef *DBUS,MOTOR_Typdef *MOTOR)
                MOTOR->DJI_3508_Shoot_M.PID_S.Output;
 
     /*CAN发送*/
-    DJI_Current_Ctrl(&hcan2,
+    DJI_Current_Ctrl(&hcan1,
                      0x200,
-                     (/*int16_t*/float)tmp_S[0],
-                     (/*int16_t*/float)tmp_S[1],
+                     0,
+                     0,
                      (/*int16_t*/float)tmp_S[2],
                      0);
+	  DJI_Current_Ctrl(&hcan2,
+                     0x200,
+                     (float)tmp_S[0],
+                     (float)tmp_S[1],
+                     /*(int16_tfloat)tmp_S[2]*/0,
+                     0);
+
 
 }

@@ -126,7 +126,7 @@ void RobotTask(uint8_t mode,
 								else if(Vision->RECEIVE .TARGET ==0)
 									{
 									  counttt++;
-										if(counttt>10000)
+										if(counttt>7000)
 										{
 											CONTAL->HEAD .Pitch =IMU_Data->pitch *22.75555555555556f;
 											CONTAL->HEAD .Yaw =IMU_Data ->YawTotalAngle*22.75555555555556f ;

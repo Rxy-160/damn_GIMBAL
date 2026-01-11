@@ -3,7 +3,7 @@
 <title>Static Call Graph - [Horizon_Infantry\Horizon_Infantry.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image Horizon_Infantry\Horizon_Infantry.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6180002: Last Updated: Thu Jan  8 21:34:55 2026
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6180002: Last Updated: Sat Jan 10 21:08:51 2026
 <BR><P>
 <H3>Maximum Stack Usage =        480 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -645,8 +645,8 @@ Global Symbols
 
 <P><STRONG><a name="[2f6]"></a>__semihosting_library_function</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, indicate_semi.o(.text), UNUSED)
 
-<P><STRONG><a name="[a1]"></a>ATTACK_F_Ctl</STRONG> (Thumb, 272 bytes, Stack size 48 bytes, shoot_task.o(.text.ATTACK_F_Ctl))
-<BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = ATTACK_F_Ctl &rArr; DJI_Current_Ctrl &rArr; canx_send_data &rArr; HAL_CAN_AddTxMessage
+<P><STRONG><a name="[a1]"></a>ATTACK_F_Ctl</STRONG> (Thumb, 298 bytes, Stack size 56 bytes, shoot_task.o(.text.ATTACK_F_Ctl))
+<BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = ATTACK_F_Ctl &rArr; DJI_Current_Ctrl &rArr; canx_send_data &rArr; HAL_CAN_AddTxMessage
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID_Calculate
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DJI_Current_Ctrl
@@ -671,7 +671,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartDefiantTask
 </UL>
 
-<P><STRONG><a name="[a2]"></a>ATTACK_F_JAM_Aim</STRONG> (Thumb, 246 bytes, Stack size 12 bytes, shoot_task.o(.text.ATTACK_F_JAM_Aim))
+<P><STRONG><a name="[a2]"></a>ATTACK_F_JAM_Aim</STRONG> (Thumb, 220 bytes, Stack size 12 bytes, shoot_task.o(.text.ATTACK_F_JAM_Aim))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = ATTACK_F_JAM_Aim
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ATTACK_F_Ctl
@@ -1242,8 +1242,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GimbalRXResolve
 <LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dm4310_RXdata
-<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RUI_F_MOTOR_CAN_RX_2006RM
-<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RUI_F_MOTOR_CAN_RX_3508RM
+<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RUI_F_MOTOR_CAN_RX_2006RM
+<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RUI_F_MOTOR_CAN_RX_3508RM
 <LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_GetRxMessage
 </UL>
 <BR>[Called By]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_IRQHandler
@@ -2803,13 +2803,13 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RobotTask
 </UL>
 
-<P><STRONG><a name="[110]"></a>RUI_F_MOTOR_CAN_RX_2006RM</STRONG> (Thumb, 214 bytes, Stack size 8 bytes, dji_motor.o(.text.RUI_F_MOTOR_CAN_RX_2006RM))
+<P><STRONG><a name="[10f]"></a>RUI_F_MOTOR_CAN_RX_2006RM</STRONG> (Thumb, 214 bytes, Stack size 8 bytes, dji_motor.o(.text.RUI_F_MOTOR_CAN_RX_2006RM))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = RUI_F_MOTOR_CAN_RX_2006RM
 </UL>
 <BR>[Called By]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_RxFifo0MsgPendingCallback
 </UL>
 
-<P><STRONG><a name="[10f]"></a>RUI_F_MOTOR_CAN_RX_3508RM</STRONG> (Thumb, 222 bytes, Stack size 8 bytes, dji_motor.o(.text.RUI_F_MOTOR_CAN_RX_3508RM))
+<P><STRONG><a name="[110]"></a>RUI_F_MOTOR_CAN_RX_3508RM</STRONG> (Thumb, 222 bytes, Stack size 8 bytes, dji_motor.o(.text.RUI_F_MOTOR_CAN_RX_3508RM))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = RUI_F_MOTOR_CAN_RX_3508RM
 </UL>
 <BR>[Called By]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_RxFifo0MsgPendingCallback
@@ -3848,7 +3848,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[201]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Read_Data_system
 </UL>
 
-<P><STRONG><a name="[e0]"></a>VisionSendInit</STRONG> (Thumb, 196 bytes, Stack size 16 bytes, vision.o(.text.VisionSendInit))
+<P><STRONG><a name="[e0]"></a>VisionSendInit</STRONG> (Thumb, 180 bytes, Stack size 16 bytes, vision.o(.text.VisionSendInit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = VisionSendInit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ControltoVision
@@ -4038,7 +4038,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartRootTask
 </UL>
 
-<P><STRONG><a name="[218]"></a>gimbal_task</STRONG> (Thumb, 628 bytes, Stack size 40 bytes, gimbal_task.o(.text.gimbal_task))
+<P><STRONG><a name="[218]"></a>gimbal_task</STRONG> (Thumb, 604 bytes, Stack size 40 bytes, gimbal_task.o(.text.gimbal_task))
 <BR><BR>[Stack]<UL><LI>Max Depth = 340 + Unknown Stack Size
 <LI>Call Chain = gimbal_task &rArr; MOTOR_PID_Gimbal_INIT &rArr; PID_Init &rArr; OLS_Init &rArr; pvPortMalloc &rArr; xTaskResumeAll &rArr; xTaskIncrementTick &rArr; vListInsertEnd
 </UL>

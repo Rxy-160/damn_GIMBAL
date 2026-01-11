@@ -63,7 +63,8 @@ void VisionSendInit(union RUI_U_VISION_SEND*  Send_t,TYPEDEF_VISION *VISION_DATA
     Send_t->FLAG = VISION_DATA->SEND.FLAG;
     Send_t->COLOR = VISION_DATA->SEND.COLOR;
     Send_t->TIME = VISION_DATA->SEND.TIME;
-    Send_t->bulletSpeed = (uint8_t)User_Data_aaa->shoot_data.initial_speed;
+	//发弹速的
+    Send_t->bulletSpeed = 20;//(uint8_t)User_Data_aaa->shoot_data.initial_speed;
 
     if (DBUS_sss->KeyBoard .B && !DBUS_sss->KeyBoard .B_PreeNumber ) // 按下B键
         buff_flag = 2;//!buff_flag; // 切换打小符模式
@@ -102,8 +103,7 @@ int ControltoVision(union RUI_U_VISION_SEND*  Send_t , uint8_t *buff, uint8_t ty
 //	buff[10]=data_tackle.U [1];
 //	buff[11]=data_tackle.U [2];
 //	buff[12]=data_tackle.U [3];
-//	data_tackle.F =Send_t->
-    //将请求的状态置于第九位中
+//    //将请求的状态置于第九位中
 	//2023-06-02 22:54 | 自瞄/打符标志位
     // setbit(&buff[9], 0, Send_t->COLOR &0x01);
     // //2023-06-02 22:54 | 颜色
@@ -239,7 +239,7 @@ void TOP_T_Cal_T()
         convertAngleToIndex(pitch, &TOP.pitch[NOW]);
         TOP.yaw[NOW] = TOP.yaw[NOW] + currentAngle;
     }
-    
+				
     if (TOP.yaw[NOW] - TOP.yaw[LAST] < 4096)
     {
         TOP.yaw[2]++;
