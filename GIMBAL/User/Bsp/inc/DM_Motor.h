@@ -140,7 +140,7 @@ typedef struct
 
 
 float uint_to_float(int x_int, float x_min, float x_max, int bits);
-void dm4310_fbdata(DM_MOTOR_DATA_Typdef *motor, uint8_t *rx_data);
+void dm4310_fbdata(DM_MOTOR_Typdef *motor, uint8_t *rx_data);
 void motor_mode(hcan_t* hcan, uint16_t motor_id, uint16_t mode_id, DMMotor_Mode_e what);
 void mit_ctrl(hcan_t* hcan, uint16_t motor_id, float pos, float vel,float kp, float kd, float torq);
 void pos_speed_ctrl(hcan_t* hcan,uint16_t motor_id, float pos, float vel);

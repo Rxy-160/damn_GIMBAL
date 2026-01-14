@@ -61,4 +61,63 @@ horizon_infantry/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   ..\USB_DEVICE\Target\usbd_conf.h \
   D:\Keil\ARM\ARMCLANG\Bin\..\include\stdio.h \
   D:\Keil\ARM\ARMCLANG\Bin\..\include\stdlib.h \
-  D:\Keil\ARM\ARMCLANG\Bin\..\include\string.h ..\Core\Inc\gpio.h
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\string.h ..\Core\Inc\gpio.h \
+  ..\User\Start\Inc\WHW_IRQN.h ..\User\Start\Inc\All_Init.h \
+  ..\User\Bsp\inc\can_bsp.h ..\User\Start\Inc\MY_define.h \
+  ..\User\Bsp\inc\bsp_dwt.h ..\User\Bsp\inc\RUI_DBUS.h \
+  ..\User\Algorithm\inc\RUI_MATH.h ..\User\Start\Inc\Motors.h \
+  ..\User\Bsp\inc\DJI_Motor.h ..\User\Algorithm\inc\controller.h \
+  ..\User\Algorithm\inc\user_lib.h \
+  ..\Middlewares\CMSIS\DSP\Inc\arm_math.h \
+  ..\Middlewares\CMSIS\DSP\Inc\arm_math_types.h \
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\math.h \
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\float.h \
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\limits.h \
+  ..\Middlewares\CMSIS\DSP\Inc\arm_math_memory.h \
+  ..\Middlewares\CMSIS\DSP\Inc\dsp\none.h \
+  ..\Middlewares\CMSIS\DSP\Inc\dsp\utils.h \
+  ..\Middlewares\CMSIS\DSP\Inc\dsp\basic_math_functions.h \
+  ..\Middlewares\CMSIS\DSP\Inc\dsp\interpolation_functions.h \
+  ..\Middlewares\CMSIS\DSP\Inc\dsp\bayes_functions.h \
+  ..\Middlewares\CMSIS\DSP\Inc\dsp\statistics_functions.h \
+  ..\Middlewares\CMSIS\DSP\Inc\dsp\fast_math_functions.h \
+  ..\Middlewares\CMSIS\DSP\Inc\dsp\matrix_functions.h \
+  ..\Middlewares\CMSIS\DSP\Inc\dsp\complex_math_functions.h \
+  ..\Middlewares\CMSIS\DSP\Inc\dsp\controller_functions.h \
+  ..\Middlewares\CMSIS\DSP\Inc\dsp\support_functions.h \
+  ..\Middlewares\CMSIS\DSP\Inc\dsp\distance_functions.h \
+  ..\Middlewares\CMSIS\DSP\Inc\dsp\svm_functions.h \
+  ..\Middlewares\CMSIS\DSP\Inc\dsp\svm_defines.h \
+  ..\Middlewares\CMSIS\DSP\Inc\dsp\transform_functions.h \
+  ..\Middlewares\CMSIS\DSP\Inc\dsp\filtering_functions.h \
+  ..\Middlewares\CMSIS\DSP\Inc\dsp\quaternion_math_functions.h \
+  ..\Middlewares\CMSIS\DSP\Inc\dsp\window_functions.h \
+  ..\User\Bsp\inc\DM_Motor.h ..\User\Bsp\inc\Referee.h \
+  ..\User\Algorithm\inc\CRC_DJI.h ..\User\App\inc\RUI_ROOT_INIT.h \
+  ..\User\App\inc\Gimbal_Task.h ..\User\App\inc\IMU_Task.h \
+  ..\User\Algorithm\inc\QuaternionEKF.h \
+  ..\User\Algorithm\inc\kalman_filter.h ..\User\Algorithm\inc\pid_temp.h \
+  ..\User\Bsp\inc\bsp_imu_pwm.h ..\User\Bsp\inc\BMI088driver.h \
+  ..\User\Bsp\inc\BMI088reg.h ..\User\Bsp\inc\BMI088Middleware.h \
+  ..\User\Bsp\inc\RGBctrl.h ..\User\Bsp\inc\Power_CAP.h \
+  ..\User\Bsp\inc\bsp_adc.h ..\User\App\inc\Shoot_Task.h \
+  ..\User\App\inc\Chassis_Task.h ..\User\Algorithm\inc\Power_Ctrl.h \
+  ..\User\App\inc\RobotUI_Ctrl.h ..\User\Bsp\inc\Vision.h \
+  ..\USB_DEVICE\App\usbd_cdc_if.h \
+  ..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc\usbd_cdc.h \
+  ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ioreq.h \
+  ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_core.h \
+  ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ctlreq.h \
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\stdbool.h ..\User\UI\ui.h \
+  ..\User\UI\ui_interface.h ..\User\UI\ui_types.h \
+  ..\User\UI\ui_default_init0_0.h ..\User\UI\ui_default_init0_1.h \
+  ..\User\UI\ui_default_init0_2.h ..\User\UI\ui_default_init1_0.h \
+  ..\User\UI\ui_default_init2_0.h ..\User\UI\ui_default_init3_0.h \
+  ..\User\UI\ui_default_init4_0.h ..\User\UI\ui_default_init5_0.h \
+  ..\User\UI\ui_default_init5_1.h ..\User\UI\ui_default_init5_2.h \
+  ..\User\UI\ui_default_init5_3.h ..\User\UI\ui_default_init6_0.h \
+  ..\User\App\inc\Robot.h ..\User\Bsp\inc\CANSPI.h \
+  ..\User\Bsp\inc\MCP2515.h ..\User\Bsp\inc\music.h \
+  ..\User\Start\Inc\log.h ..\Middlewares\SEGGER_RTT\RTT\SEGGER_RTT.h \
+  ..\Middlewares\SEGGER_RTT\RTT\..\Config\SEGGER_RTT_Conf.h \
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\stdarg.h ..\User\Bsp\inc\VT13.h

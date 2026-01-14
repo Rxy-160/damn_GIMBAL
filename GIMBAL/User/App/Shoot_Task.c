@@ -267,7 +267,7 @@ void ATTACK_F_Init(MOTOR_Typdef *MOTOR)
 
     // 数据初始化
     ATTACK_V_PARAM.SINGLE_ANGLE = 81920;//8192/9*36*50/20单发角度
-    ATTACK_V_PARAM.SPEED = 7200.0f;//摩擦轮速度
+    ATTACK_V_PARAM.SPEED = 7000.0f;//摩擦轮速度
 
     ATTACK_V_PARAM.FLAG = 1;
     ATTACK_V_PARAM.LOCK = 1; // 默认上锁，保证在未收到遥控数据时拨盘不动
@@ -312,17 +312,19 @@ void ATTACK_F_JAM_Aim(MOTOR_Typdef *MOTOR, DBUS_Typedef *DBUS, uint8_t autofire)
 //        {
 //            ATTACK_V_PARAM.COUNT = 1;  // 检测到鼠标左键按下事件，发射一个弹丸
 //        }
-//    }
-
+// 		}
+		
+///连发模式记得解锁
+		
     // 连发模式处理                            1
-//    else if (DBUS->Remote .S2_u8 == DBUS_D_MOD_CONSIST /*|| DBUS->MOUSE.L_STATE == 2*/)
-//    {
-////        if (/*autofire == 0 || ((autofire == 1) && VISION_V_DATA.RECEIVE.fire)*/VISION_V_DATA.RECEIVE.TARGET ==1)
-////        {
-//            // 视觉允许开火且为连发模式
-//            ATTACK_V_PARAM.COUNT = 1;  // 持续小量增加目标角度，形成连续转动
-////        }
-//    }
+    else if (DBUS->Remote .S2_u8 == DBUS_D_MOD_CONSIST /*|| DBUS->MOUSE.L_STATE == 2*/)
+    {
+//        if (/*autofire == 0 || ((autofire == 1) && VISION_V_DATA.RECEIVE.fire)*/VISION_V_DATA.RECEIVE.TARGET ==1)
+//        {
+            // 视觉允许开火且为连发模式
+            ATTACK_V_PARAM.COUNT = 1;  // 持续小量增加目标角度，形成连续转动
+//        }
+    }
     // 关闭发射处理
     else if (DBUS->Remote.S2_u8 == DBUS_D_MOD_SHUT)
     {
@@ -332,7 +334,7 @@ void ATTACK_F_JAM_Aim(MOTOR_Typdef *MOTOR, DBUS_Typedef *DBUS, uint8_t autofire)
     // 计算新的电机目标角度                              摩擦轮开启
     if (ATTACK_V_PARAM.COUNT > 0 && ATTACK_V_PARAM.fire_wheel_status /*&& MOTOR->DATA.ENABLE*/) // @debug  
     {
-			MOTOR->DJI_3508_Shoot_M.DATA.Aim =MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-36864;
+			MOTOR->DJI_3508_Shoot_M.DATA.Aim =MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/20000;
 //        MOTOR->DJI_3508_Shoot_M.DATA.Aim = (float)MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite - (ATTACK_V_PARAM.SINGLE_ANGLE * ATTACK_V_PARAM.COUNT);
 		// 单发模式下，处理完一次后重置COUNT
         if (DBUS->Remote .S2_u8 == DBUS_D_MOD_SINGLE/* || DBUS->MOUSE.L_STATE == 1*/)
@@ -393,10 +395,10 @@ void ATTACK_F_FIRE_Aim(MOTOR_Typdef *MOTOR,DBUS_Typedef*DBUS)
 
     // @veision 3, final code, this code is a stable speed
 		//键鼠：s2在中间   或     s2在2是开火状态
-    if (( fire_mouse_status == 1 && DBUS->Remote .S1_u8 == 3)|| DBUS->Remote.S1_u8 == 2)  // 3 is the fire button
+    if (/*( fire_mouse_status == 1 && DBUS->Remote .S1_u8 == 3)||*/ DBUS->Remote.S1_u8 == 3||DBUS->Remote.S1_u8 == 2)  // 3 is the fire button
     {
-        MOTOR->DJI_3508_Shoot_L .DATA .Aim = -7950;
-				MOTOR->DJI_3508_Shoot_R .DATA .Aim = ATTACK_V_PARAM.SPEED;
+        MOTOR->DJI_3508_Shoot_L .DATA .Aim =  ATTACK_V_PARAM.SPEED;
+				MOTOR->DJI_3508_Shoot_R .DATA .Aim = -ATTACK_V_PARAM.SPEED;
         ATTACK_V_PARAM.fire_wheel_status = 1;
     } 
 		else
@@ -482,3 +484,142 @@ void ATTACK_F_Ctl(DBUS_Typedef *DBUS,MOTOR_Typdef *MOTOR)
 
 
 }
+//////////以下是火控部分
+///**
+// * @brief 弹频拟合函数
+// * @param type 1:线性拟合 2:二次拟合 3:考虑卡弹 4:不考虑卡弹
+// */
+//float ATTACK_F_FireRate_Control(TYPEDEF_MOTOR *motor, float hz, uint8_t type)
+//{
+//    switch (type)
+//    {
+//    case 1: {// 线性拟合
+//        // 线性拟合 (y = ax + b):      x = np.array([3000.0, 4500.0, 5000.0])
+//        //                            y = np.array([13.3, 16.99, 23.3])
+//        //                            方程: y = 0.0044x + -0.5277
+//        //                            R² = 0.8253
+//        float a = 0.0044f, b = -0.5277f;
+//        float y = a * hz + b;
+//        motor->PID_A.IN.ALL_LIT = y;
+//        break;
+//    }
+//       
+//    case 2: {// 二次拟合
+//        float a = 0.0f, b = 0.0f, c = 0.0f;
+//        float y = a * hz * hz + b * hz + c;
+//        motor->PID_A.IN.ALL_LIT = y;
+//        break;
+//    }
+//    case 3: { // 考虑退弹卡弹
+//        const float TASK_RUN_TIME = 1.1f, JAM_COUNT = 10.0f; // 任务运行时间ms，JAM_COUNTs内卡弹1次数
+//        float a = ATTACK_D_TIMEOUT * TASK_RUN_TIME / 1000.0f, P = 1.0f / (hz * JAM_COUNT); // 假设卡弹一次0.5s 卡弹概率为2s内一发
+//        float fact_hz = 1.0f / ((1.0f - P) * 1.0f / hz + P * 2 * a);      // 考虑卡弹实际频率
+
+//        compensation_hz = ATTACK_Calc_Hz_From_FactHz(hz, a, P);
+//        compensation_hz = MATH_D_LIMIT(25.0f, 12.0f, compensation_hz); // 限制最大值
+//        motor->PID_A.IN.ALL_LIT = compensation_hz * 60.0f * 4.5f;
+//        break;
+//    }
+//    case 4: {
+//        motor->PID_A.IN.ALL_LIT = hz * 60.0f * 4.5f;
+//    }
+//    default:
+//        break;
+//    }
+//    return motor->PID_A.IN.ALL_LIT;
+//}
+
+
+///**
+// * @brief 
+// * 
+// * @param motor 
+// * @param type 类型选择 0停转 1减频
+// * @return uint8_t 
+// * @note type为0时，代码调用在获取拨弹目标值上，保证热量不足时不获取拨弹目标值
+// * @note type为1时，代码直接调用，根据当前等级和热量控制弹频
+// */
+//uint8_t ATTACK_F_HeatControl(TYPEDEF_MOTOR *motor, uint8_t type) 
+//{
+//    float d = 10.0f, shoot_time = 0.0f, shoot_speed = 0.0f;           
+//    float a = (float)(user_data.robot_status.shooter_barrel_cooling_value); // 冷却值 /s
+//    float m = fabsf((float)(user_data.robot_status.shooter_barrel_heat_limit - user_data.power_heat_data.shooter_17mm_1_barrel_heat)); // 剩余可发热量 10*n
+//    uint16_t leastbullet = (uint16_t)(m) / 10;
+//    float rate = (m+a * 0.1f)/(float)user_data.robot_status.shooter_barrel_heat_limit;
+//    if (a == 0) rate = 2.0f;  // 收不到裁判系统数据，设置为错误数据
+//    
+//    ATTACK_F_FireRate_Control(&aaa, 18.0f, 3);
+
+//    // VOFA_T_Send(0, 10, (float)a, m, 
+//    //                    (float)user_data.robot_status.shooter_barrel_heat_limit, 
+//    //                    (float)user_data.power_heat_data.shooter_17mm_1_barrel_heat, 
+//    //                    shoot_time, (float)leastbullet, (float)ATTACK_V_PARAM.SPEED, 
+//    //                    (float)aaa.PID_S.IN.ALL_LIT, compensation_hz, 0); // @TODO 发送数据到VOFA
+//    if (type == 0)
+//    {
+//        switch (user_data.robot_status.robot_level)
+//        {
+//            case 1:
+//            {
+//                if (leastbullet >=5) return 1;
+//                else return 0;
+//            }
+//                break;
+//            case 2:
+//            {
+//                if (leastbullet >= 5) return 1;
+//                else return 0;
+//            }
+//                break;
+//            case 3:case 4:
+//            {
+//                if (leastbullet >= 5) return 1;
+//                else return 0;
+//            }
+//                break;
+//            case 5:case 6:
+//            {
+//                if (leastbullet >= 5) return 1;
+//                else return 0;
+//            }
+//                break;
+//            case 7:
+//            {
+//                if (leastbullet >= 3) return 1;
+//                else return 0;
+//            }
+//                break;
+//            case 8:case 9:case 10:
+//            {
+//                if (leastbullet >= 4) return 1;
+//                else return 0;
+//            }
+//                break;
+//            default:
+//            {
+//                return 1;
+//            }
+//                break;
+//            }
+//        }
+//    else if (type == 1)
+//    {
+//        static float fq = 15.0f;
+//        if (rate <= 0) // 超热量
+//        {
+//            fq = 0.0f;
+//        } else if (rate >0 && rate <= 1.0f) {
+//            // rate 0->1 0->18
+//            fq = -0.0586 * rate - 0.0431f;
+//        } else {
+//            fq = 15.0f; // 如果收不到裁判系统数据，定值
+//        }
+//        if (fq <= 0.0f) {
+//            fq = 0.0f;
+//        }
+//        ATTACK_F_FireRate_Control(motor, fq, 3);
+//    }
+//    return 1;
+//}
+
+

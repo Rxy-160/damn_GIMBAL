@@ -2,6 +2,7 @@
 #include "Vision.h"
 
 #define VISION_D_SEND 16
+//////中南
 #define VISION_D_RECV 15
 VisionTemp Union_temp;
 
@@ -50,7 +51,7 @@ void VisionSendInit(union RUI_U_VISION_SEND*  Send_t,TYPEDEF_VISION *VISION_DATA
 {
     static uint8_t buff_flag = 0;
 //注意正负
-    Send_t->PIT_DATA = IMU_Data ->pitch ;     // @note c板侧放，如果想用pitch建议改imu_temp...c中的IMU_QuaternionEKF_Update参数顺序和正负
+    Send_t->PIT_DATA = -IMU_Data ->pitch ;     // @note c板侧放，如果想用pitch建议改imu_temp...c中的IMU_QuaternionEKF_Update参数顺序和正负
 	
     Send_t->YAW_DATA = -IMU_Data ->yaw ;
 	Send_t->ROLL_DATA =IMU_Data ->roll ;
@@ -123,7 +124,7 @@ int ControltoVision(union RUI_U_VISION_SEND*  Send_t , uint8_t *buff, uint8_t ty
     if (type == 0)
         status = CDC_Transmit_FS(buff, 20);
     else if (type == 1)
-        status = HAL_UART_Transmit_DMA(&huart1, buff, 20);
+        status = HAL_UART_Transmit_DMA(&huart1, buff, 16);
 
     return ROOT_READY;
 }

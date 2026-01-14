@@ -94,14 +94,14 @@ void RobotTask(uint8_t mode,
                 if(DBUS->Remote .S1_u8 ==1||DBUS->Remote .S1_u8 ==2)
 								{
 									CONTAL->MOD[0] = 1;//云台模式切换///////手瞄模式
-                CONTAL->HEAD.Pitch += (float) (DBUS->Remote.CH3_int16) * 0.001f +
+                CONTAL->HEAD.Pitch -= (float) (DBUS->Remote.CH3_int16) * 0.003f +
                                       DBUS->Mouse.Y_Flt * 0.01f;
 
                 CONTAL->HEAD.Pitch = RUI_F_MATH_Limit_float(CONTAL->HEAD.Pitch_MAX,
                                                             CONTAL->HEAD.Pitch_MIN,
                                                             CONTAL->HEAD.Pitch);
 
-                CONTAL->HEAD.Yaw  -= (float) (DBUS->Remote.CH2_int16) * 0.002f +
+                CONTAL->HEAD.Yaw  -= (float) (DBUS->Remote.CH2_int16) * 0.004f +
                                     RUI_F_MATH_Limit_float(1, -1, DBUS->Mouse.X_Flt * 0.01f) +
                                     (float) (DBUS->KeyBoard.E - DBUS->KeyBoard.Q);
 								}
@@ -112,7 +112,7 @@ void RobotTask(uint8_t mode,
 									if(Vision->RECEIVE .TARGET ==1)
 									{		
 									counttt=0;
-									CONTAL->HEAD.Pitch = Vision->RECEIVE .PIT_DATA  *22.75555555555556f;
+									CONTAL->HEAD.Pitch =-5.1*22.755555555555 ;//-Vision->RECEIVE .PIT_DATA  *22.75555555555556f;
 //										RUI_F_MATH_Limit_float(CONTAL->HEAD.Pitch_MAX,
 //																						CONTAL->HEAD.Pitch_MIN,
 //																						Vision->RECEIVE .PIT_DATA  *22.75555555555556f);
@@ -128,7 +128,7 @@ void RobotTask(uint8_t mode,
 									  counttt++;
 										if(counttt>7000)
 										{
-											CONTAL->HEAD .Pitch =IMU_Data->pitch *22.75555555555556f;
+											CONTAL->HEAD .Pitch =-5.1 *22.7555555555555;//IMU_Data->pitch *22.75555555555556f;
 											CONTAL->HEAD .Yaw =IMU_Data ->YawTotalAngle*22.75555555555556f ;
 										}
 									}

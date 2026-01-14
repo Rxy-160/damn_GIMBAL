@@ -12,20 +12,20 @@ int16_t angleError = 0;
 *               状态、位置、速度、扭矩相关温度参数、寄存器数据等
 ************************************************************************
 **/
-void dm4310_fbdata(DM_MOTOR_DATA_Typdef* motor, uint8_t *rx_data)
+void dm4310_fbdata(DM_MOTOR_Typdef* motor, uint8_t *rx_data)
 {
     //返回的数据有8个字节
-    motor->id = (rx_data[0])&0x0F;
-    motor->state = (rx_data[0])>>4;
-    motor->p_int=(rx_data[1]<<8)|rx_data[2];
-    motor->v_int=(rx_data[3]<<4)|(rx_data[4]>>4);
-    motor->t_int=((rx_data[4]&0xF)<<8)|rx_data[5];
-    motor->pos = uint_to_float(motor->p_int, P_MIN, P_MAX, 16); // (-12.5,12.5)
-    motor->vel = uint_to_float(motor->v_int, V_MIN, V_MAX, 12); // (-30.0,30.0)
-    motor->tor = uint_to_float(motor->t_int, T_MIN, T_MAX, 12);  // (-10.0,10.0)
-    motor->Tmos = (float)(rx_data[6]);
-    motor->Tcoil = (float)(rx_data[7]);
-    motor->ONLINE_JUDGE_TIME = RUI_DF_MOTOR_OFFLINE_TIME;
+    motor->DATA .id = (rx_data[0])&0x0F;
+    motor->DATA .state  = (rx_data[0])>>4;
+    motor->DATA .p_int =(rx_data[1]<<8)|rx_data[2];
+    motor->DATA .v_int =(rx_data[3]<<4)|(rx_data[4]>>4);
+    motor->DATA .t_int =((rx_data[4]&0xF)<<8)|rx_data[5];
+    motor->DATA .pos  = uint_to_float(motor->DATA .p_int , P_MIN, P_MAX, 16); // (-12.5,12.5)
+    motor->DATA .vel  = uint_to_float(motor->DATA .v_int , V_MIN, V_MAX, 12); // (-30.0,30.0)
+    motor->DATA .tor  = uint_to_float(motor->DATA .t_int , T_MIN, T_MAX, 12);  // (-10.0,10.0)
+    motor->DATA .Tmos  = (float)(rx_data[6]);
+    motor->DATA .Tcoil  = (float)(rx_data[7]);
+    motor->DATA .ONLINE_JUDGE_TIME  = RUI_DF_MOTOR_OFFLINE_TIME;
   
 }
 

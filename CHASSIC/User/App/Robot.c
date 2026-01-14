@@ -42,8 +42,8 @@ void RobotTask(uint8_t mode,
             }
 
             /*目标值传递*/
-            CONTAL->BOTTOM.VY = (float) -(( DBUS->Remote.CH0_int16 *2) + ( DBUS->KeyBoard.D - DBUS->KeyBoard.A ) * 660 );
-            CONTAL->BOTTOM.VX = (float) (( DBUS->Remote.CH1_int16*2) + ( DBUS->KeyBoard.W - DBUS->KeyBoard.S ) * 660 );
+            CONTAL->BOTTOM.VY = (float) (( DBUS->Remote.CH0_int16 *2) + ( DBUS->KeyBoard.D - DBUS->KeyBoard.A ) * 660 );
+            CONTAL->BOTTOM.VX = (float) -(( DBUS->Remote.CH1_int16*2) + ( DBUS->KeyBoard.W - DBUS->KeyBoard.S ) * 660 );
             CONTAL->BOTTOM.VW = (float) -(( DBUS->Remote.Dial_int16 *2) + DBUS->KeyBoard.Shift * 660 );
 						
             /*缓启动*/

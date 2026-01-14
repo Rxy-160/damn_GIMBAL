@@ -229,7 +229,7 @@ void IMU_QuaternionEKF_Update(float gx, float gy, float gz, float ax, float ay, 
 		
 		arm_atan2_f32(QEKF_INS.q[0]*QEKF_INS.q[1] + QEKF_INS.q[2]*QEKF_INS.q[3], 0.5f - QEKF_INS.q[1]*QEKF_INS.q[1] - QEKF_INS.q[2]*QEKF_INS.q[2],&QEKF_INS.Roll);
 		QEKF_INS.Roll  *=57.29578f; 
-		QEKF_INS.Pitch =-57.29578f * asinf(-2.0f * (QEKF_INS.q[1]*QEKF_INS.q[3] - QEKF_INS.q[0]*QEKF_INS.q[2]));
+		QEKF_INS.Pitch =57.29578f * asinf(-2.0f * (QEKF_INS.q[1]*QEKF_INS.q[3] - QEKF_INS.q[0]*QEKF_INS.q[2]));
 		arm_atan2_f32(QEKF_INS.q[1]*QEKF_INS.q[2] + QEKF_INS.q[0]*QEKF_INS.q[3], 0.5f - QEKF_INS.q[2]*QEKF_INS.q[2] - QEKF_INS.q[3]*QEKF_INS.q[3],&QEKF_INS.Yaw); 
     QEKF_INS.Yaw   *=57.29578f;  
 		QEKF_INS.GyroBias[0] = QEKF_INS.IMU_QuaternionEKF.FilteredValue[4];

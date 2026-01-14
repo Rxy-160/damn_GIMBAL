@@ -39,5 +39,8 @@ void ATTACK_F_FIRE_Aim(MOTOR_Typdef *MOTOR,DBUS_Typedef*DBUS);
 void ATTACK_F_Ctl(DBUS_Typedef *DBUS,MOTOR_Typdef *MOTOR);
 uint8_t MOTOR_PID_Shoot_INIT(MOTOR_Typdef *MOTOR);
 
+//float ATTACK_F_FireRate_Control(TYPEDEF_MOTOR *motor, float hz, uint8_t type);
+//uint8_t ATTACK_F_HeatControl(TYPEDEF_MOTOR *motor, uint8_t type) ;
+
 
 #endif

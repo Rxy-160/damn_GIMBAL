@@ -90,6 +90,7 @@ void Everying_Init(void)
 	flag2 = CANSPI_Initialize(&hspi2);
 
     //定时器初始化
+	HAL_TIM_Base_Start_IT(&htim3);
 	HAL_TIM_Base_Start_IT(&htim7);
 
     //蜂鸣器PWM初始化

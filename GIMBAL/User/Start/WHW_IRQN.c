@@ -62,7 +62,7 @@
 #include "WHW_IRQN.h"
 #include "Robot.h"
 
-uint8_t move_G, move_S, move_C, move_P;
+uint8_t move_G, move_S, move_C, move_P,aaaaa,bbbbb;
 float t1,t2,dt;
 static uint8_t TX[12] = {0xff,0xf1,0xfd,0x90,0x86,0xa7,0xff,0xf1,0xfd,0x90,0x86,0xa7};
 //绝对延时
@@ -122,12 +122,12 @@ void StartMoveTask(void const * argument)
 
 //    //初始朝前的电机刻度
     RUI_V_CONTAL.CG.YAW_INIT_ANGLE = INIT_ANGLE;
+			aaaaa=MOTOR_PID_Gimbal_INIT(&ALL_MOTOR);
 
 //    //Pitch轴限幅
 ////	/////////注意p轴初始化
     RUI_V_CONTAL.HEAD.Pitch_MAX = 548.411;
     RUI_V_CONTAL.HEAD.Pitch_MIN = -321.443;
-
     for (;;)
     {
         /*底盘*/
@@ -136,11 +136,23 @@ void StartMoveTask(void const * argument)
 //        move_C = chassis_task(&RUI_V_CONTAL,
 //                              &RUI_ROOT_STATUS, &User_data, &model,
 //                              &CAPDATE.GET, &ALL_MOTOR);
-				
+
+			//云台在这块
+			
+			
         /*云台*/
         RobotTask(2, &WHW_V_DBUS, &RUI_V_CONTAL, &User_data,
                  &CAPDATE, &VISION_V_DATA, &RUI_ROOT_STATUS, &ALL_MOTOR,&IMU_Data);
         move_G = gimbal_task(&RUI_V_CONTAL, &RUI_ROOT_STATUS, &ALL_MOTOR, &IMU_Data);
+			
+			//编码器控制测试
+//			Encodeing_control(&ALL_MOTOR,&WHW_V_DBUS);
+//			bbbbb=ALL_MOTOR .m_dm4310_p_t .DATA .Angle_now ;
+//			
+			
+			
+			
+			
 ////双板通讯
 			CANGimbalTX(&WHW_V_DBUS );/////双板通讯can发送
 
@@ -148,7 +160,7 @@ void StartMoveTask(void const * argument)
 			
 //	DWT_Delay_us(1000);		
 //					vTaskDelayUntil(&currentTimeMove,1000);
-//			vTaskDelay (1);
+			vTaskDelay (1);
     }
 }
 
@@ -157,7 +169,7 @@ void StartDefiantTask(void const * argument)
 {
     portTickType currentTimeDefiant;
     currentTimeDefiant = xTaskGetTickCount();
-MOTOR_PID_Shoot_INIT(&ALL_MOTOR);
+	MOTOR_PID_Shoot_INIT(&ALL_MOTOR);
     //发射机构初始化
 //    RUI_V_CONTAL.SHOOT.Shoot_Speed = WIPE_MAX_SPEED;
 //    RUI_V_CONTAL.SHOOT.Single_Angle = \;
@@ -203,7 +215,7 @@ void StartIMUTask(void const * argument)
         dt_pc = (uint32_t)DWT_GetDeltaT(&INS_DWT_Count);
 				Quaternion_testing(&IMU_Data);
 			//视觉发送
-        ControltoVision(&VISION_V_DATA.SEND ,sd_v_buff, 1,&User_data,&WHW_V_DBUS,&IMU_Data ,&VISION_V_DATA);
+//        ControltoVision(&VISION_V_DATA.SEND ,sd_v_buff, 1,&User_data,&WHW_V_DBUS,&IMU_Data ,&VISION_V_DATA);
 //        DWT_Delay(/*&currentTimeRobotUI,*/ 50);
 //				vTaskDelayUntil(&currentTimeIMU,1);
         osDelayUntil(&currentTimeIMU, 1);
@@ -235,8 +247,12 @@ void BSP_TIM_IRQHandler(TIM_HandleTypeDef *htim)
 {
 	if (htim->Instance == TIM7) {
 		TX[0]++;
+//		motor_mode(&hcan1, 2, 0x00, 0xFC);
+	 ControltoVision(&VISION_V_DATA.SEND ,sd_v_buff, 1,&User_data,&WHW_V_DBUS,&IMU_Data ,&VISION_V_DATA);
+
 		CANSPI_SEND(&hspi2, 0x201, TX);
 	}
+
 }
 
 /************************************************************万能分隔符**************************************************************
@@ -284,6 +300,7 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef* hcan)
 
             case 0x302://云台Pitch
                 dm4310_RXdata(&ALL_MOTOR.m_dm4310_p_t, rx_data);
+//								dm4310_fbdata(&ALL_MOTOR.m_dm4310_p_t ,rx_data);
 //					                WHW_F_MOTOR_CAN_RX_6020RM(&ALL_MOTOR.DJI_6020_Yaw.DATA, rx_data);
                 break;
 //            case 0x07:
@@ -294,8 +311,8 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef* hcan)
              GimbalRXResolve(rx_data,CHASSIC_kong);
 						break;
 						case 0x203://拨弹
-		RUI_F_MOTOR_CAN_RX_2006RM(&ALL_MOTOR.DJI_3508_Shoot_M.DATA, rx_data);
-		break;
+						RUI_F_MOTOR_CAN_RX_2006RM(&ALL_MOTOR.DJI_3508_Shoot_M.DATA, rx_data);
+						break;
 
         }
 			
@@ -403,6 +420,7 @@ void BSP_UART_IRQHandler(UART_HandleTypeDef *huart)
 				 VISION_F_Cal(VISION_V_DATA.OriginData,0,&VISION_V_DATA);
 				 HAL_UART_Receive_DMA(&huart1, (uint8_t *)VISION_V_DATA.OriginData, sizeof(VISION_V_DATA.OriginData));
 
+					
 //            __HAL_UART_CLEAR_IDLEFLAG(&huart1);  //清除空闲中断标志（否则会一直不断进入中断）
 //            // 下面进行空闲中断相关处理
 //            HAL_UART_DMAStop(&huart1);//暂时停止本次DMA传输，进行数据处理

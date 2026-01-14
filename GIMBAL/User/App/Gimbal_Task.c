@@ -9,34 +9,33 @@ int16_t target;
  *	@time:				//23-04-13 12:42
  *	@ReadMe:			//
  ************************************************************万能分隔符**************************************************************/
- 
- 
+
 uint8_t MOTOR_PID_Gimbal_INIT(MOTOR_Typdef *MOTOR)
 {
 //
 	
     //云台电机初始化
     float PID_F_Pitch[3] = {   0.0f,   0.0f,   0.0f   };
-    float PID_P_Pitch[3] = {   -3.4f,   0.0f,   0.0f   };//{   -3.0f,   0.0f,   0.0f   };
-    float PID_S_Pitch[3] = {   /*150.0f*/36,   0.0f,   0.0f   };//{   /*150.0f*/25,   0.0f,   0.0f   };
+    float PID_P_Pitch[3] = {   2.4f,   0.004f,   0.0f   };//{   2.6f,   0.004f,   0.0f   };
+    float PID_S_Pitch[3] = {   /*150.0f*/45.0f,   0.001f,   0.0f   };//{   /*150.0f*/45.0f,   0.001f,   0.0f   };
 //    Feedforward_Init(&MOTOR->DJI_6020_Pitch.PID_F, 3000, PID_F_Pitch,
 //                     0.5f, 2, 2);
 		
-    PID_Init(&MOTOR->m_dm4310_p_t .PID_P, 30000.0f, 100.0f,
+    PID_Init(&MOTOR->m_dm4310_p_t .PID_P, 30000.0f, 5.0f,
              PID_P_Pitch, 0, 0,
              0, 0, 0,
              Integral_Limit|ErrorHandle//积分限幅,输出滤波,堵转监测
              //梯形积分,变速积分
              );//微分先行,微分滤波器
-    PID_Init(&MOTOR->m_dm4310_p_t .PID_S, 20000.0f, 100.0f,
+    PID_Init(&MOTOR->m_dm4310_p_t .PID_S, 30000.0f, 5.0f,
              PID_S_Pitch, 0, 0,
              0, 0, 0,
              Integral_Limit|ErrorHandle//积分限幅,输出滤波,堵转监测
              );//微分先行,微分滤波器
 
     float PID_F_Yaw[3] = {   0.0f,   0.0f,   0.0f   };
-    float PID_P_Yaw[3] = {   3.0f,   0.0f,   0.0f   };//{   3.0f,   0.0f,   0.0f   };
-    float PID_S_Yaw[3] = {   /*160.0f*/24,   0.0f,   0.0f   };//{   /*160.0f*/24,   0.0f,   0.5f   };
+    float PID_P_Yaw[3] = {   0.9f,   0.0f,   0.0f   };//{   1.1f,   0.0f,   0.0f   };
+    float PID_S_Yaw[3] = {   /*160.0f*/55 ,   0.0f,   0.0f   };//{   /*160.0f*/100,   0.0f,   0.0f   };
 //    Feedforward_Init(&MOTOR->DJI_6020_Yaw.PID_F, 3000, PID_F_Yaw,
 //                     0.5f, 2, 2);
 //		
@@ -89,25 +88,20 @@ uint8_t gimbal_task(CONTAL_Typedef *CONTAL,
 ///////这个必须注释
     /*电机在线检测*/
 //    if (AIM_INIT != RUI_DF_READY)
-//    {
+//    
 //      AIM_INIT = Gimbal_AIM_INIT(Root, MOTOR);
 //      return RUI_DF_ERROR;
 //    
 		
-///底盘跟随记得改回来
 		/////VOFA调用
-		VOFA_justfloat(VISION_V_DATA.RECEIVE .PIT_DATA ,
-		               IMU->pitch  ,
-		               VISION_V_DATA.RECEIVE .YAW_DATA  ,
-		               -IMU->YawTotalAngle,
-		               VISION_V_DATA.RECEIVE .TARGET  ,
-		               IMU->gyro  [2] ,0,0,0,0);
-//				VOFA_justfloat(IMU->gyro_correct [0] ,
+								//				VOFA_justfloat(IMU->gyro_correct [0] ,
 //		               IMU->gyro_correct [1]  ,
 //		               IMU->gyro_correct [2]  ,
 //		               IMU->YawTotalAngle,
 //		               0 ,
 //		               0,0,0,0,0);
+
+///底盘跟随记得改回来
 
     /*底盘跟随变量赋值*/
 //    CONTAL->CG.RELATIVE_ANGLE = (int16_t) (CONTAL->CG.YAW_INIT_ANGLE  - MOTOR->m_dm4310_y_t .DATA .Angle_now);//////有yaw的车
@@ -212,22 +206,12 @@ uint8_t gimbal_task(CONTAL_Typedef *CONTAL,
 //                     (int16_t)tmp_G[0],
 //                     0,
 //                     0);
-++a;
-//if(a%2==0)
-//{
-//	dm4310_current_set(&hcan1,0x3FE,tmp_G[0],0,0,0);
-
-//  osdelay(1);
-//}
-//if(a%2==1)
-//{
-	dm4310_current_set(&hcan1,0x3FE,tmp_G[0],tmp_G[1]-3400/*-cos_caculate(IMU_Data)*/,0,0);
-//}
 //	dm4310_current_set(&hcan1,0x4FE,0,/*cos_caculate(IMU_Data)*/0,0,tmp_G[1]);
+dm4310_current_set(&hcan1,0x3FE,tmp_G[0],tmp_G[1]-3400,0,0);
+//dm4310_current_set(&hcan1,0x4FE,0,0,0,tmp_G[0]);
+//dm4310_current_set(&hcan1,0x3FE,0,0,0,tmp_G[0]);
 
-//dm4310_current_set(&hcan1,0x3FE,tmp_G[0],tmp_G[1],0,0);
-
-//pos_ctrl(&hcan1,0x03,MOTOR->m_dm4310_p_t .DATA.Aim ,2);
+//mit_ctrl(&hcan1, 2, 0, 0, 0, 0, ALL_MOTOR .m_dm4310_p_t .PID_S .Output  );
 
     return RUI_DF_READY;
 }
@@ -240,6 +224,7 @@ uint8_t gimbal_task(CONTAL_Typedef *CONTAL,
 */
 uint8_t GimbalRXResolve(uint8_t * buff,uint16_t CANID) 
 {
+	
 
 		//接收信息
 		CanCommunit_t.chTOgm.getData[0] = buff[0];
@@ -300,7 +285,17 @@ uint8_t GimbalTXResovle(  DBUS_Typedef *DBUS)
 //		int16_t pitchAngle = (int16_t)SectionLimit_f(500.0f, -500.0f, (TopData_t.pitchAgnle_f * 10.0f) );
 		
 //		KeyboardResolve();		//键盘模式底盘速度的解算
-	
+			VOFA_justfloat(VISION_V_DATA.RECEIVE .PIT_DATA ,
+		               -IMU_Data.pitch  ,
+		               VISION_V_DATA.RECEIVE .YAW_DATA  ,
+		               -IMU_Data.YawTotalAngle,
+		               VISION_V_DATA.RECEIVE .TARGET  ,
+		               IMU_Data.gyro  [2] ,
+									 ALL_MOTOR.m_dm4310_p_t .PID_S .Output ,
+									 IMU_Data.pitch ,
+		               ALL_MOTOR.m_dm4310_y_t .PID_S .Output ,
+									 ALL_MOTOR.m_dm4310_p_t .DATA .Angle_now );
+
 		CanCommunit_t.gmTOch.dataNeaten.vx =  DBUS->Remote .CH0_int16 ;
 		CanCommunit_t.gmTOch.dataNeaten.vx += gimbal_t.Keyboard.vx;//键鼠，还没加
 		CanCommunit_t.gmTOch.dataNeaten.vy =  DBUS->Remote .CH1_int16 ;
@@ -437,4 +432,35 @@ float pitch_caculate(IMU_Data_t *IMU)
 		adding_current+=xiang[i];
 	}
 	return adding_current;
+}
+void testinginginging()
+{
+	
+}
+void Encodeing_control(MOTOR_Typdef *MOTOR,DBUS_Typedef *WHW_V_DBUS)//编码器控制云台电机
+{
+	MOTOR->m_dm4310_p_t .DATA .Aim +=WHW_V_DBUS->Remote .CH2_int16 *0.01;
+	    PID_Calculate(&MOTOR->m_dm4310_p_t .PID_P,
+                  MOTOR->m_dm4310_p_t .DATA .reality   ,
+                  MOTOR->m_dm4310_p_t .DATA.Aim);
+    PID_Calculate(&MOTOR->m_dm4310_p_t .PID_S,
+                 MOTOR->m_dm4310_p_t .DATA .Speed_now  ,
+                  MOTOR->m_dm4310_p_t.PID_P.Output);
+ dm4310_current_set(&hcan1,0x4FE,0 ,0,0,0);
+
+}
+
+////自己的编码器双环与陀螺仪双环
+void pid_encoding_yawcontral(PID_t *pid,float target,float reality)
+{
+	pid->Err =target-reality;
+	pid->Pout =pid->Kp *pid->Err ;
+	pid->Iout +=pid->Ki *pid->Err ;
+	pid->Dout =pid->Kd *(pid->Err -pid->Last_Err );
+	pid->Output =pid->Pout +pid->Iout +pid->Dout ;
+	pid->Last_Err =pid->Err ;
+	
+}
+void pid_IMU_contal(MOTOR_Typdef *MOTOR,IMU_Data_t *IMU,float target,float reality)
+{
 }

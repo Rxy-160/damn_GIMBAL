@@ -260,7 +260,7 @@ float PID_Calculate(PID_t *pid, float measure, float ref)
 
     uint32_t tmp = pid->DWT_CNT;
     pid->dt = DWT_GetDeltaT(&tmp);
-//    pid->DWT_CNT =tmp;
+    pid->DWT_CNT =tmp;
     pid->Measure = measure;
     pid->Ref = ref;
     pid->Err = pid->Ref - pid->Measure;
