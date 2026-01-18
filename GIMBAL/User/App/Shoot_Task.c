@@ -395,10 +395,10 @@ void ATTACK_F_FIRE_Aim(MOTOR_Typdef *MOTOR,DBUS_Typedef*DBUS)
 
     // @veision 3, final code, this code is a stable speed
 		//键鼠：s2在中间   或     s2在2是开火状态
-    if (/*( fire_mouse_status == 1 && DBUS->Remote .S1_u8 == 3)||*/ DBUS->Remote.S1_u8 == 3||DBUS->Remote.S1_u8 == 2)  // 3 is the fire button
+    if (/*( fire_mouse_status == 1 && DBUS->Remote .S1_u8 == 3)||*/ /*DBUS->Remote.S1_u8 ==3||*/DBUS->Remote.S1_u8 == 2)  // 3 is the fire button
     {
-        MOTOR->DJI_3508_Shoot_L .DATA .Aim =  ATTACK_V_PARAM.SPEED;
-				MOTOR->DJI_3508_Shoot_R .DATA .Aim = -ATTACK_V_PARAM.SPEED;
+        MOTOR->DJI_3508_Shoot_L .DATA .Aim =  -ATTACK_V_PARAM.SPEED;
+				MOTOR->DJI_3508_Shoot_R .DATA .Aim =  ATTACK_V_PARAM.SPEED;
         ATTACK_V_PARAM.fire_wheel_status = 1;
     } 
 		else

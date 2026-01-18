@@ -95,10 +95,7 @@ horizon_infantry/all_init.o: ..\User\Start\All_Init.c \
   ..\User\Algorithm\inc\kalman_filter.h ..\User\Algorithm\inc\pid_temp.h \
   ..\User\Bsp\inc\bsp_imu_pwm.h ..\User\Bsp\inc\BMI088driver.h \
   ..\User\Bsp\inc\BMI088reg.h ..\User\Bsp\inc\BMI088Middleware.h \
-  ..\User\Bsp\inc\RGBctrl.h ..\User\Bsp\inc\Power_CAP.h \
-  ..\User\Bsp\inc\bsp_adc.h ..\User\App\inc\Shoot_Task.h \
-  ..\User\App\inc\Chassis_Task.h ..\User\Algorithm\inc\Power_Ctrl.h \
-  ..\User\App\inc\RobotUI_Ctrl.h ..\User\Bsp\inc\Vision.h \
+  ..\User\Start\Inc\WHW_IRQN.h ..\User\Bsp\inc\Vision.h \
   ..\USB_DEVICE\App\usbd_cdc_if.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc\usbd_cdc.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ioreq.h \
@@ -107,7 +104,11 @@ horizon_infantry/all_init.o: ..\User\Start\All_Init.c \
   D:\Keil\ARM\ARMCLANG\Bin\..\include\stdio.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_core.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ctlreq.h \
-  D:\Keil\ARM\ARMCLANG\Bin\..\include\stdbool.h ..\User\UI\ui.h \
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\stdbool.h \
+  ..\User\Bsp\inc\RGBctrl.h ..\User\Bsp\inc\Power_CAP.h \
+  ..\User\Bsp\inc\bsp_adc.h ..\User\App\inc\Shoot_Task.h \
+  ..\User\App\inc\Chassis_Task.h ..\User\Algorithm\inc\Power_Ctrl.h \
+  ..\User\App\inc\RobotUI_Ctrl.h ..\User\UI\ui.h \
   ..\User\UI\ui_interface.h ..\User\UI\ui_types.h \
   ..\User\UI\ui_default_init0_0.h ..\User\UI\ui_default_init0_1.h \
   ..\User\UI\ui_default_init0_2.h ..\User\UI\ui_default_init1_0.h \

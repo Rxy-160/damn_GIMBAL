@@ -44,7 +44,7 @@ typedef struct
     int16_t Speed_last; // 上一个速度值
     int16_t Speed_now;  // 现在的速度值
 	  int16_t acceleration;//加速度
-    int16_t current;
+    float current;
     int8_t temperature;
     int32_t Angle_Infinite;
     int64_t Stuck_Time;

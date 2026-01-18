@@ -59,7 +59,7 @@ RUI_ROOT_STATUS_Typedef RUI_ROOT_STATUS;
 //视觉
 //VisionRxDataUnion VisionRxData;
 uint8_t VisionRx[30];
-uint8_t sd_v_buff[16];
+uint8_t sd_v_buff[20];
 //uint8_t sd_v_buff[20];
 
 //电容

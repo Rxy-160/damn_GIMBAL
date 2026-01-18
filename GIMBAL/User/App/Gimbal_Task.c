@@ -16,39 +16,40 @@ uint8_t MOTOR_PID_Gimbal_INIT(MOTOR_Typdef *MOTOR)
 	
     //云台电机初始化
     float PID_F_Pitch[3] = {   0.0f,   0.0f,   0.0f   };
-    float PID_P_Pitch[3] = {   2.4f,   0.004f,   0.0f   };//{   2.6f,   0.004f,   0.0f   };
-    float PID_S_Pitch[3] = {   /*150.0f*/45.0f,   0.001f,   0.0f   };//{   /*150.0f*/45.0f,   0.001f,   0.0f   };
-//    Feedforward_Init(&MOTOR->DJI_6020_Pitch.PID_F, 3000, PID_F_Pitch,
+    float PID_P_Pitch[3] = {   1.8f,   0.07f,   0.0f   };//{   2.0f,   0.004f,   0.0f   };
+    float PID_S_Pitch[3] = {   /*150.0f*/30.0f,   0.00f,   0.0f   };//{   /*150.0f*/35.0f,   0.001f,   0.0f   };
+//    Feedforward_Init(&MOTOR->m_dm4310_p_t .PID_F, 3000, PID_F_Pitch,
 //                     0.5f, 2, 2);
 		
-    PID_Init(&MOTOR->m_dm4310_p_t .PID_P, 30000.0f, 5.0f,
+    PID_Init(&MOTOR->m_dm4310_p_t .PID_P, 30000.0f, 300.0f,
              PID_P_Pitch, 0, 0,
              0, 0, 0,
              Integral_Limit|ErrorHandle//积分限幅,输出滤波,堵转监测
              //梯形积分,变速积分
              );//微分先行,微分滤波器
-    PID_Init(&MOTOR->m_dm4310_p_t .PID_S, 30000.0f, 5.0f,
+    PID_Init(&MOTOR->m_dm4310_p_t .PID_S, 30000.0f, 300.0f,
              PID_S_Pitch, 0, 0,
              0, 0, 0,
              Integral_Limit|ErrorHandle//积分限幅,输出滤波,堵转监测
              );//微分先行,微分滤波器
 
     float PID_F_Yaw[3] = {   0.0f,   0.0f,   0.0f   };
-    float PID_P_Yaw[3] = {   0.9f,   0.0f,   0.0f   };//{   1.1f,   0.0f,   0.0f   };
-    float PID_S_Yaw[3] = {   /*160.0f*/55 ,   0.0f,   0.0f   };//{   /*160.0f*/100,   0.0f,   0.0f   };
-//    Feedforward_Init(&MOTOR->DJI_6020_Yaw.PID_F, 3000, PID_F_Yaw,
-//                     0.5f, 2, 2);
+    float PID_P_Yaw[3] = {   2.0f,   0.8f,   0.0f   };//{   1.9f,   0.2f,   0.0f   };
+    float PID_S_Yaw[3] = {   /*160.0f*/100,   0.0f,   0.0f   };//{   /*160.0f*/80,   0.3f,   0.0f   };
+//    Feedforward_Init(&MOTOR->m_dm4310_y_t .PID_F, 3000, PID_F_Yaw,
+//                    0.5f, 2, 2);
 //		
-    PID_Init(&MOTOR->m_dm4310_y_t  .PID_P , 30000.0f, 0.0f,
-             PID_P_Yaw, 0, 0,
-             0, 0, 0,
-             Integral_Limit|ErrorHandle//积分限幅,输出滤波,堵转监测
+		
+    PID_Init(&MOTOR->m_dm4310_y_t  .PID_P , 800.0f, 80.0f,
+             PID_P_Yaw, 1000, 1000,
+             0, 0.5, 0,
+             Integral_Limit|ErrorHandle|ChangingIntegrationRate|Trapezoid_Intergral|OutputFilter|DerivativeFilter//积分限幅,输出滤波,堵转监测
              //梯形积分,变速积分
              );//微分先行,微分滤波器
-    PID_Init(&MOTOR->m_dm4310_y_t .PID_S, 30000.0f, 0.0f,
+    PID_Init(&MOTOR->m_dm4310_y_t .PID_S, 12000.0f, 0.0f,
              PID_S_Yaw, 0, 0,
-             0, 0, 0,
-             Integral_Limit|ErrorHandle//积分限幅,输出滤波,堵转监测
+             0, 0.2, 0,
+             Integral_Limit|ErrorHandle|ChangingIntegrationRate|Trapezoid_Intergral|OutputFilter|DerivativeFilter//积分限幅,输出滤波,堵转监测
              //梯形积分,变速积分
              );//微分先行,微分滤波器
 
@@ -123,29 +124,29 @@ uint8_t gimbal_task(CONTAL_Typedef *CONTAL,
     MOTOR->m_dm4310_p_t .DATA.Aim = CONTAL->HEAD.Pitch;
     MOTOR->m_dm4310_y_t .DATA.Aim = CONTAL->HEAD.Yaw;
 
-//    if(/*CONTAL->MOD[0] - CONTAL->MOD[1] == 1*/CONTAL->MOD [0]==0)//自瞄模式/////手瞄到自瞄
+//    if(/*(CONTAL->MOD[0] - CONTAL->MOD[1] == 1*/CONTAL->MOD[0]==0)//自瞄模式/////手瞄到自瞄
 //    {
-//        float PID_P_Yaw_vision[3] = {   -3.0f,   0.0f,   0.0f   };
-//        float PID_S_Yaw_vision[3] = {   20.0f,   0.0f,   0.0f   };
-//				float PID_P_Pitch_vision[3] = {   2.0f,   0.0f,   0.0f   };
-//        float PID_S_Pitch_vision[3] = {   20.0f,   0.0f,   0.0f   };
+//        float PID_P_Yaw_vision[3] = {   1.9f,   0.2f,   0.0f   };
+//        float PID_S_Yaw_vision[3] = {   80.0f ,   0.3f,   0.0f   };
+//				float PID_P_Pitch_vision[3] = {   1.8f,   0.00f,   0.0f   };
+//        float PID_S_Pitch_vision[3] = {   20.0f,   0.00f,   0.0f   };
 //	//////////这个函数的目的是把不同模式的pid给赋进去
 //        PID_set(&MOTOR->m_dm4310_y_t  .PID_P, PID_P_Yaw_vision);
 //        PID_set(&MOTOR->m_dm4310_y_t  .PID_S, PID_S_Yaw_vision);
 //				PID_set(&MOTOR->m_dm4310_p_t .PID_P, PID_P_Pitch_vision);
 //        PID_set(&MOTOR->m_dm4310_p_t .PID_S, PID_S_Pitch_vision);
 //    }
-//    else if(/*CONTAL->MOD[0] - CONTAL->MOD[1] <= 0*/CONTAL->MOD [0]==1)//手瞄模式///////自瞄到手瞄
+//    else if(/*CONTAL->MOD[0] - CONTAL->MOD[1] <= 0*/CONTAL->MOD[0]==1 )//手瞄模式///////自瞄到手瞄
 //    {
-//        float PID_P_Yaw_hand[3] = {   -4.8f,   0.0f,   0.0f   };
-//        float PID_S_Yaw_hand[3] = {   32.0f,   0.0f,   0.0f   };
-//				float PID_P_Pitch_hand[3] = {   3.0f,   0.0f,   0.0f   };
-//        float PID_S_Pitch_hand[3] = {  24.0f,   0.0f,   0.0f   };
+//        float PID_P_Yaw_hand[3] = {    1.9f,   0.2f,   0.0f  };
+//        float PID_S_Yaw_hand[3] = {    80 ,   0.3f,   0.0f   };
+//				float PID_P_Pitch_hand[3] = {   1.8f,   0.00f,   0.0f    };
+//        float PID_S_Pitch_hand[3] = {  20.0f,   0.00f,   0.0f  };
 //	//////////这个函数的目的是把不同模式的pid给赋进去
 //        PID_set(&MOTOR->m_dm4310_y_t  .PID_P, PID_P_Yaw_hand);
 //        PID_set(&MOTOR->m_dm4310_y_t  .PID_S, PID_S_Yaw_hand);
-//				PID_set(&MOTOR->m_dm4310_p_t .PID_P, PID_P_Pitch_hand);
-//        PID_set(&MOTOR->m_dm4310_p_t .PID_S, PID_S_Pitch_hand);
+//				PID_set(&MOTOR->m_dm4310_p_t  .PID_P, PID_P_Pitch_hand);
+//        PID_set(&MOTOR->m_dm4310_p_t  .PID_S, PID_S_Pitch_hand);
 //    }
 //    CONTAL->MOD[1] = CONTAL->MOD[0];
 
@@ -155,15 +156,17 @@ uint8_t gimbal_task(CONTAL_Typedef *CONTAL,
     {
 			  MOTOR->m_dm4310_p_t  .PID_P .IntegralLimit =0;
 			  MOTOR->m_dm4310_p_t  .PID_S .IntegralLimit =0;
-        MOTOR->m_dm4310_p_t .PID_P.IntegralLimit = 0;
-        MOTOR->m_dm4310_p_t .PID_S.IntegralLimit = 0;
         MOTOR->m_dm4310_p_t .DATA.Aim = (float)IMU->pitch *22.7555556f;
 			
 			  MOTOR->m_dm4310_y_t  .PID_P .IntegralLimit =0;
 			  MOTOR->m_dm4310_y_t  .PID_S .IntegralLimit =0;
-        MOTOR->m_dm4310_y_t .PID_P.IntegralLimit = 0;
-        MOTOR->m_dm4310_y_t .PID_S.IntegralLimit = 0;
         MOTOR->m_dm4310_y_t .DATA.Aim = (float)IMU->YawTotalAngle *22.7555556f;
+			
+				WHW_V_DBUS.Remote .S1_u8 =0;
+				WHW_V_DBUS.Remote .S2_u8 =0;
+			dm4310_current_set(&hcan1,0x3FE,0,0,0,0);
+			DJI_Current_Ctrl(&hcan1,0x200,0,0,0,0);
+	    DJI_Current_Ctrl(&hcan2,0x200,0,0,/*(int16_tfloat)tmp_S[2]*/0,0);
 
 //        PID_INIT = RUI_DF_ERROR;
         AIM_INIT = RUI_DF_ERROR;
@@ -194,10 +197,10 @@ uint8_t gimbal_task(CONTAL_Typedef *CONTAL,
 
     /*总输出计算*/
 
-    tmp_G[0] = /*MOTOR->DJI_6020_Pitch.PID_F.Output */ 0 +
+    tmp_G[0] = /*MOTOR->m_dm4310_y_t .PID_F.Output*/0   +
                MOTOR->m_dm4310_y_t  .PID_S.Output;
 
-    tmp_G[1] = /*MOTOR->DJI_6020_Yaw.PID_F.Output*/0 +
+    tmp_G[1] =/* MOTOR->m_dm4310_p_t .PID_F.Output*/ +
                MOTOR->m_dm4310_p_t .PID_S.Output;
     /*CAN发送*/
 //    DJI_Current_Ctrl(&hcan1,
@@ -207,7 +210,7 @@ uint8_t gimbal_task(CONTAL_Typedef *CONTAL,
 //                     0,
 //                     0);
 //	dm4310_current_set(&hcan1,0x4FE,0,/*cos_caculate(IMU_Data)*/0,0,tmp_G[1]);
-dm4310_current_set(&hcan1,0x3FE,tmp_G[0],tmp_G[1]-3400,0,0);
+dm4310_current_set(&hcan1,0x3FE,tmp_G[0],tmp_G[1]-3000,0,0);
 //dm4310_current_set(&hcan1,0x4FE,0,0,0,tmp_G[0]);
 //dm4310_current_set(&hcan1,0x3FE,0,0,0,tmp_G[0]);
 
@@ -285,16 +288,16 @@ uint8_t GimbalTXResovle(  DBUS_Typedef *DBUS)
 //		int16_t pitchAngle = (int16_t)SectionLimit_f(500.0f, -500.0f, (TopData_t.pitchAgnle_f * 10.0f) );
 		
 //		KeyboardResolve();		//键盘模式底盘速度的解算
-			VOFA_justfloat(VISION_V_DATA.RECEIVE .PIT_DATA ,
-		               -IMU_Data.pitch  ,
-		               VISION_V_DATA.RECEIVE .YAW_DATA  ,
-		               -IMU_Data.YawTotalAngle,
+			VOFA_justfloat(VISION_V_DATA.RECEIVE .PIT_DATA  /*ALL_MOTOR .m_dm4310_p_t .DATA .Aim*/   ,
+		               -IMU_Data.pitch/**22.75555555555*/  ,
+		               VISION_V_DATA.RECEIVE .YAW_DATA  /*ALL_MOTOR .m_dm4310_y_t .DATA .Aim*/  ,
+		               -IMU_Data.YawTotalAngle/**22.7555555555*/,
 		               VISION_V_DATA.RECEIVE .TARGET  ,
-		               IMU_Data.gyro  [2] ,
-									 ALL_MOTOR.m_dm4310_p_t .PID_S .Output ,
-									 IMU_Data.pitch ,
+		               IMU_Data.gyro_correct   [0] ,
+									 ALL_MOTOR.m_dm4310_y_t .PID_S .Output ,
+									 /*IMU_Data.pitch*/IMU_Data.gyro_correct  [2] ,
 		               ALL_MOTOR.m_dm4310_y_t .PID_S .Output ,
-									 ALL_MOTOR.m_dm4310_p_t .DATA .Angle_now );
+									 /*ALL_MOTOR.m_dm4310_p_t .DATA .Angle_now*/(ALL_MOTOR.m_dm4310_p_t .DATA .current *(16384/20) ) );/*反馈电流是cur_int16*/
 
 		CanCommunit_t.gmTOch.dataNeaten.vx =  DBUS->Remote .CH0_int16 ;
 		CanCommunit_t.gmTOch.dataNeaten.vx += gimbal_t.Keyboard.vx;//键鼠，还没加
@@ -377,6 +380,7 @@ float testing_q3;
 	float trans_q1;
 	float trans_q2;
 	float trans_q3;
+
 
 void Quaternion_testing(IMU_Data_t *IMU)
 {

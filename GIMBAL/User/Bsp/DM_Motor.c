@@ -229,6 +229,7 @@ void dm4310_current_set(hcan_t* hcan, uint16_t id, float m1_cur_set, float m2_cu
 //**/
 int16_t spd_int16;
 int16_t cur_int16;
+int16_t accaccacc;
 void dm4310_RXdata(DM_MOTOR_Typdef *motor, uint8_t *rx_data) //一拖四模式下
 {
 	 
@@ -270,6 +271,8 @@ void dm4310_RXdata(DM_MOTOR_Typdef *motor, uint8_t *rx_data) //一拖四模式�
   motor->DATA .reality = (int32_t)(( motor->DATA .round * 8192)+(float)(motor->DATA .Angle_now ));///8192.0f*360.0f;	
 	//////连续编码值
 }
+
+
 int16_t OneFilter1(int16_t last, int16_t now, float thresholdValue)
 {
 		//减小平滑滤波值会增大对于细小毛刺的过滤程度

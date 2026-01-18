@@ -120,4 +120,4 @@ horizon_infantry/gimbal_task.o: ..\User\App\Gimbal_Task.c \
   ..\Middlewares\SEGGER_RTT\RTT\SEGGER_RTT.h \
   ..\Middlewares\SEGGER_RTT\RTT\..\Config\SEGGER_RTT_Conf.h \
   D:\Keil\ARM\ARMCLANG\Bin\..\include\stdarg.h ..\User\Bsp\inc\VT13.h \
-  ..\User\Bsp\inc\VOFA.h
+  ..\User\Start\Inc\WHW_IRQN.h ..\User\Bsp\inc\VOFA.h

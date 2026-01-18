@@ -119,4 +119,5 @@ horizon_infantry/chassis_task.o: ..\User\App\Chassis_Task.c \
   ..\User\Bsp\inc\music.h ..\User\Start\Inc\log.h \
   ..\Middlewares\SEGGER_RTT\RTT\SEGGER_RTT.h \
   ..\Middlewares\SEGGER_RTT\RTT\..\Config\SEGGER_RTT_Conf.h \
-  D:\Keil\ARM\ARMCLANG\Bin\..\include\stdarg.h ..\User\Bsp\inc\VT13.h
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\stdarg.h ..\User\Bsp\inc\VT13.h \
+  ..\User\Start\Inc\WHW_IRQN.h

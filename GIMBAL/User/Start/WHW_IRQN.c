@@ -106,7 +106,7 @@ void StartRobotUITask(void const * argument)
 //                        ALL_MOTOR.DJI_3508_Shoot_R.DATA.Speed_now,
 //                        &VISION_V_DATA);
 //        osDelayUntil(&currentTimeRobotUI, 1);
-//				vTaskDelayUntil(&currentTimeRobotUI, 1);
+				vTaskDelayUntil(&currentTimeRobotUI, 1);
 //			vTaskDelay (1);
     }
 }
@@ -219,7 +219,7 @@ void StartIMUTask(void const * argument)
 //        DWT_Delay(/*&currentTimeRobotUI,*/ 50);
 //				vTaskDelayUntil(&currentTimeIMU,1);
         osDelayUntil(&currentTimeIMU, 1);
-			vTaskDelay(1);
+//			vTaskDelay(1);
     }
 }
 
@@ -239,14 +239,16 @@ void StartRootTask(void const * argument)
 //        DWT_Delay(/*&currentTimeRobotUI,*/ 50);
 //vTaskDelayUntil(&currentTimeRoot,5);
         osDelayUntil(&currentTimeRoot, 5);
-			vTaskDelay(1);
+//			vTaskDelay(1);
     }
 }
-
+float dt_pc = 0; 
+static uint32_t INS_DWT_Count = 0;
 void BSP_TIM_IRQHandler(TIM_HandleTypeDef *htim)
 {
 	if (htim->Instance == TIM7) {
 		TX[0]++;
+		dt_pc = DWT_GetDeltaT(&INS_DWT_Count);
 //		motor_mode(&hcan1, 2, 0x00, 0xFC);
 	 ControltoVision(&VISION_V_DATA.SEND ,sd_v_buff, 1,&User_data,&WHW_V_DBUS,&IMU_Data ,&VISION_V_DATA);
 
@@ -391,15 +393,15 @@ void BSP_UART_IRQHandler(UART_HandleTypeDef *huart)
         }
         
     }
-
+ 
     if(huart->Instance ==USART6)//裁判系统串口
     {
-					    Read_Data_first(&ALL_RX , &User_data , data_length_6);//测试函数：待修改
-            HAL_UART_Receive_DMA(&huart6,(uint8_t *)ALL_RX.Data,255);  //重启开始DMA传输
+//					    Read_Data_first(&ALL_RX , &User_data , data_length_6);//测试函数：待修改
+//            HAL_UART_Receive_DMA(&huart6,(uint8_t *)ALL_RX.Data,255);  //重启开始DMA传输
 
         if (RESET != __HAL_UART_GET_FLAG(&huart6, UART_FLAG_IDLE))
         {
-            __HAL_UART_CLEAR_IDLEFLAG(&huart6);  //清除空闲中断标志（否则会一直不断进入中断）
+//            __HAL_UART_CLEAR_IDLEFLAG(&huart6);  //清除空闲中断标志（否则会一直不断进入中断）
             // 下面进行空闲中断相关处理
 //					
 //            HAL_UART_DMAStop(&huart6);//暂时停止本次DMA传输，进行数据处理
@@ -412,7 +414,7 @@ void BSP_UART_IRQHandler(UART_HandleTypeDef *huart)
     if(huart->Instance ==USART1)//调试串口
     {
 		//数据处理
-//1				 HAL_UART_Receive_DMA(&huart1, (uint8_t *)VISION_V_DATA.OriginData, sizeof(VISION_V_DATA.OriginData));
+    //1		 HAL_UART_Receive_DMA(&huart1, (uint8_t *)VISION_V_DATA.OriginData, sizeof(VISION_V_DATA.OriginData));
 		uint8_t data_length_1;
         if (RESET != __HAL_UART_GET_FLAG(&huart1, UART_FLAG_IDLE))
         {

@@ -2,7 +2,7 @@
 #include "Vision.h"
 
 #define VISION_D_SEND 16
-//////中南
+//////中南16
 #define VISION_D_RECV 15
 VisionTemp Union_temp;
 
@@ -53,7 +53,7 @@ void VisionSendInit(union RUI_U_VISION_SEND*  Send_t,TYPEDEF_VISION *VISION_DATA
 //注意正负
     Send_t->PIT_DATA = -IMU_Data ->pitch ;     // @note c板侧放，如果想用pitch建议改imu_temp...c中的IMU_QuaternionEKF_Update参数顺序和正负
 	
-    Send_t->YAW_DATA = -IMU_Data ->yaw ;
+    Send_t->YAW_DATA =  -IMU_Data ->yaw ;
 	Send_t->ROLL_DATA =IMU_Data ->roll ;
 	
 	
@@ -99,11 +99,11 @@ int ControltoVision(union RUI_U_VISION_SEND*  Send_t , uint8_t *buff, uint8_t ty
 	buff[7] = data_tackle.U[2];
 	buff[8] = data_tackle.U[3];
 	//roll
-//	data_tackle.F =Send_t->ROLL_DATA ;
-//	buff[9] =data_tackle.U [0];
-//	buff[10]=data_tackle.U [1];
-//	buff[11]=data_tackle.U [2];
-//	buff[12]=data_tackle.U [3];
+	data_tackle.F =Send_t->ROLL_DATA ;
+	buff[9] =data_tackle.U [0];
+	buff[10]=data_tackle.U [1];
+	buff[11]=data_tackle.U [2];
+	buff[12]=data_tackle.U [3];
 //    //将请求的状态置于第九位中
 	//2023-06-02 22:54 | 自瞄/打符标志位
     // setbit(&buff[9], 0, Send_t->COLOR &0x01);
@@ -112,19 +112,19 @@ int ControltoVision(union RUI_U_VISION_SEND*  Send_t , uint8_t *buff, uint8_t ty
 	
 	
     // 自瞄1  打小符2  大符3
-    buff[9] = Send_t->is_buff;
+    buff[13] = Send_t->is_buff;
     data_tackle.I = (uint32_t)Send_t->TIME; // 视觉自瞄和能量机关切换标志位
-	buff[10] = data_tackle.U[0];
-	buff[11] = data_tackle.U[1];
-	buff[12] = data_tackle.U[2];
-	buff[13] = data_tackle.U[3];
-    buff[14] = Send_t->bulletSpeed;
-    buff[15] = 0xdc;
+	buff[14] = data_tackle.U[0];
+	buff[15] = data_tackle.U[1];
+	buff[16] = data_tackle.U[2];
+	buff[17] = data_tackle.U[3];
+    buff[18] = Send_t->bulletSpeed;
+    buff[19] = 0xdc;
 //49    57
     if (type == 0)
         status = CDC_Transmit_FS(buff, 20);
     else if (type == 1)
-        status = HAL_UART_Transmit_DMA(&huart1, buff, 16);
+        status = HAL_UART_Transmit_DMA(&huart1, buff, 20);
 
     return ROOT_READY;
 }

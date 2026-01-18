@@ -245,12 +245,12 @@ uint8_t chassis_task(CONTAL_Typedef *CONTAL,
                MOTOR->DJI_3508_Chassis_4.PID_S.Output;
 
     /*CAN发送*/
-    DJI_Current_Ctrl(&hcan2,
-                     0x200,
-                     (int16_t)tmp_C[0],
-                     (int16_t)tmp_C[1],
-                     (int16_t)tmp_C[2],
-                     (int16_t)tmp_C[3]);
+//    DJI_Current_Ctrl(&hcan2,
+//                     0x200,
+//                     (int16_t)tmp_C[0],
+//                     (int16_t)tmp_C[1],
+//                     (int16_t)tmp_C[2],
+//                     (int16_t)tmp_C[3]);
 
     return RUI_DF_READY;
 }
