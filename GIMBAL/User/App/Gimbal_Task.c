@@ -16,26 +16,26 @@ uint8_t MOTOR_PID_Gimbal_INIT(MOTOR_Typdef *MOTOR)
 	
     //云台电机初始化
     float PID_F_Pitch[3] = {   0.0f,   0.0f,   0.0f   };
-    float PID_P_Pitch[3] = {   1.8f,   0.07f,   0.0f   };//{   2.0f,   0.004f,   0.0f   };
-    float PID_S_Pitch[3] = {   /*150.0f*/30.0f,   0.00f,   0.0f   };//{   /*150.0f*/35.0f,   0.001f,   0.0f   };
+    float PID_P_Pitch[3] = {   2.0f,   0.0f,   0.0f   };//{   2.0f,   0.004f,   0.0f   };
+    float PID_S_Pitch[3] = {   /*150.0f*/55.0f,   0.00f,   0.0f   };//{   /*150.0f*/35.0f,   0.001f,   0.0f   };
 //    Feedforward_Init(&MOTOR->m_dm4310_p_t .PID_F, 3000, PID_F_Pitch,
 //                     0.5f, 2, 2);
 		
-    PID_Init(&MOTOR->m_dm4310_p_t .PID_P, 30000.0f, 300.0f,
+    PID_Init(&MOTOR->m_dm4310_p_t .PID_P, 12000.0f, 8000.0f,
              PID_P_Pitch, 0, 0,
              0, 0, 0,
              Integral_Limit|ErrorHandle//积分限幅,输出滤波,堵转监测
              //梯形积分,变速积分
              );//微分先行,微分滤波器
-    PID_Init(&MOTOR->m_dm4310_p_t .PID_S, 30000.0f, 300.0f,
+    PID_Init(&MOTOR->m_dm4310_p_t .PID_S, 15000.0f, 3000.0f,
              PID_S_Pitch, 0, 0,
              0, 0, 0,
              Integral_Limit|ErrorHandle//积分限幅,输出滤波,堵转监测
              );//微分先行,微分滤波器
 
     float PID_F_Yaw[3] = {   0.0f,   0.0f,   0.0f   };
-    float PID_P_Yaw[3] = {   2.0f,   0.8f,   0.0f   };//{   1.9f,   0.2f,   0.0f   };
-    float PID_S_Yaw[3] = {   /*160.0f*/100,   0.0f,   0.0f   };//{   /*160.0f*/80,   0.3f,   0.0f   };
+    float PID_P_Yaw[3] = {   1.7f,   0.0f,   0.0f   };//{   2.0f,   0.8f,   0.0f  };
+    float PID_S_Yaw[3] = {   /*160.0f*/100,   0.0f,   0.0f   };//{   /*160.0f*/100,   0.0f,   0.0f    };
 //    Feedforward_Init(&MOTOR->m_dm4310_y_t .PID_F, 3000, PID_F_Yaw,
 //                    0.5f, 2, 2);
 //		
@@ -154,12 +154,12 @@ uint8_t gimbal_task(CONTAL_Typedef *CONTAL,
     /*遥控离线保护*/
     if(!Root->RM_DBUS)
     {
-			  MOTOR->m_dm4310_p_t  .PID_P .IntegralLimit =0;
-			  MOTOR->m_dm4310_p_t  .PID_S .IntegralLimit =0;
+//			  MOTOR->m_dm4310_p_t  .PID_P .IntegralLimit =0;
+//			  MOTOR->m_dm4310_p_t  .PID_S .IntegralLimit =0;
         MOTOR->m_dm4310_p_t .DATA.Aim = (float)IMU->pitch *22.7555556f;
 			
-			  MOTOR->m_dm4310_y_t  .PID_P .IntegralLimit =0;
-			  MOTOR->m_dm4310_y_t  .PID_S .IntegralLimit =0;
+//			  MOTOR->m_dm4310_y_t  .PID_P .IntegralLimit =0;
+//			  MOTOR->m_dm4310_y_t  .PID_S .IntegralLimit =0;
         MOTOR->m_dm4310_y_t .DATA.Aim = (float)IMU->YawTotalAngle *22.7555556f;
 			
 				WHW_V_DBUS.Remote .S1_u8 =0;
@@ -210,7 +210,7 @@ uint8_t gimbal_task(CONTAL_Typedef *CONTAL,
 //                     0,
 //                     0);
 //	dm4310_current_set(&hcan1,0x4FE,0,/*cos_caculate(IMU_Data)*/0,0,tmp_G[1]);
-dm4310_current_set(&hcan1,0x3FE,tmp_G[0],tmp_G[1]-3000,0,0);
+dm4310_current_set(&hcan1,0x3FE,tmp_G[0],tmp_G[1]-COS_pitch(),0,0);
 //dm4310_current_set(&hcan1,0x4FE,0,0,0,tmp_G[0]);
 //dm4310_current_set(&hcan1,0x3FE,0,0,0,tmp_G[0]);
 
@@ -292,8 +292,8 @@ uint8_t GimbalTXResovle(  DBUS_Typedef *DBUS)
 		               -IMU_Data.pitch/**22.75555555555*/  ,
 		               VISION_V_DATA.RECEIVE .YAW_DATA  /*ALL_MOTOR .m_dm4310_y_t .DATA .Aim*/  ,
 		               -IMU_Data.YawTotalAngle/**22.7555555555*/,
-		               VISION_V_DATA.RECEIVE .TARGET  ,
-		               IMU_Data.gyro_correct   [0] ,
+		               VISION_V_DATA.RECEIVE .TARGET*20  ,
+		               VISION_V_DATA.RECEIVE .fire *20 ,
 									 ALL_MOTOR.m_dm4310_y_t .PID_S .Output ,
 									 /*IMU_Data.pitch*/IMU_Data.gyro_correct  [2] ,
 		               ALL_MOTOR.m_dm4310_y_t .PID_S .Output ,
@@ -467,4 +467,13 @@ void pid_encoding_yawcontral(PID_t *pid,float target,float reality)
 }
 void pid_IMU_contal(MOTOR_Typdef *MOTOR,IMU_Data_t *IMU,float target,float reality)
 {
+}
+float kkk;
+float qqq;
+float rrr;
+float ooo;
+float COS_pitch()
+{
+	ooo= (5500*cos(0.017453292519*(2.5*IMU_Data.pitch -5)));
+	return ooo;
 }

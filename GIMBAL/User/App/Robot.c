@@ -112,24 +112,24 @@ void RobotTask(uint8_t mode,
 									if(Vision->RECEIVE .TARGET ==1)
 									{		
 									counttt++;
-										if(counttt>100)
+										if(counttt>500)
 										{
-											CONTAL->HEAD.Pitch =-5.1*22.755555555555 ;//-Vision->RECEIVE .PIT_DATA  *22.75555555555556f;
+											CONTAL->HEAD.Pitch =/*-5.1*22.755555555555 ;//*/-Vision->RECEIVE .PIT_DATA  *22.75555555555556f;
 		//										RUI_F_MATH_Limit_float(CONTAL->HEAD.Pitch_MAX,
 		//																						CONTAL->HEAD.Pitch_MIN,
 		//																						Vision->RECEIVE .PIT_DATA  *22.75555555555556f);
 
 
 
-											CONTAL->HEAD .Yaw   =  -Vision->RECEIVE  .YAW_DATA   *22.75555555555556f;
+											CONTAL->HEAD .Yaw   =  -(Vision->RECEIVE  .YAW_DATA   *22.75555555555556f);
 										}
 
 									}
-								else if(Vision->RECEIVE .TARGET ==0)
-									{
-											CONTAL->HEAD .Pitch =-5.1 *22.7555555555555;//IMU_Data->pitch *22.75555555555556f;
-											CONTAL->HEAD .Yaw =IMU_Data ->YawTotalAngle*22.75555555555556f ;
-									}
+//								else if(Vision->RECEIVE .TARGET ==0)
+//									{
+//											CONTAL->HEAD .Pitch =-5.1 *22.7555555555555;//IMU_Data->pitch *22.75555555555556f;
+//											CONTAL->HEAD .Yaw =IMU_Data ->YawTotalAngle*22.75555555555556f ;
+//									}
 								}
 //            }
 

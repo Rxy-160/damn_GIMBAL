@@ -317,7 +317,7 @@ void ATTACK_F_JAM_Aim(MOTOR_Typdef *MOTOR, DBUS_Typedef *DBUS, uint8_t autofire)
 ///连发模式记得解锁
 		
     // 连发模式处理                            1
-    else if (DBUS->Remote .S2_u8 == DBUS_D_MOD_CONSIST /*|| DBUS->MOUSE.L_STATE == 2*/)
+    else if (DBUS->Remote .S2_u8 == DBUS_D_MOD_CONSIST /*||VISION_V_DATA.RECEIVE .fire ==1*//*|| DBUS->MOUSE.L_STATE == 2*/)
     {
 //        if (/*autofire == 0 || ((autofire == 1) && VISION_V_DATA.RECEIVE.fire)*/VISION_V_DATA.RECEIVE.TARGET ==1)
 //        {
@@ -337,7 +337,7 @@ void ATTACK_F_JAM_Aim(MOTOR_Typdef *MOTOR, DBUS_Typedef *DBUS, uint8_t autofire)
 			MOTOR->DJI_3508_Shoot_M.DATA.Aim =MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/20000;
 //        MOTOR->DJI_3508_Shoot_M.DATA.Aim = (float)MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite - (ATTACK_V_PARAM.SINGLE_ANGLE * ATTACK_V_PARAM.COUNT);
 		// 单发模式下，处理完一次后重置COUNT
-        if (DBUS->Remote .S2_u8 == DBUS_D_MOD_SINGLE/* || DBUS->MOUSE.L_STATE == 1*/)
+        if (DBUS->Remote .S2_u8 == DBUS_D_MOD_SINGLE/*||VISION_V_DATA.RECEIVE .fire ==1*//* || DBUS->MOUSE.L_STATE == 1*/)
         {
 					  MOTOR->DJI_3508_Shoot_M.DATA.Aim = (float)MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite - (ATTACK_V_PARAM.SINGLE_ANGLE * ATTACK_V_PARAM.COUNT);
             ATTACK_V_PARAM.COUNT = 0;

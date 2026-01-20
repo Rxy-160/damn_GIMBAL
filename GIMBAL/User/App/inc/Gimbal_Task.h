@@ -113,5 +113,6 @@ void Quaternion_testing(IMU_Data_t *IMU);
 float pitch_caculate(IMU_Data_t *IMU);
 void Encodeing_control(MOTOR_Typdef *MOTOR,DBUS_Typedef *WHW_V_DBUS);//编码器控制云台电机
 uint8_t MOTOR_PID_Gimbal_INIT(MOTOR_Typdef *MOTOR);
+float COS_pitch();
 
 #endif
