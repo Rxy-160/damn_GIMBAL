@@ -137,8 +137,9 @@ void StartMoveTask(void const * argument)
 //                              &RUI_ROOT_STATUS, &User_data, &model,
 //                              &CAPDATE.GET, &ALL_MOTOR);
 
-			//云台在这块
-			
+        			
+				RUI_V_CONTAL.DWT_TIMEEE.Gimbal_dt=DWT_GetDeltaT(&RUI_V_CONTAL.DWT_TIMEEE.Gimbal_Count);
+        RUI_V_CONTAL.DWT_TIMEEE.Gimbal_time =DWT_GetTimeline_ms();
 			
         /*云台*/
         RobotTask(2, &WHW_V_DBUS, &RUI_V_CONTAL, &User_data,
@@ -234,6 +235,7 @@ void StartRootTask(void const * argument)
 
     for(;;)
     {
+			  RUI_V_CONTAL.DWT_TIMEEE .Monitor_dt  = DWT_GetDeltaT(&RUI_V_CONTAL.DWT_TIMEEE .Monitor_Count);
         RUI_F_ROOT(&RUI_ROOT_STATUS, &WHW_V_DBUS, &ALL_MOTOR, &CAPDATE.GET);
         voltage = get_battery_voltage();
 //        DWT_Delay(/*&currentTimeRobotUI,*/ 50);
@@ -250,8 +252,10 @@ void BSP_TIM_IRQHandler(TIM_HandleTypeDef *htim)
 		TX[0]++;
 		dt_pc = DWT_GetDeltaT(&INS_DWT_Count);
 //		motor_mode(&hcan1, 2, 0x00, 0xFC);
-	 ControltoVision(&VISION_V_DATA.SEND ,sd_v_buff, 1,&User_data,&WHW_V_DBUS,&IMU_Data ,&VISION_V_DATA);
-
+		///////普通视觉发送
+//	 ControltoVision(&VISION_V_DATA.SEND ,sd_v_buff, 1,&User_data,&WHW_V_DBUS,&IMU_Data ,&VISION_V_DATA);
+/////加预测视觉发送
+	 Vision_Tx_Data(&ALL_MOTOR,&IMU_Data);
 		CANSPI_SEND(&hspi2, 0x201, TX);
 	}
 
@@ -419,7 +423,11 @@ void BSP_UART_IRQHandler(UART_HandleTypeDef *huart)
         if (RESET != __HAL_UART_GET_FLAG(&huart1, UART_FLAG_IDLE))
         {
 					//视觉记得注释回来
-				 VISION_F_Cal(VISION_V_DATA.OriginData,0,&VISION_V_DATA);
+					//普通
+//				 VISION_F_Cal(VISION_V_DATA.OriginData,0,&VISION_V_DATA);
+					//加预测
+				  Vision_Rx_Data(VISION_V_DATA.OriginData, &VISION_V_DATA);
+
 				 HAL_UART_Receive_DMA(&huart1, (uint8_t *)VISION_V_DATA.OriginData, sizeof(VISION_V_DATA.OriginData));
 
 					

@@ -540,14 +540,14 @@
               <FilePath>..\User\Bsp\inc\Vision.h</FilePath>
             </File>
             <File>
-              <FileName>VOFA.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\Bsp\VOFA.c</FilePath>
-            </File>
-            <File>
               <FileName>VOFA.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\User\Bsp\inc\VOFA.h</FilePath>
+            </File>
+            <File>
+              <FileName>VOFA.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Bsp\VOFA.c</FilePath>
             </File>
             <File>
               <FileName>CANSPI.c</FileName>

@@ -16,7 +16,10 @@ void RobotTask(uint8_t mode,
                CONTAL_Typedef *CONTAL,
                User_Data_T *User_data,
                CAPDATE_TYPDEF *CAP_DATA,
-               TYPEDEF_VISION *Vision,
+
+               /*TYPEDEF_VISION *Vision*/
+								VisionRxDataUnion *Vision,
+
                RUI_ROOT_STATUS_Typedef *Root,
                MOTOR_Typdef *MOTOR,
                IMU_Data_t *IMU_Data );

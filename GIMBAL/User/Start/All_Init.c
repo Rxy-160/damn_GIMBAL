@@ -57,7 +57,6 @@ IMU_Data_t IMU_Data;
 RUI_ROOT_STATUS_Typedef RUI_ROOT_STATUS;
 
 //视觉
-//VisionRxDataUnion VisionRxData;
 uint8_t VisionRx[30];
 uint8_t sd_v_buff[20];
 //uint8_t sd_v_buff[20];
@@ -76,7 +75,10 @@ uint8_t flag2;
 struct CanCommunit_typedef CanCommunit_t;
     DBUS_UNION_Typdef RUI_V_DBUS_UNION = { 0 };
  struct gimbal_typedef gimbal_t;
-TYPEDEF_VISION VISION_V_DATA = {0};
+		
+//TYPEDEF_VISION VISION_V_DATA = {0};////普通视觉
+ VisionRxDataUnion VISION_V_DATA ;////加预测视觉
+
 
 void Everying_Init(void)
 {

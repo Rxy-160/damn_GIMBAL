@@ -44,7 +44,10 @@ extern ALL_RX_Data_T ALL_RX;
 extern User_Data_T User_data;
 
 extern uint8_t RX[20];
-extern  TYPEDEF_VISION VISION_V_DATA;
+//extern  TYPEDEF_VISION VISION_V_DATA;////普通视觉
+extern  VisionRxDataUnion VISION_V_DATA ;////加预测视觉
+
+
 extern MOTOR_Typdef ALL_MOTOR;
 
 extern pid_type_def imu_temp;
@@ -55,7 +58,6 @@ extern RUI_ROOT_STATUS_Typedef RUI_ROOT_STATUS;
 extern uint8_t sd_v_buff[20];
 //extern uint8_t sd_v_buff[20];
 
-//extern VisionRxDataUnion VisionRxData;
 extern uint8_t VisionRx[30];
 
 extern CAPDATE_TYPDEF CAPDATE;

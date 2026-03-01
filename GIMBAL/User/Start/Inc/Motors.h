@@ -101,6 +101,21 @@ typedef struct
         uint32_t Shoot_Number;
         uint32_t Shoot_Number_Last;
     }SHOOT_Bask;
+		struct 
+		{
+
+				float Chassis_dt;
+				float Gimbal_dt;
+				float Monitor_dt;
+				float Shoot_dt;
+				float Gimbal_time;
+				uint32_t Chassis_Count;
+				uint32_t Gimbal_Count;
+				uint32_t Monitor_Count;
+				uint32_t Shoot_Count;
+
+		}DWT_TIMEEE;
+
 
     uint8_t MOD[2];
     uint8_t ORE;

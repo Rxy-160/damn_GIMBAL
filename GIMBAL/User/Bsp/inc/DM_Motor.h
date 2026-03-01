@@ -64,6 +64,7 @@ typedef struct
 
 }DM_MOTOR_DATA_Typdef;
 
+
 typedef struct
 {
     uint8_t PID_INIT;
@@ -128,7 +129,6 @@ typedef struct {
     float lastRin;
     float perrRin;
 }FFC_typedef;
-
 typedef struct
 {
 	uint16_t mode[2];

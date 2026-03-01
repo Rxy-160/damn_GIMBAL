@@ -41,8 +41,8 @@ virtualFolder:
         - path: ../User/Bsp/inc/RUI_DBUS.h
         - path: ../User/Bsp/Vision.c
         - path: ../User/Bsp/inc/Vision.h
-        - path: ../User/Bsp/VOFA.c
         - path: ../User/Bsp/inc/VOFA.h
+        - path: ../User/Bsp/VOFA.c
         - path: ../User/Bsp/CANSPI.c
         - path: ../User/Bsp/inc/CANSPI.h
         - path: ../User/Bsp/MCP2515.c
@@ -270,7 +270,7 @@ targets:
         - __FPU_PRESENT=1U
         - ARM_MATH_MATRIX_CHECK
         - ARM_MATH_ROUNDING
-        - User_Release
+        - User_Debug
       incList:
         - ../Core/Inc
         - ../USB_DEVICE/App
@@ -310,6 +310,7 @@ targets:
           afterBuildTasks: []
           asm-compiler:
             $use: asm-auto
+            defines: []
             misc-controls: ""
           beforeBuildTasks: []
           c/cpp-compiler:

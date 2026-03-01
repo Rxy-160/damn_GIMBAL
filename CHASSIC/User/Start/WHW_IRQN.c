@@ -240,21 +240,6 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef* hcan)
 		//CAN1
 		switch (can_rx.StdId)
 		{
-//            case 0x201://底盘1
-//                RUI_F_MOTOR_CAN_RX_3508RM(&ALL_MOTOR.DJI_3508_Chassis_1.DATA, rx_data);
-//                break;
-
-//            case 0x202://底盘2
-//                RUI_F_MOTOR_CAN_RX_3508RM(&ALL_MOTOR.DJI_3508_Chassis_2.DATA, rx_data);
-//                break;
-
-//            case 0x203://底盘3
-//                RUI_F_MOTOR_CAN_RX_3508RM(&ALL_MOTOR.DJI_3508_Chassis_3.DATA, rx_data);
-//                break;
-
-//            case 0x204://底盘4
-//                RUI_F_MOTOR_CAN_RX_3508RM(&ALL_MOTOR.DJI_3508_Chassis_4.DATA, rx_data);
-//                break;
 
             case GIMBAL_kong ://双板通讯
                 ChassisRXResolve( rx_data,&WHW_V_DBUS,&RUI_ROOT_STATUS);
@@ -268,7 +253,8 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef* hcan)
                 break;
 
 						case 0x252:////超电
-							
+							Power_CAP_CAN_RX(&CAPDATE, rx_data);
+
 						break;
 
      }

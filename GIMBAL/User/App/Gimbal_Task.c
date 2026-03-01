@@ -16,8 +16,8 @@ uint8_t MOTOR_PID_Gimbal_INIT(MOTOR_Typdef *MOTOR)
 	
     //云台电机初始化
     float PID_F_Pitch[3] = {   0.0f,   0.0f,   0.0f   };
-    float PID_P_Pitch[3] = {   2.0f,   0.0f,   0.0f   };//{   2.0f,   0.004f,   0.0f   };
-    float PID_S_Pitch[3] = {   /*150.0f*/55.0f,   0.00f,   0.0f   };//{   /*150.0f*/35.0f,   0.001f,   0.0f   };
+    float PID_P_Pitch[3] = {   3.5f,   0.0f,   0.0f   };//{   2.0f,   0.004f,   0.0f   };
+    float PID_S_Pitch[3] = {   /*150.0f*/40.0f,   0.00f,   0.0f   };//{   /*150.0f*/35.0f,   0.001f,   0.0f   };
 //    Feedforward_Init(&MOTOR->m_dm4310_p_t .PID_F, 3000, PID_F_Pitch,
 //                     0.5f, 2, 2);
 		
@@ -166,7 +166,7 @@ uint8_t gimbal_task(CONTAL_Typedef *CONTAL,
 				WHW_V_DBUS.Remote .S2_u8 =0;
 			dm4310_current_set(&hcan1,0x3FE,0,0,0,0);
 			DJI_Current_Ctrl(&hcan1,0x200,0,0,0,0);
-	    DJI_Current_Ctrl(&hcan2,0x200,0,0,/*(int16_tfloat)tmp_S[2]*/0,0);
+//	    DJI_Current_Ctrl(&hcan2,0x200,0,0,/*(int16_tfloat)tmp_S[2]*/0,0);
 
 //        PID_INIT = RUI_DF_ERROR;
         AIM_INIT = RUI_DF_ERROR;
@@ -202,6 +202,9 @@ uint8_t gimbal_task(CONTAL_Typedef *CONTAL,
 
     tmp_G[1] =/* MOTOR->m_dm4310_p_t .PID_F.Output*/ +
                MOTOR->m_dm4310_p_t .PID_S.Output;
+							 
+		dm4310_current_set(&hcan1,0x3FE,tmp_G[0],tmp_G[1]/*-COS_pitch()*/,0,0);
+
     /*CAN发送*/
 //    DJI_Current_Ctrl(&hcan1,
 //                     0x1FF,
@@ -210,7 +213,6 @@ uint8_t gimbal_task(CONTAL_Typedef *CONTAL,
 //                     0,
 //                     0);
 //	dm4310_current_set(&hcan1,0x4FE,0,/*cos_caculate(IMU_Data)*/0,0,tmp_G[1]);
-dm4310_current_set(&hcan1,0x3FE,tmp_G[0],tmp_G[1]-COS_pitch(),0,0);
 //dm4310_current_set(&hcan1,0x4FE,0,0,0,tmp_G[0]);
 //dm4310_current_set(&hcan1,0x3FE,0,0,0,tmp_G[0]);
 
@@ -288,12 +290,12 @@ uint8_t GimbalTXResovle(  DBUS_Typedef *DBUS)
 //		int16_t pitchAngle = (int16_t)SectionLimit_f(500.0f, -500.0f, (TopData_t.pitchAgnle_f * 10.0f) );
 		
 //		KeyboardResolve();		//键盘模式底盘速度的解算
-			VOFA_justfloat(VISION_V_DATA.RECEIVE .PIT_DATA  /*ALL_MOTOR .m_dm4310_p_t .DATA .Aim*/   ,
+			VOFA_justfloat(VISION_V_DATA.Data.PitchAngle  /*ALL_MOTOR .m_dm4310_p_t .DATA .Aim*/   ,
 		               -IMU_Data.pitch/**22.75555555555*/  ,
-		               VISION_V_DATA.RECEIVE .YAW_DATA  /*ALL_MOTOR .m_dm4310_y_t .DATA .Aim*/  ,
+		               VISION_V_DATA.Data .YawAngle  /*ALL_MOTOR .m_dm4310_y_t .DATA .Aim*/  ,
 		               -IMU_Data.YawTotalAngle/**22.7555555555*/,
-		               VISION_V_DATA.RECEIVE .TARGET*20  ,
-		               VISION_V_DATA.RECEIVE .fire *20 ,
+		               VISION_V_DATA.Data  .TARGET*20  ,
+		               VISION_V_DATA.Data .fire *20 ,
 									 ALL_MOTOR.m_dm4310_y_t .PID_S .Output ,
 									 /*IMU_Data.pitch*/IMU_Data.gyro_correct  [2] ,
 		               ALL_MOTOR.m_dm4310_y_t .PID_S .Output ,
@@ -340,7 +342,7 @@ uint8_t GimbalTXResovle(  DBUS_Typedef *DBUS)
 		//CanCommunit_t.gmTOch.dataNeaten.ptichAgnle = (int16_t)(-QEKF_INS.Roll*100);	//陀螺仪角度，单位0.1°
 		CanCommunit_t.gmTOch .dataNeaten .S1 =DBUS->Remote .S1_u8 ;
 		CanCommunit_t.gmTOch .dataNeaten .S2 =DBUS->Remote .S2_u8 ;
-		CanCommunit_t.gmTOch.dataNeaten.target=VISION_V_DATA.RECEIVE .TARGET ;
+		CanCommunit_t.gmTOch.dataNeaten.target=VISION_V_DATA.Data.TARGET ;
 //		IMU_Data.angle.pitch = INS.Pitch;
 //		IMU_Data.angle.yaw = INS.YawTotalAngle;
 		
@@ -441,6 +443,7 @@ void testinginginging()
 {
 	
 }
+
 void Encodeing_control(MOTOR_Typdef *MOTOR,DBUS_Typedef *WHW_V_DBUS)//编码器控制云台电机
 {
 	MOTOR->m_dm4310_p_t .DATA .Aim +=WHW_V_DBUS->Remote .CH2_int16 *0.01;

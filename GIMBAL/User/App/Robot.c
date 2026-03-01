@@ -8,7 +8,8 @@ void RobotTask(uint8_t mode,
                CONTAL_Typedef *CONTAL,
                User_Data_T *User_data,
                CAPDATE_TYPDEF *CAP_DATA,
-               TYPEDEF_VISION *Vision,
+               /*TYPEDEF_VISION *Vision普通视觉*/
+								VisionRxDataUnion *Vision/*加预测视觉*/,
                RUI_ROOT_STATUS_Typedef *Root,
                MOTOR_Typdef *MOTOR,
                IMU_Data_t *IMU_Data)
@@ -54,7 +55,7 @@ void RobotTask(uint8_t mode,
                 float SLOW_START_MAX = RUI_F_CHASSIS_GET_MAX_TARGET(MAX_POWER);
                 if(SLOW_START > SLOW_START_MAX)
                 {
-                    SLOW_START = SLOW_START_MAX;
+                   SLOW_START = SLOW_START_MAX;
                 }
 						CONTAL->BOTTOM.VX *= ( 1 - RUI_F_MATH_Limit_float(2750, 0, RUI_F_MATH_ABS_float(FIX_ANGLE)) / 2750.0f );
             CONTAL->BOTTOM.VY *= ( 1 - RUI_F_MATH_Limit_float(2750, 0, RUI_F_MATH_ABS_float(FIX_ANGLE)) / 2750.0f );
@@ -109,19 +110,19 @@ void RobotTask(uint8_t mode,
 								{
 									CONTAL->MOD[0] = 0;//云台模式切换/////////////////////自瞄模式
 									//改视觉模式极性
-									if(Vision->RECEIVE .TARGET ==1)
+									if(Vision->Data .TARGET ==1)
 									{		
 									counttt++;
 										if(counttt>500)
 										{
-											CONTAL->HEAD.Pitch =/*-5.1*22.755555555555 ;//*/-Vision->RECEIVE .PIT_DATA  *22.75555555555556f;
+											CONTAL->HEAD.Pitch =/*-7.1*22.755555555555 ;//*/-Vision->Data .PitchAngle  *22.75555555555556f;
 		//										RUI_F_MATH_Limit_float(CONTAL->HEAD.Pitch_MAX,
 		//																						CONTAL->HEAD.Pitch_MIN,
 		//																						Vision->RECEIVE .PIT_DATA  *22.75555555555556f);
 
 
 
-											CONTAL->HEAD .Yaw   =  -(Vision->RECEIVE  .YAW_DATA   *22.75555555555556f);
+											CONTAL->HEAD .Yaw   =  -(Vision->Data .YawAngle   *22.75555555555556f);//-0.08*22.75555555555555;
 										}
 
 									}
