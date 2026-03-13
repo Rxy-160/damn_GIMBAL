@@ -116,7 +116,8 @@ void StartMoveTask(void const * argument)
         move_C = chassis_task(&RUI_V_CONTAL,
                               &RUI_ROOT_STATUS, &User_data, &model,
                               &CAPDATE.GET, &ALL_MOTOR);
-//双板
+/////////双板
+			
 			ChassisTXResolve(&User_data);
         /*云台*/
         RobotTask(2, &WHW_V_DBUS, &RUI_V_CONTAL, &User_data,

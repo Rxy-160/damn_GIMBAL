@@ -45,7 +45,7 @@ User_Data_T User_data;
 
 //测试
 uint8_t RX[20];
-
+TD_t TDDDD;
 //电机
 MOTOR_Typdef ALL_MOTOR;
 
@@ -76,8 +76,8 @@ struct CanCommunit_typedef CanCommunit_t;
     DBUS_UNION_Typdef RUI_V_DBUS_UNION = { 0 };
  struct gimbal_typedef gimbal_t;
 		
-//TYPEDEF_VISION VISION_V_DATA = {0};////普通视觉
- VisionRxDataUnion VISION_V_DATA ;////加预测视觉
+TYPEDEF_VISION VISION_V_DATA = {0};////普通视觉
+// VisionRxDataUnion VISION_V_DATA ;////加预测视觉
 
 
 void Everying_Init(void)

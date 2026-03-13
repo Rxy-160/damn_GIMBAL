@@ -6,7 +6,7 @@
 #include "Power_CAP.h"
 #include "Vision.h"
 #include "IMU_Task.h"
-
+#include "controller.h"
 
 
 
@@ -16,13 +16,12 @@ void RobotTask(uint8_t mode,
                CONTAL_Typedef *CONTAL,
                User_Data_T *User_data,
                CAPDATE_TYPDEF *CAP_DATA,
-
-               /*TYPEDEF_VISION *Vision*/
-								VisionRxDataUnion *Vision,
-
+               TYPEDEF_VISION *Vision/*普通视觉*/
+								/*VisionRxDataUnion *Vision 加预测视觉*/,
                RUI_ROOT_STATUS_Typedef *Root,
                MOTOR_Typdef *MOTOR,
-               IMU_Data_t *IMU_Data );
+               IMU_Data_t *IMU_Data,
+							 TD_t *TDDD);
 
 float RUI_F_GET_FIRE_WIPE_SPEED(CONTAL_Typedef *CONTAL, DBUS_Typedef *DBUS,
                                 User_Data_T *User_data, RUI_ROOT_STATUS_Typedef *Root);

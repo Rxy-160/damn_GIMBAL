@@ -49,7 +49,7 @@ void RobotTask(uint8_t mode,
             /*缓启动*/
             if(CONTAL->BOTTOM.VX != 0 || CONTAL->BOTTOM.VY != 0 || CONTAL->BOTTOM.VW != 0)
             {
-                SLOW_START += 0.002f;//0.002f;
+                SLOW_START += 0.0015f;//0.002f;
                 float SLOW_START_MAX = RUI_F_CHASSIS_GET_MAX_TARGET(MAX_POWER);
                 if(SLOW_START > SLOW_START_MAX)
                 {
@@ -79,29 +79,29 @@ void RobotTask(uint8_t mode,
 ////					else if(CONTAL->BOTTOM.VX == 0 && CONTAL->BOTTOM.VY == 0 && CONTAL->BOTTOM.VW == 0)
 //						{
 
-//							if(SLOW_BLACK>=0&&SLOW_BLACK<=1.5)
-//							{
-//							SLOW_BLACK -=0.00000001;
+							if(SLOW_BLACK>=0&&SLOW_BLACK<=1.5)
+							{
+							SLOW_BLACK -=0.00000001;
 
-//						CONTAL->BOTTOM.VX *= ( 1 - RUI_F_MATH_Limit_float(2750, 0, RUI_F_MATH_ABS_float(FIX_ANGLE)) / 2750.0f );
-//            CONTAL->BOTTOM.VY *= ( 1 - RUI_F_MATH_Limit_float(2750, 0, RUI_F_MATH_ABS_float(FIX_ANGLE)) / 2750.0f );
+						CONTAL->BOTTOM.VX *= ( 1 - RUI_F_MATH_Limit_float(2750, 0, RUI_F_MATH_ABS_float(FIX_ANGLE)) / 2750.0f );
+            CONTAL->BOTTOM.VY *= ( 1 - RUI_F_MATH_Limit_float(2750, 0, RUI_F_MATH_ABS_float(FIX_ANGLE)) / 2750.0f );
 
-////            CONTAL->BOTTOM.VX /=SLOW_BLACK;//+=0.1;//-=0.001;//*= 1.3;//SLOW_BLACK;
-////            CONTAL->BOTTOM.VY /=SLOW_BLACK;//+=0.1;//-=0.001;//*= 1.3;//SLOW_BLACK;
-////            CONTAL->BOTTOM.VW /=SLOW_BLACK;//+=0.1;//-=0.001;//*= 1.3;//SLOW_BLACK;
-//								
-//					  CONTAL->BOTTOM.VX *= SLOW_BLACK;
-//            CONTAL->BOTTOM.VY *= SLOW_BLACK;
-//            CONTAL->BOTTOM.VW *= SLOW_BLACK;
+//            CONTAL->BOTTOM.VX /=SLOW_BLACK;//+=0.1;//-=0.001;//*= 1.3;//SLOW_BLACK;
+//            CONTAL->BOTTOM.VY /=SLOW_BLACK;//+=0.1;//-=0.001;//*= 1.3;//SLOW_BLACK;
+//            CONTAL->BOTTOM.VW /=SLOW_BLACK;//+=0.1;//-=0.001;//*= 1.3;//SLOW_BLACK;
+								
+					  CONTAL->BOTTOM.VX *= SLOW_BLACK;
+            CONTAL->BOTTOM.VY *= SLOW_BLACK;
+            CONTAL->BOTTOM.VW *= SLOW_BLACK;
 
-//							}
-//							else
-//							{
-//		        CONTAL->BOTTOM.VX = 0;
-//            CONTAL->BOTTOM.VY = 0;
-//            CONTAL->BOTTOM.VW = 0;
+							}
+							else
+							{
+		        CONTAL->BOTTOM.VX = 0;
+            CONTAL->BOTTOM.VY = 0;
+            CONTAL->BOTTOM.VW = 0;
 
-//							}
+							}
 //						}
 
 						
@@ -138,10 +138,10 @@ void RobotTask(uint8_t mode,
             float ROTATED_VY = CONTAL->BOTTOM.VX * SIN_ANGLE + CONTAL->BOTTOM.VY * COS_ANGLE;
 
             /*全向轮解算*/
-            CONTAL->BOTTOM.wheel4 = (-ROTATED_VX + ROTATED_VY)+ (CONTAL->BOTTOM.VW  + FIX_ANGLE + RUI_V_FOLLOW_PREDICT);
-            CONTAL->BOTTOM.wheel1 = (ROTATED_VX + ROTATED_VY)+ (CONTAL->BOTTOM.VW  + FIX_ANGLE + RUI_V_FOLLOW_PREDICT);
-            CONTAL->BOTTOM.wheel2 = (ROTATED_VX - ROTATED_VY) + (CONTAL->BOTTOM.VW  + FIX_ANGLE + RUI_V_FOLLOW_PREDICT);
-            CONTAL->BOTTOM.wheel3 = (-ROTATED_VX - ROTATED_VY) + (CONTAL->BOTTOM.VW  + FIX_ANGLE + RUI_V_FOLLOW_PREDICT);
+            CONTAL->BOTTOM.wheel3 = (-ROTATED_VX + ROTATED_VY)+ (CONTAL->BOTTOM.VW*0.5  + FIX_ANGLE + RUI_V_FOLLOW_PREDICT);
+            CONTAL->BOTTOM.wheel4 = (ROTATED_VX + ROTATED_VY)+ (CONTAL->BOTTOM.VW*0.5  + FIX_ANGLE + RUI_V_FOLLOW_PREDICT);
+            CONTAL->BOTTOM.wheel1 = (ROTATED_VX - ROTATED_VY) + (CONTAL->BOTTOM.VW*0.5  + FIX_ANGLE + RUI_V_FOLLOW_PREDICT);
+            CONTAL->BOTTOM.wheel2 = (-ROTATED_VX - ROTATED_VY) + (CONTAL->BOTTOM.VW*0.5  + FIX_ANGLE + RUI_V_FOLLOW_PREDICT);
             
         } break;
 

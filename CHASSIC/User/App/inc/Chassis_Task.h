@@ -33,16 +33,15 @@ union gmTOch_typdef		//使用共用体整合数据
 		uint16_t key_f:1;
 		uint16_t key_g:1;
 		uint16_t key_b:1;
-		uint16_t S1:1;
-		uint16_t S2:1;
+				uint16_t romoteOnLine	:2;			//遥控是否在线
+
+		uint16_t S1:2;
+		uint16_t S2:2;
+
 		uint16_t supUSe :1;			//是否使用电容
-		uint16_t romoteOnLine	:1;			//遥控是否在线
-		uint16_t chMod :2;		//底盘状态
 		uint16_t topSate:1;		//陀螺仪状态
-//		int16_t ptichAgnle :8;	//陀螺仪发送的pitch轴角度
 		uint16_t target:1;
-//		uint16_t rala :2;
-		uint16_t DBUS_state:1;
+//		uint16_t DBUS_state:1;
 	}dataNeaten;
 	//CAN发送的数据
 //	uint8_t sendData[8];

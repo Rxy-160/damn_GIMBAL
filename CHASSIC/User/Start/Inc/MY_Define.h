@@ -42,8 +42,8 @@
 #define RUI_DF_LED_PURPLE 4
 #define RUI_DF_LED_CYAN   5
 #define RUI_DF_LED_WRITE  6
-//这个角度设完之和实际的正方向是跟他正好相反的（转180度）
-#define INIT_ANGLE 4004
+//这个角度设完之和实际的正方向是跟他正好相反的（转180度）(-4096)
+#define INIT_ANGLE 1203
 
 #define WIPE_MAX_SPEED 7200
 #define SINGLE_ANGLE -36864

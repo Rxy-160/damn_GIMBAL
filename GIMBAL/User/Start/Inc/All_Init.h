@@ -20,7 +20,7 @@
 #include "Gimbal_Task.h"
 #include "Shoot_Task.h"
 #include "Chassis_Task.h"
-
+#include "controller.h"
 #include "Power_CAP.h"
 #include "Power_Ctrl.h"
 #include "bsp_adc.h"
@@ -44,8 +44,9 @@ extern ALL_RX_Data_T ALL_RX;
 extern User_Data_T User_data;
 
 extern uint8_t RX[20];
-//extern  TYPEDEF_VISION VISION_V_DATA;////普通视觉
-extern  VisionRxDataUnion VISION_V_DATA ;////加预测视觉
+extern  TYPEDEF_VISION VISION_V_DATA;////普通视觉
+//extern  VisionRxDataUnion VISION_V_DATA ;////加预测视觉
+extern TD_t TDDDD;
 
 
 extern MOTOR_Typdef ALL_MOTOR;

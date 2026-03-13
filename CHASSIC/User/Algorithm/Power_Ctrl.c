@@ -29,11 +29,9 @@ float get_initial_power(DJI_MOTOR_Typedef *MOTOR, model_t *model)
 {
 
     int32_t speed_rpm = (int32_t)MOTOR->DATA.Speed_now;
-       //             速度环输出（电流值）          转矩常数             当前速度                               
     initial_power = MOTOR ->PID_S.Output * model->toque_coefficient * (float)speed_rpm +
                     model->k2 * (float)speed_rpm * (float)speed_rpm +
                     model->a * MOTOR->PID_S.Output * MOTOR->PID_S.Output + model->constant;
-///////////                         电流                     电流                
     return initial_power;
 }
 
@@ -179,7 +177,7 @@ uint8_t chassis_power_control(CONTAL_Typedef *RUI_V_CONTAL_V,
     /*没电容时开启*/     //                           缓冲能量？
     PID_buffer(&model->PID_Buffer, chassis_power_buffer, 25);  // 缓冲能量闭环
 		
-///裁判系统输入功率      最大功率限制（裁）- 闭环输出
+///裁判系统输入功率      最大功率限制（裁）- 缓冲能量闭环输出
     input_power = (float)max_power_limit - model->PID_Buffer.All_out;  // 加入缓冲能量
 ///////////////电容电压           电容电压最低阈值
     if(CAP_GET->CAP_VOLT    >     (float)capValt     )

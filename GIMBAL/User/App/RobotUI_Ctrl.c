@@ -32,8 +32,8 @@ void RobotUI_Dynamic(uint8_t RM_DBUS,
                      int16_t Angle,
                      int16_t Speed_L_now,
                      int16_t Speed_R_now,
-                     /*TYPEDEF_VISION *Vision普通视觉*/
-										 VisionRxDataUnion *Vision/*加预测视觉*/)
+                     TYPEDEF_VISION *Vision /*普通视觉*/
+										 /*VisionRxDataUnion *Vision 加预测视觉*/)
 {
     static uint8_t UI_Init = RUI_DF_READY;
 

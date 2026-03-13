@@ -122,7 +122,7 @@ void StartMoveTask(void const * argument)
 
 //    //初始朝前的电机刻度
     RUI_V_CONTAL.CG.YAW_INIT_ANGLE = INIT_ANGLE;
-			aaaaa=MOTOR_PID_Gimbal_INIT(&ALL_MOTOR);
+			aaaaa=MOTOR_PID_Gimbal_INIT(&ALL_MOTOR,&TDDDD);
 
 //    //Pitch轴限幅
 ////	/////////注意p轴初始化
@@ -141,10 +141,15 @@ void StartMoveTask(void const * argument)
 				RUI_V_CONTAL.DWT_TIMEEE.Gimbal_dt=DWT_GetDeltaT(&RUI_V_CONTAL.DWT_TIMEEE.Gimbal_Count);
         RUI_V_CONTAL.DWT_TIMEEE.Gimbal_time =DWT_GetTimeline_ms();
 			
+			
+			
+			////双板通讯
+			CANGimbalTX(&WHW_V_DBUS );/////双板通讯can发送
+
         /*云台*/
         RobotTask(2, &WHW_V_DBUS, &RUI_V_CONTAL, &User_data,
-                 &CAPDATE, &VISION_V_DATA, &RUI_ROOT_STATUS, &ALL_MOTOR,&IMU_Data);
-        move_G = gimbal_task(&RUI_V_CONTAL, &RUI_ROOT_STATUS, &ALL_MOTOR, &IMU_Data);
+                 &CAPDATE, &VISION_V_DATA, &RUI_ROOT_STATUS, &ALL_MOTOR,&IMU_Data,&TDDDD);
+        move_G = gimbal_task(&RUI_V_CONTAL, &RUI_ROOT_STATUS, &ALL_MOTOR, &IMU_Data,&TDDDD);
 			
 			//编码器控制测试
 //			Encodeing_control(&ALL_MOTOR,&WHW_V_DBUS);
@@ -154,8 +159,6 @@ void StartMoveTask(void const * argument)
 			
 			
 			
-////双板通讯
-			CANGimbalTX(&WHW_V_DBUS );/////双板通讯can发送
 
 //			        DWT_Delay(/*&currentTimeRobotUI,*/ 50);
 			
@@ -252,10 +255,10 @@ void BSP_TIM_IRQHandler(TIM_HandleTypeDef *htim)
 		TX[0]++;
 		dt_pc = DWT_GetDeltaT(&INS_DWT_Count);
 //		motor_mode(&hcan1, 2, 0x00, 0xFC);
-		///////普通视觉发送
-//	 ControltoVision(&VISION_V_DATA.SEND ,sd_v_buff, 1,&User_data,&WHW_V_DBUS,&IMU_Data ,&VISION_V_DATA);
-/////加预测视觉发送
-	 Vision_Tx_Data(&ALL_MOTOR,&IMU_Data);
+//		///////普通视觉发送
+	 ControltoVision(&VISION_V_DATA.SEND ,sd_v_buff, 1,&User_data,&WHW_V_DBUS,&IMU_Data ,&VISION_V_DATA);
+///加预测视觉发送
+//	 Vision_Tx_Data(&ALL_MOTOR,&IMU_Data);
 		CANSPI_SEND(&hspi2, 0x201, TX);
 	}
 
@@ -423,10 +426,10 @@ void BSP_UART_IRQHandler(UART_HandleTypeDef *huart)
         if (RESET != __HAL_UART_GET_FLAG(&huart1, UART_FLAG_IDLE))
         {
 					//视觉记得注释回来
-					//普通
-//				 VISION_F_Cal(VISION_V_DATA.OriginData,0,&VISION_V_DATA);
+//					//普通
+				 VISION_F_Cal(VISION_V_DATA.OriginData,0,&VISION_V_DATA);
 					//加预测
-				  Vision_Rx_Data(VISION_V_DATA.OriginData, &VISION_V_DATA);
+//				  Vision_Rx_Data(VISION_V_DATA.OriginData, &VISION_V_DATA);
 
 				 HAL_UART_Receive_DMA(&huart1, (uint8_t *)VISION_V_DATA.OriginData, sizeof(VISION_V_DATA.OriginData));
 

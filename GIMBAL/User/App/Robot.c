@@ -2,17 +2,20 @@
 float monitor_X;
 float monitor_Y;
 float monitor_W;
+float yaw_TD;
+float pitch_TD;
 static float counttt=0.0f;
 void RobotTask(uint8_t mode,
                DBUS_Typedef *DBUS,
                CONTAL_Typedef *CONTAL,
                User_Data_T *User_data,
                CAPDATE_TYPDEF *CAP_DATA,
-               /*TYPEDEF_VISION *Vision普通视觉*/
-								VisionRxDataUnion *Vision/*加预测视觉*/,
+               TYPEDEF_VISION *Vision /*普通视觉*/
+							/*	VisionRxDataUnion *Vision 加预测视觉*/,
                RUI_ROOT_STATUS_Typedef *Root,
                MOTOR_Typdef *MOTOR,
-               IMU_Data_t *IMU_Data)
+               IMU_Data_t *IMU_Data,
+							 TD_t *TDDD)
 {
     switch (mode) {
 
@@ -110,19 +113,35 @@ void RobotTask(uint8_t mode,
 								{
 									CONTAL->MOD[0] = 0;//云台模式切换/////////////////////自瞄模式
 									//改视觉模式极性
-									if(Vision->Data .TARGET ==1)
+									if(Vision->RECEIVE  .TARGET ==1)
 									{		
 									counttt++;
 										if(counttt>500)
 										{
-											CONTAL->HEAD.Pitch =/*-7.1*22.755555555555 ;//*/-Vision->Data .PitchAngle  *22.75555555555556f;
+//											yaw_TD=TD_Calculate(TDDD, (-Vision->RECEIVE .YAW_DATA   *22.75555555555556f));
+//												pitch_TD=TD_Calculate(TDDD, (-Vision->RECEIVE .PIT_DATA  *22.75555555555556f));
+//											if((-Vision->RECEIVE .PIT_DATA ) - (IMU_Data->pitch ) <=20 )
+//											{
+												CONTAL->HEAD.Pitch =/*-7.1*22.755555555555 ; *//*pitch_TD;*/ (-Vision->RECEIVE .PIT_DATA  *22.75555555555556f); 
 		//										RUI_F_MATH_Limit_float(CONTAL->HEAD.Pitch_MAX,
 		//																						CONTAL->HEAD.Pitch_MIN,
 		//																						Vision->RECEIVE .PIT_DATA  *22.75555555555556f);
+//											}
+//											else if((-Vision->RECEIVE .PIT_DATA ) - (IMU_Data->pitch ) >20 )
+//											{
+//												CONTAL->HEAD.Pitch =IMU_Data->pitch *22.7555555555555;
+//											}
 
-
-
-											CONTAL->HEAD .Yaw   =  -(Vision->Data .YawAngle   *22.75555555555556f);//-0.08*22.75555555555555;
+//											if((-Vision->RECEIVE .YAW_DATA  ) - (IMU_Data->YawTotalAngle ) <=35 )
+//											{
+												CONTAL->HEAD .Yaw   = /*yaw_TD; *//*-0.08*22.75555555555555;*/ (-Vision->RECEIVE .YAW_DATA   *22.75555555555556f);//+Vision->Data .YawOmega * 0.001f*8192.0f/360.0f;
+//											}
+//											else if((-Vision->RECEIVE .YAW_DATA  ) - (IMU_Data->YawTotalAngle ) >35 )
+//											{
+//												CONTAL->HEAD .Yaw   =IMU_Data->YawTotalAngle *22.7555555555555;
+//											}
+											
+											
 										}
 
 									}

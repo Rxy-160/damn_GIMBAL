@@ -163,7 +163,7 @@
         <Ww>
           <count>1</count>
           <WinNumber>1</WinNumber>
-          <ItemText>CanCommunit_t</ItemText>
+          <ItemText>CanCommunit_t,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>2</count>
@@ -214,6 +214,11 @@
           <count>11</count>
           <WinNumber>1</WinNumber>
           <ItemText>rrr</ItemText>
+        </Ww>
+        <Ww>
+          <count>12</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>VISION_V_DATA,0x0A</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>

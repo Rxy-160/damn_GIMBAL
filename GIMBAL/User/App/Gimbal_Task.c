@@ -1,6 +1,7 @@
 #include "Gimbal_Task.h"
 #include "VOFA.h"
     float tmp_G[2];
+		float abcd;
 int16_t target;
 /************************************************************万能分隔符**************************************************************
  * 	@author:			//小瑞
@@ -10,32 +11,32 @@ int16_t target;
  *	@ReadMe:			//
  ************************************************************万能分隔符**************************************************************/
 
-uint8_t MOTOR_PID_Gimbal_INIT(MOTOR_Typdef *MOTOR)
+uint8_t MOTOR_PID_Gimbal_INIT(MOTOR_Typdef *MOTOR,TD_t *TDDD)
 {
 //
-	
+	TD_Init(TDDD, abcd, 0.003);
     //云台电机初始化
     float PID_F_Pitch[3] = {   0.0f,   0.0f,   0.0f   };
-    float PID_P_Pitch[3] = {   3.5f,   0.0f,   0.0f   };//{   2.0f,   0.004f,   0.0f   };
-    float PID_S_Pitch[3] = {   /*150.0f*/40.0f,   0.00f,   0.0f   };//{   /*150.0f*/35.0f,   0.001f,   0.0f   };
+    float PID_P_Pitch[3] = {   1.0f,   0.0f,   0.0f   };//{   2.0f,   0.004f,   0.0f   };
+    float PID_S_Pitch[3] = {   /*150.0f*/60.0f,   0.00f,   0.0f   };//{   /*150.0f*/35.0f,   0.001f,   0.0f   };
 //    Feedforward_Init(&MOTOR->m_dm4310_p_t .PID_F, 3000, PID_F_Pitch,
 //                     0.5f, 2, 2);
-		
+		//
     PID_Init(&MOTOR->m_dm4310_p_t .PID_P, 12000.0f, 8000.0f,
              PID_P_Pitch, 0, 0,
              0, 0, 0,
              Integral_Limit|ErrorHandle//积分限幅,输出滤波,堵转监测
              //梯形积分,变速积分
              );//微分先行,微分滤波器
-    PID_Init(&MOTOR->m_dm4310_p_t .PID_S, 15000.0f, 3000.0f,
+    PID_Init(&MOTOR->m_dm4310_p_t .PID_S, 30000.0f, 3000.0f,
              PID_S_Pitch, 0, 0,
              0, 0, 0,
              Integral_Limit|ErrorHandle//积分限幅,输出滤波,堵转监测
              );//微分先行,微分滤波器
 
     float PID_F_Yaw[3] = {   0.0f,   0.0f,   0.0f   };
-    float PID_P_Yaw[3] = {   1.7f,   0.0f,   0.0f   };//{   2.0f,   0.8f,   0.0f  };
-    float PID_S_Yaw[3] = {   /*160.0f*/100,   0.0f,   0.0f   };//{   /*160.0f*/100,   0.0f,   0.0f    };
+    float PID_P_Yaw[3] = {   1.0f,   0.0f,   0.0f   };//{   2.0f,   0.8f,   0.0f  };
+    float PID_S_Yaw[3] = {   /*160.0f*/83,   0.0f,   0.0f   };//{   /*160.0f*/100,   0.0f,   0.0f    };
 //    Feedforward_Init(&MOTOR->m_dm4310_y_t .PID_F, 3000, PID_F_Yaw,
 //                    0.5f, 2, 2);
 //		
@@ -46,7 +47,7 @@ uint8_t MOTOR_PID_Gimbal_INIT(MOTOR_Typdef *MOTOR)
              Integral_Limit|ErrorHandle|ChangingIntegrationRate|Trapezoid_Intergral|OutputFilter|DerivativeFilter//积分限幅,输出滤波,堵转监测
              //梯形积分,变速积分
              );//微分先行,微分滤波器
-    PID_Init(&MOTOR->m_dm4310_y_t .PID_S, 12000.0f, 0.0f,
+    PID_Init(&MOTOR->m_dm4310_y_t .PID_S, 30000.0f, 0.0f,
              PID_S_Yaw, 0, 0,
              0, 0.2, 0,
              Integral_Limit|ErrorHandle|ChangingIntegrationRate|Trapezoid_Intergral|OutputFilter|DerivativeFilter//积分限幅,输出滤波,堵转监测
@@ -73,7 +74,9 @@ int a=0;
 uint8_t gimbal_task(CONTAL_Typedef *CONTAL,
                     RUI_ROOT_STATUS_Typedef *Root,
                     MOTOR_Typdef *MOTOR,
-                    IMU_Data_t *IMU)
+                    IMU_Data_t *IMU,
+                    TD_t *TDDDD
+                    )
 {
 	
     static uint8_t PID_INIT = RUI_DF_ERROR;
@@ -83,7 +86,7 @@ uint8_t gimbal_task(CONTAL_Typedef *CONTAL,
     //电机PID赋值
     if (PID_INIT != RUI_DF_READY)
     {
-      PID_INIT = MOTOR_PID_Gimbal_INIT(MOTOR);
+      PID_INIT = MOTOR_PID_Gimbal_INIT(MOTOR,TDDDD);
       return RUI_DF_ERROR;
     }
 ///////这个必须注释
@@ -290,16 +293,16 @@ uint8_t GimbalTXResovle(  DBUS_Typedef *DBUS)
 //		int16_t pitchAngle = (int16_t)SectionLimit_f(500.0f, -500.0f, (TopData_t.pitchAgnle_f * 10.0f) );
 		
 //		KeyboardResolve();		//键盘模式底盘速度的解算
-			VOFA_justfloat(VISION_V_DATA.Data.PitchAngle  /*ALL_MOTOR .m_dm4310_p_t .DATA .Aim*/   ,
-		               -IMU_Data.pitch/**22.75555555555*/  ,
-		               VISION_V_DATA.Data .YawAngle  /*ALL_MOTOR .m_dm4310_y_t .DATA .Aim*/  ,
-		               -IMU_Data.YawTotalAngle/**22.7555555555*/,
-		               VISION_V_DATA.Data  .TARGET*20  ,
-		               VISION_V_DATA.Data .fire *20 ,
-									 ALL_MOTOR.m_dm4310_y_t .PID_S .Output ,
-									 /*IMU_Data.pitch*/IMU_Data.gyro_correct  [2] ,
-		               ALL_MOTOR.m_dm4310_y_t .PID_S .Output ,
-									 /*ALL_MOTOR.m_dm4310_p_t .DATA .Angle_now*/(ALL_MOTOR.m_dm4310_p_t .DATA .current *(16384/20) ) );/*反馈电流是cur_int16*/
+//			VOFA_justfloat(VISION_V_DATA.RECEIVE .PIT_DATA   /*ALL_MOTOR .m_dm4310_p_t .DATA .Aim*/   ,
+//		               -IMU_Data.pitch/**22.75555555555*/  ,
+//		               VISION_V_DATA.RECEIVE .YAW_DATA    /*ALL_MOTOR .m_dm4310_y_t .DATA .Aim*/  ,
+//		               -IMU_Data.YawTotalAngle/**22.7555555555*/,
+//		               VISION_V_DATA.RECEIVE   .TARGET*20  ,
+//		               VISION_V_DATA.RECEIVE  .fire *20 ,
+//									 ALL_MOTOR.m_dm4310_y_t .PID_S .Output ,
+//									 /*IMU_Data.pitch*/IMU_Data.gyro_correct  [2] ,
+//		               ALL_MOTOR.m_dm4310_y_t .PID_S .Output ,
+//									 /*ALL_MOTOR.m_dm4310_p_t .DATA .Angle_now*/(ALL_MOTOR.m_dm4310_p_t .DATA .current *(16384/20) ) );/*反馈电流是cur_int16*/
 
 		CanCommunit_t.gmTOch.dataNeaten.vx =  DBUS->Remote .CH0_int16 ;
 		CanCommunit_t.gmTOch.dataNeaten.vx += gimbal_t.Keyboard.vx;//键鼠，还没加
@@ -330,19 +333,23 @@ uint8_t GimbalTXResovle(  DBUS_Typedef *DBUS)
 		CanCommunit_t.gmTOch.dataNeaten.key_e = RUI_V_DBUS_UNION.DataNeaten .KeyBoard_E;
 	    CanCommunit_t.gmTOch.dataNeaten.key_g=DBUS->KeyBoard.G_PreeNumber;
 	    CanCommunit_t.gmTOch.dataNeaten.key_x=DBUS->KeyBoard .X_PreeNumber ;
-		CanCommunit_t.gmTOch.dataNeaten.key_f=DBUS->KeyBoard .X ; //不规范写法 后边改过来
+		CanCommunit_t.gmTOch.dataNeaten.key_f=DBUS->KeyBoard .F_PreeNumber  ; //不规范写法 后边改过来
 		CanCommunit_t.gmTOch.dataNeaten.key_c = DBUS->KeyBoard .C_PreeNumber ;
 		CanCommunit_t.gmTOch.dataNeaten.key_r = DBUS->KeyBoard .R_PreeNumber ;
 		CanCommunit_t.gmTOch.dataNeaten.key_ctrl = RUI_V_DBUS_UNION.DataNeaten .KeyBoard_Ctrl ;
+				CanCommunit_t .gmTOch .dataNeaten .romoteOnLine =RUI_ROOT_STATUS.RM_DBUS ;
+
+				CanCommunit_t.gmTOch .dataNeaten .S1 =DBUS->Remote .S1_u8 ;
+		CanCommunit_t.gmTOch .dataNeaten .S2 =DBUS->Remote .S2_u8 ;
+
 		CanCommunit_t.gmTOch.dataNeaten.supUSe = DBUS->KeyBoard.C ;
-		CanCommunit_t .gmTOch .dataNeaten .DBUS_state=RUI_ROOT_STATUS.RM_DBUS ;
 //		CanCommunit_t.gmTOch.dataNeaten.chMod = chassisMod;
 //		CanCommunit_t.gmTOch.dataNeaten.romoteOnLine = remoteOnLine;
 //		CanCommunit_t.gmTOch.dataNeaten.topSate = topSate;
 		//CanCommunit_t.gmTOch.dataNeaten.ptichAgnle = (int16_t)(-QEKF_INS.Roll*100);	//陀螺仪角度，单位0.1°
-		CanCommunit_t.gmTOch .dataNeaten .S1 =DBUS->Remote .S1_u8 ;
-		CanCommunit_t.gmTOch .dataNeaten .S2 =DBUS->Remote .S2_u8 ;
-		CanCommunit_t.gmTOch.dataNeaten.target=VISION_V_DATA.Data.TARGET ;
+
+						CanCommunit_t.gmTOch.dataNeaten.target=VISION_V_DATA.RECEIVE   .TARGET ;
+
 //		IMU_Data.angle.pitch = INS.Pitch;
 //		IMU_Data.angle.yaw = INS.YawTotalAngle;
 		
@@ -480,3 +487,30 @@ float COS_pitch()
 	ooo= (5500*cos(0.017453292519*(2.5*IMU_Data.pitch -5)));
 	return ooo;
 }
+
+
+
+
+
+//		//键位赋值
+//		CanCommunit_t.gmTOch.dataNeaten.key_v = RUI_V_DBUS_UNION.DataNeaten .KeyBoard_V;
+//		CanCommunit_t.gmTOch.dataNeaten.key_q = RUI_V_DBUS_UNION.DataNeaten .KeyBoard_Q;
+//		CanCommunit_t.gmTOch.dataNeaten.key_e = RUI_V_DBUS_UNION.DataNeaten .KeyBoard_E;
+//	    CanCommunit_t.gmTOch.dataNeaten.key_g=DBUS->KeyBoard.G_PreeNumber;
+//	    CanCommunit_t.gmTOch.dataNeaten.key_x=DBUS->KeyBoard .X_PreeNumber ;
+//		CanCommunit_t.gmTOch.dataNeaten.key_f=DBUS->KeyBoard .X ; //不规范写法 后边改过来
+//		CanCommunit_t.gmTOch.dataNeaten.key_c = DBUS->KeyBoard .C_PreeNumber ;
+//		CanCommunit_t.gmTOch.dataNeaten.key_r = DBUS->KeyBoard .R_PreeNumber ;
+//		CanCommunit_t.gmTOch.dataNeaten.key_ctrl = RUI_V_DBUS_UNION.DataNeaten .KeyBoard_Ctrl ;
+//		CanCommunit_t.gmTOch.dataNeaten.supUSe = DBUS->KeyBoard.C ;
+//		CanCommunit_t .gmTOch .dataNeaten .DBUS_state=RUI_ROOT_STATUS.RM_DBUS ;
+////		CanCommunit_t.gmTOch.dataNeaten.chMod = chassisMod;
+////		CanCommunit_t.gmTOch.dataNeaten.romoteOnLine = remoteOnLine;
+////		CanCommunit_t.gmTOch.dataNeaten.topSate = topSate;
+//		//CanCommunit_t.gmTOch.dataNeaten.ptichAgnle = (int16_t)(-QEKF_INS.Roll*100);	//陀螺仪角度，单位0.1°
+//		CanCommunit_t.gmTOch .dataNeaten .S1 =DBUS->Remote .S1_u8 ;
+//		CanCommunit_t.gmTOch .dataNeaten .S2 =DBUS->Remote .S2_u8 ;
+//		CanCommunit_t.gmTOch.dataNeaten.target=VISION_V_DATA.RECEIVE .TARGET ;
+////		IMU_Data.angle.pitch = INS.Pitch;
+////		IMU_Data.angle.yaw = INS.YawTotalAngle;
+

@@ -165,10 +165,17 @@ uint8_t chassis_task(CONTAL_Typedef *CONTAL,
 //    /*目标值赋值*/
 //		if(IMU_Data .pitch >-40&&IMU_Data .pitch <5)
 //		{
-    MOTOR->DJI_3508_Chassis_1.DATA.Aim = CONTAL->BOTTOM.wheel1*2.0f;
-    MOTOR->DJI_3508_Chassis_2.DATA.Aim = CONTAL->BOTTOM.wheel2*2.0f;
-    MOTOR->DJI_3508_Chassis_3.DATA.Aim = CONTAL->BOTTOM.wheel3*2.0f;
-    MOTOR->DJI_3508_Chassis_4.DATA.Aim = CONTAL->BOTTOM.wheel4*2.0f;
+		//靶车前
+//    MOTOR->DJI_3508_Chassis_1.DATA.Aim = CONTAL->BOTTOM.wheel1*2.0f;
+//    MOTOR->DJI_3508_Chassis_2.DATA.Aim = CONTAL->BOTTOM.wheel2*2.0f;
+//    MOTOR->DJI_3508_Chassis_3.DATA.Aim = CONTAL->BOTTOM.wheel3*2.0f;
+//    MOTOR->DJI_3508_Chassis_4.DATA.Aim = CONTAL->BOTTOM.wheel4*2.0f;
+		//靶车后
+		MOTOR->DJI_3508_Chassis_1.DATA.Aim = CONTAL->BOTTOM.wheel1*0.98f;
+    MOTOR->DJI_3508_Chassis_2.DATA.Aim = CONTAL->BOTTOM.wheel2*0.98f;
+    MOTOR->DJI_3508_Chassis_3.DATA.Aim = CONTAL->BOTTOM.wheel3*0.98f;
+    MOTOR->DJI_3508_Chassis_4.DATA.Aim = CONTAL->BOTTOM.wheel4*0.98f;
+
 //  	}
 //		else if(IMU_Data .pitch >=5&&IMU_Data .pitch <40)
 //		{
@@ -178,7 +185,7 @@ uint8_t chassis_task(CONTAL_Typedef *CONTAL,
 //    MOTOR->DJI_3508_Chassis_4.DATA.Aim = CONTAL->BOTTOM.wheel4*5.0f;
 //		}
     /*遥控离线保护*/
-   if(!Root->RM_DBUS)
+   if(Root->RM_DBUS==0)
     {
         CONTAL->BOTTOM.wheel1 = 0;
         CONTAL->BOTTOM.wheel2 = 0;
@@ -245,13 +252,12 @@ uint8_t chassis_task(CONTAL_Typedef *CONTAL,
                MOTOR->DJI_3508_Chassis_4.PID_S.Output;
 
     /*CAN发送*/
-//    DJI_Current_Ctrl(&hcan2,
+//			    DJI_Current_Ctrl(&hcan2,
 //                     0x200,
 //                     (int16_t)tmp_C[0],
 //                     (int16_t)tmp_C[1],
 //                     (int16_t)tmp_C[2],
 //                     (int16_t)tmp_C[3]);
-
     return RUI_DF_READY;
 }
 uint16_t ralati;
@@ -279,17 +285,23 @@ uint8_t ChassisRXResolve(uint8_t * data,DBUS_Typedef *DBUS,RUI_ROOT_STATUS_Typed
 	DBUS->Remote .CH0_int16  = CanCommunit_t.gmTOch.dataNeaten.vx;
 	DBUS->Remote .CH1_int16  = CanCommunit_t.gmTOch.dataNeaten.vy;
 	DBUS->Remote.Dial_int16  = CanCommunit_t.gmTOch.dataNeaten.vr;
-	DBUS->Remote .S1_u8 =CanCommunit_t.gmTOch .dataNeaten .S1 ;
-	DBUS->Remote .S2_u8 =CanCommunit_t.gmTOch .dataNeaten .S2 ;
-	DBUS->KeyBoard .C  = CanCommunit_t.gmTOch.dataNeaten.key_c;
+	DBUS->KeyBoard .V =CanCommunit_t.gmTOch.dataNeaten.key_v ;
 	DBUS->KeyBoard .Q  = CanCommunit_t.gmTOch.dataNeaten.key_q;
 	DBUS->KeyBoard .E  = CanCommunit_t.gmTOch.dataNeaten.key_e;
-	DBUS->KeyBoard .Ctrl  = CanCommunit_t.gmTOch.dataNeaten.key_ctrl;
 	DBUS->KeyBoard .G  = CanCommunit_t.gmTOch.dataNeaten.key_g;
-	DBUS->KeyBoard .F  = CanCommunit_t.gmTOch.dataNeaten.key_f;
 	DBUS->KeyBoard .X  = CanCommunit_t.gmTOch.dataNeaten.key_x;
+	DBUS->KeyBoard .F  = CanCommunit_t.gmTOch.dataNeaten.key_f;
+	DBUS->KeyBoard .C  = CanCommunit_t.gmTOch.dataNeaten.key_c;
 	DBUS->KeyBoard .R  = CanCommunit_t.gmTOch.dataNeaten.key_r;
-  RUI_ROOT_STATUS.RM_DBUS =CanCommunit_t .gmTOch .dataNeaten .DBUS_state ;
+	DBUS->KeyBoard .Ctrl  = CanCommunit_t.gmTOch.dataNeaten.key_ctrl;
+	  RUI_ROOT_STATUS.RM_DBUS =CanCommunit_t .gmTOch .dataNeaten .romoteOnLine   ;
+
+	DBUS->Remote .S1_u8 =CanCommunit_t.gmTOch .dataNeaten .S1 ;
+	DBUS->Remote .S2_u8 =CanCommunit_t.gmTOch .dataNeaten .S2 ;
+
+	RUI_ROOT_STATUS.Power =CanCommunit_t.gmTOch .dataNeaten .supUSe ;
+	RUI_ROOT_STATUS.RM_MOD  =CanCommunit_t.gmTOch .dataNeaten .topSate ;
+	RUI_ROOT_STATUS.RM_MOD =	CanCommunit_t.gmTOch .dataNeaten .target;
 	
 	//陀螺仪检测
 //	Root->MASTER_LOCATION  = CanCommunit_t.gmTOch.dataNeaten.topSate;
