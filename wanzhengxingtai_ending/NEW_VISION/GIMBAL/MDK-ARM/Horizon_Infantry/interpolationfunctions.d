@@ -1,0 +1,26 @@
+horizon_infantry/interpolationfunctions.o: \
+  ..\Middlewares\CMSIS\DSP\Src\InterpolationFunctions\InterpolationFunctions.c \
+  ..\Middlewares\CMSIS\DSP\Src\InterpolationFunctions\arm_bilinear_interp_f32.c \
+  ..\Middlewares\CMSIS\DSP\Inc\dsp\interpolation_functions.h \
+  ..\Middlewares\CMSIS\DSP\Inc\arm_math_types.h \
+  ..\Drivers\CMSIS\Include\cmsis_compiler.h \
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\stdint.h \
+  ..\Drivers\CMSIS\Include\cmsis_armclang.h \
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\arm_compat.h \
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\arm_acle.h \
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\string.h \
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\math.h \
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\float.h \
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\limits.h \
+  ..\Middlewares\CMSIS\DSP\Inc\arm_math_memory.h \
+  ..\Middlewares\CMSIS\DSP\Inc\dsp\none.h \
+  ..\Middlewares\CMSIS\DSP\Inc\dsp\utils.h \
+  ..\Middlewares\CMSIS\DSP\Src\InterpolationFunctions\arm_bilinear_interp_q15.c \
+  ..\Middlewares\CMSIS\DSP\Src\InterpolationFunctions\arm_bilinear_interp_q31.c \
+  ..\Middlewares\CMSIS\DSP\Src\InterpolationFunctions\arm_bilinear_interp_q7.c \
+  ..\Middlewares\CMSIS\DSP\Src\InterpolationFunctions\arm_linear_interp_f32.c \
+  ..\Middlewares\CMSIS\DSP\Src\InterpolationFunctions\arm_linear_interp_q15.c \
+  ..\Middlewares\CMSIS\DSP\Src\InterpolationFunctions\arm_linear_interp_q31.c \
+  ..\Middlewares\CMSIS\DSP\Src\InterpolationFunctions\arm_linear_interp_q7.c \
+  ..\Middlewares\CMSIS\DSP\Src\InterpolationFunctions\arm_spline_interp_f32.c \
+  ..\Middlewares\CMSIS\DSP\Src\InterpolationFunctions\arm_spline_interp_init_f32.c
