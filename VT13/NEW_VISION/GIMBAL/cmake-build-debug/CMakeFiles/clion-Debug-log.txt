@@ -1,0 +1,36 @@
+"D:\Clion\CLion 2025.1.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=D:/Clion/CLion 2025.1.2/bin/ninja/win/x64/ninja.exe" -G Ninja -S C:\Users\R0602\Desktop\Infanity2026_test\GIMBAL -B C:\Users\R0602\Desktop\Infanity2026_test\GIMBAL\cmake-build-debug
+CMake Warning (dev) at CMakeLists.txt:31 (enable_language):
+  project() should be called prior to this enable_language() call.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- The C compiler identification is unknown
+-- The ASM compiler identification is unknown
+-- Found assembler: arm-none-eabi-gcc
+CMake Error at CMakeLists.txt:31 (enable_language):
+  The CMAKE_C_COMPILER:
+
+    arm-none-eabi-gcc
+
+  is not a full path and was not found in the PATH.  Perhaps the extension is
+  missing?
+
+  Tell CMake where to find the compiler by setting either the environment
+  variable "CC" or the CMake cache entry CMAKE_C_COMPILER to the full path to
+  the compiler, or to the compiler name if it is in the PATH.
+
+
+CMake Error at CMakeLists.txt:31 (enable_language):
+  The CMAKE_ASM_COMPILER:
+
+    arm-none-eabi-gcc
+
+  is not a full path and was not found in the PATH.  Perhaps the extension is
+  missing?
+
+  Tell CMake where to find the compiler by setting either the environment
+  variable "ASM" or the CMake cache entry CMAKE_ASM_COMPILER to the full path
+  to the compiler, or to the compiler name if it is in the PATH.
+
+
+-- Warning: Did not find file Compiler/-ASM
+-- Configuring incomplete, errors occurred!
