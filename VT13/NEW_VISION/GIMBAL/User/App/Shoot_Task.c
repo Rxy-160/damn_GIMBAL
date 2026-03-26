@@ -253,7 +253,7 @@ void ATTACK_F_Init(MOTOR_Typdef *MOTOR)
     }
 
 	//离线检测
-	    if(!RUI_ROOT_STATUS.RM_DBUS)
+	    if(RUI_ROOT_STATUS.RM_DBUS==0)
     {
 //        MOTOR->DJI_3508_Shoot_L.PID_S.IntegralLimit = 0;
         MOTOR->DJI_3508_Shoot_L.DATA.Aim = 0;//(float)MOTOR->DJI_3508_Shoot_L.DATA.Speed_now;
@@ -303,33 +303,23 @@ void ATTACK_F_JAM_Aim(MOTOR_Typdef *MOTOR, VT13_Typedef *VT13_DBUS, uint8_t auto
         // 检测遥控器模式切换到单发     2
         if (prev_S2_state != 1)//上一次不是单发
         {
-					//////是否进入视觉模式
-//            if (autofire == 0 || ((autofire == 1) && VISION_V_DATA.RECEIVE.fire))
-//            {
                 ATTACK_V_PARAM.COUNT = 1;  // 增加一个弹丸的角度
-//            }
         }
     }
-//    // 鼠标单发处理
-//		///键鼠
-//    else if (DBUS->MOUSE.L_STATE == 1 && ATTACK_V_PARAM.PREV_MOUSE_STATE != 1)
-//    {
-//        if (autofire == 0 || ((autofire == 1) && VISION_V_DATA.RECEIVE.fire))
-//        {
-//            ATTACK_V_PARAM.COUNT = 1;  // 检测到鼠标左键按下事件，发射一个弹丸
-//        }
-// 		}
+    // 鼠标单发处理
+		///键鼠
+    else if (VT13_DBUS->Mouse .L_State == 1 && ATTACK_V_PARAM.PREV_MOUSE_STATE != 1)
+    {
+            ATTACK_V_PARAM.COUNT = 1;  // 检测到鼠标左键按下事件，发射一个弹丸
+ 		}
 		
 ///连发模式记得解锁
 		
-    // 连发模式处理                            1
-    else if (VT13_DBUS->Remote .fn_2 == 1 ||(VT13_DBUS->Remote .fn_2 ==0&&VISION_V_DATA.RECEIVE .fire ==1)/*|| DBUS->MOUSE.L_STATE == 2*/)
+    // 连发模式处理      
+//		1         遥控的连发模式                        视觉自动开火                                                                   键鼠左键长按
+    else if (VT13_DBUS->Remote .fn_2 == 1 ||(VT13_DBUS->Remote .fn_2 ==0&&VISION_V_DATA.RECEIVE .fire ==1)|| (VT13_DBUS->Mouse .R_State  == 0&&VT13_DBUS->Mouse .L_State  == 2))
     {
-//        if (/*autofire == 0 || ((autofire == 1) && VISION_V_DATA.RECEIVE.fire)*/VISION_V_DATA.RECEIVE.TARGET ==1)
-//        {
-            // 视觉允许开火且为连发模式
-            ATTACK_V_PARAM.COUNT = 1;  // 持续小量增加目标角度，形成连续转动
-//        }
+        ATTACK_V_PARAM.COUNT = 1;  // 持续小量增加目标角度，形成连续转动
     }
     // 关闭发射处理
     else if (VT13_DBUS->Remote.fn_2  == 0)
@@ -340,11 +330,64 @@ void ATTACK_F_JAM_Aim(MOTOR_Typdef *MOTOR, VT13_Typedef *VT13_DBUS, uint8_t auto
     // 计算新的电机目标角度                              摩擦轮开启
     if (ATTACK_V_PARAM.COUNT > 0 && ATTACK_V_PARAM.fire_wheel_status /*&& MOTOR->DATA.ENABLE*/) // @debug  
     {
-			MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/15000;//15000---实际4400rpm   7.333333hz
-			                                                                                        //                    ---实际8000rpm   13.33333hz
-//        MOTOR->DJI_3508_Shoot_M.DATA.Aim = (float)MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite - (ATTACK_V_PARAM.SINGLE_ANGLE * ATTACK_V_PARAM.COUNT);
-		// 单发模式下，处理完一次后重置COUNT
-        if (VT13_DBUS->Remote .fn_1 == 1    /* || DBUS->MOUSE.L_STATE == 1*/)
+			//////在视觉模式与手控模式的简略火控
+			if (RUI_V_CONTAL.MOD [0]==1)//视觉模式
+			{
+				if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last >200)
+				{
+					MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/55000;//15000---实际4400rpm   7.333333hz
+				}
+				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=200&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >140)
+				{
+				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/40000;//15000---实际4400rpm   7.333333hz
+				}
+				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=140&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >70)
+				{
+				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/35000;//15000---实际4400rpm   7.333333hz
+				}
+				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=70&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >30)
+				{
+				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/14000;//15000---实际4400rpm   7.333333hz
+				}	
+				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=13)////停留在当前位置
+				{
+				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite;//15000---实际4400rpm   7.333333hz
+				}	
+				
+
+			}
+			else if(RUI_V_CONTAL.MOD [0]==0)//手控模式
+			{
+				if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last >200)
+				{
+					MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/55000;//15000---实际4400rpm   7.333333hz
+				}
+				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=200&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >140)
+				{
+				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/40000;//15000---实际4400rpm   7.333333hz
+				}
+				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=140&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >70)
+				{
+				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/35000;//15000---实际4400rpm   7.333333hz
+				}
+				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=70&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >12)
+				{
+				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/14000;//15000---实际4400rpm   7.333333hz
+				}	
+				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=13)///停留在当前位置
+				{
+				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite;//15000---实际4400rpm   7.333333hz
+				}	
+				
+
+			}
+																																																					//		30000	  		5800			9.66666				
+																																																													 //     50000    ---实际8000rpm   13.33333hz
+			
+			
+									//        MOTOR->DJI_3508_Shoot_M.DATA.Aim = (float)MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite - (ATTACK_V_PARAM.SINGLE_ANGLE * ATTACK_V_PARAM.COUNT);
+											// 单发模式下，处理完一次后重置COUNT
+        if (VT13_DBUS->Remote .fn_1 == 1     || (VT13_DBUS->Mouse .L_State == 1&&VT13_DBUS->Mouse .R_State ==0))
         {
 					  MOTOR->DJI_3508_Shoot_M.DATA.Aim = (float)MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite - (ATTACK_V_PARAM.SINGLE_ANGLE * ATTACK_V_PARAM.COUNT);
             ATTACK_V_PARAM.COUNT = 0;
@@ -352,7 +395,7 @@ void ATTACK_F_JAM_Aim(MOTOR_Typdef *MOTOR, VT13_Typedef *VT13_DBUS, uint8_t auto
     }
    
     // 保存当前状态用于下一次比较
-//    ATTACK_V_PARAM.PREV_MOUSE_STATE = DBUS->MOUSE.L_STATE;
+    ATTACK_V_PARAM.PREV_MOUSE_STATE = VT13_DBUS->Mouse.L_State ;
     prev_S2_state = VT13_DBUS->Remote .fn_1 ;
 
 }
@@ -402,8 +445,8 @@ void ATTACK_F_FIRE_Aim(MOTOR_Typdef *MOTOR,VT13_Typedef *VT13_DBUS)
 
     // @veision 3, final code, this code is a stable speed
 		//键鼠：s2在中间   或     s2在2是开火状态
-    if (/*( fire_mouse_status == 1 && DBUS->Remote .S1_u8 == 3)||*/ VT13_DBUS->Remote.mode_sw  ==0||VT13_DBUS->Remote.mode_sw  == 2)  // 3 is the fire button
-    {
+    if (/*( fire_mouse_status == 1 && DBUS->Remote .S1_u8 == 3)||*/ VT13_DBUS->Remote.mode_sw  ==1||VT13_DBUS->Remote.mode_sw  == 2)  // 3 is the fire button
+			{                                                                 //上场要改为1
 			
         MOTOR->DJI_3508_Shoot_L .DATA .Aim =  (ATTACK_V_PARAM.SPEED);
 				MOTOR->DJI_3508_Shoot_R .DATA .Aim = -( ATTACK_V_PARAM.SPEED);
@@ -443,6 +486,7 @@ void ATTACK_F_FIRE_Aim(MOTOR_Typdef *MOTOR,VT13_Typedef *VT13_DBUS)
 // 总控制函数
 void ATTACK_F_Ctl(VT13_Typedef *VT13_DBUS,MOTOR_Typdef *MOTOR)
 {
+	static_word(VT13_DBUS);
 //    if (!MOTOR[MOTOR_D_ATTACK_G].is_off[NOW] && MOTOR[MOTOR_D_ATTACK_G].is_off[LAST]) 
 //		{
 //        GM2006_demo//.DATA.AIM = MOTOR[MOTOR_D_ATTACK_G].DATA.ANGLE_INFINITE;
@@ -678,6 +722,27 @@ uint8_t ATTACK_F_JAM_Check(MOTOR_Typdef *MOTOR)
         return ROOT_READY;
     }
 }
+float last_G=0.0f;
+int abcdefg=0.0f;
+float qqqqqqq =0.0f;
+//标志位函数
+void static_word(VT13_Typedef *VT13_DBUS)
+{
+	
+	if(VT13_DBUS->KeyBoard .G==1&&last_G==0)
+	{
+		abcdefg+=1;
+	}
+	
+			last_G=VT13_DBUS->KeyBoard .G;
+	if(abcdefg%2==1)
+	{
+		qqqqqqq=1;
+	}
+	else 
+	{
+		qqqqqqq=0;
+	}
 
-
+}
 

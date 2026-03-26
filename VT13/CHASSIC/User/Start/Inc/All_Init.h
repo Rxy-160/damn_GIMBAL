@@ -32,6 +32,8 @@
 #include "music.h"
 #include "log.h"
 #include "Vision.h"
+#include "ui_interface.h"
+#include "ui_g.h"
 
 void Everying_Init(void);
 
@@ -65,6 +67,13 @@ extern struct CanCommunit_typedef CanCommunit_t;//Ë«°å
 
 
 extern CAPDATE_TYPDEF cap;//µçÈÝ
+
+
+extern float pitch_state;
+extern float fire_wheel_state;
+extern float shoot_sta;
+extern float vision_state;
+
 
 
 #endif

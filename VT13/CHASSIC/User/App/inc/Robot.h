@@ -9,6 +9,7 @@
 
 
 
+extern float xuanzhuan;
 
 
 void RobotTask(uint8_t mode,

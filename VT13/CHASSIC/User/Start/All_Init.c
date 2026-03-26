@@ -71,6 +71,12 @@ float voltage;
 //功率限制
 model_t model;
 
+
+float pitch_state;
+float fire_wheel_state;
+float shoot_sta;
+float vision_state;
+
 uint8_t flag2;
 void Everying_Init(void)
 {

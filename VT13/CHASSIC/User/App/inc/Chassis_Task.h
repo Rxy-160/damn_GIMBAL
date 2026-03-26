@@ -39,8 +39,11 @@ union gmTOch_typdef		//使用共用体整合数据
 		uint16_t S2:2;
 
 		uint16_t supUSe :1;			//是否使用电容
-		uint16_t topSate:1;		//陀螺仪状态
-		uint16_t target:1;
+		uint16_t pitch:1;		//陀螺仪状态
+		uint16_t fire_wheel:1;
+		uint16_t shoot:1;
+		uint16_t vision:1;
+
 //		uint16_t DBUS_state:1;
 	}dataNeaten;
 	//CAN发送的数据
@@ -55,8 +58,8 @@ union chTOgm_typdef		//使用共用体整合数据
 		float time;
 	}dataNeaten_angle;
 	struct{
-		uint64_t muzzleColing:16;	//枪口热量
-		uint64_t maxSpeed:8;	//最大射速
+		uint64_t heat_last:16;	//剩余热量
+		uint64_t huanchongnengliang:8;	//缓冲能量
 		uint64_t nowSpeed:8;	//当前射速
 		uint64_t target:1;	//是否识别成功标志位
 		uint64_t visionMod:3;		//视觉的状态
@@ -65,7 +68,7 @@ union chTOgm_typdef		//使用共用体整合数据
 		uint64_t :0;		//保留
 	}dataNeaten_another;
 	//CAN发送的数据
-	uint16_t sendData[4];
+	uint8_t sendData[4];
 //	uint8_t getData[8];
 };
 struct CanCommunit_typedef

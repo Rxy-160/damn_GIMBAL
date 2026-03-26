@@ -41,6 +41,7 @@ uint8_t MOTOR_PID_Shoot_INIT(MOTOR_Typdef *MOTOR);
 
 //float ATTACK_F_FireRate_Control(TYPEDEF_MOTOR *motor, float hz, uint8_t type);
 uint8_t ATTACK_F_HeatControl(MOTOR_Typdef *MOTOR, uint8_t type,User_Data_T *User_Data) ;
+void static_word(VT13_Typedef *VT13_DBUS);
 
 
 #endif

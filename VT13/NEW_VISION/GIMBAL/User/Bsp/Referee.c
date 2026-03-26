@@ -178,7 +178,7 @@ uint16_t Read_Data_system(ALL_RX_Data_T *ALL_RX_Data , User_Data_T *user_data)
 					user_data->power_heat_data.chassis_power_reserved       = ALL_RX_Data->RX_Data_power_heat_data.power_heat_data.chassis_power_reserved;
                     user_data->power_heat_data.buffer_energy                = ALL_RX_Data->RX_Data_power_heat_data.power_heat_data.buffer_energy;                    
                     user_data->power_heat_data.shooter_17mm_1_barrel_heat   = ALL_RX_Data->RX_Data_power_heat_data.power_heat_data.shooter_17mm_1_barrel_heat;
-                    user_data->power_heat_data.shooter_17mm_2_barrel_heat   = ALL_RX_Data->RX_Data_power_heat_data.power_heat_data.shooter_17mm_2_barrel_heat;
+//                    user_data->power_heat_data.shooter_17mm_2_barrel_heat   = ALL_RX_Data->RX_Data_power_heat_data.power_heat_data.shooter_17mm_2_barrel_heat;
                     user_data->power_heat_data.shooter_42mm_barrel_heat     = ALL_RX_Data->RX_Data_power_heat_data.power_heat_data.shooter_42mm_barrel_heat;
                 }
             }break;

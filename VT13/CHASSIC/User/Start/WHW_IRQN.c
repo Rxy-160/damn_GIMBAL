@@ -77,16 +77,9 @@ void StartRobotUITask(void const * argument)
 
     for (;;)
     {
-//        RobotUI_Dynamic(RUI_ROOT_STATUS.RM_DBUS,
-//                        RUI_V_CONTAL.SHOOT_Bask.Shoot_Number,
-//                        IMU_Data.pitch,
-//                        CAPDATE.GET.CAP_VOLT,
-//                        ALL_MOTOR.DJI_3508_Shoot_M.DATA.Angle_now,
-//                        ALL_MOTOR.DJI_3508_Shoot_L.DATA.Speed_now,
-//                        ALL_MOTOR.DJI_3508_Shoot_R.DATA.Speed_now,
-//                        &VISION_V_DATA);
+        RobotUI_Dynamic();
 
-        osDelayUntil(&currentTimeRobotUI, 40);
+        osDelay( 40);
     }
 }
 
@@ -148,12 +141,7 @@ void StartDefiantTask(void const * argument)
     for(;;)
     {
         /*电容*/
-        Power_CAP_CAN_TX(&hcan2, 0x252, &cap, &User_data);
-
-        /*发射*/
-//        RobotTask(4, &WHW_V_DBUS, &RUI_V_CONTAL, &User_data,
-//                  &CAPDATE, &VISION_V_DATA, &RUI_ROOT_STATUS, &ALL_MOTOR,&IMU_Data);
-        move_S = shoot_task(&RUI_V_CONTAL, &RUI_ROOT_STATUS,&ALL_MOTOR);
+        Power_CAP_CAN_TX(&hcan1, 0x252, &cap, &User_data);
 
         osDelayUntil(&currentTimeDefiant, 1);
     }
@@ -338,6 +326,7 @@ void BSP_UART_IRQHandler(UART_HandleTypeDef *huart)
 
     if(huart->Instance ==USART6)//裁判系统串口
     {
+						 Read_Data_first(&ALL_RX , &User_data , data_length_6);//测试函数：待修改
 
         if (RESET != __HAL_UART_GET_FLAG(&huart6, UART_FLAG_IDLE))
         {
@@ -346,11 +335,11 @@ void BSP_UART_IRQHandler(UART_HandleTypeDef *huart)
 					
             HAL_UART_DMAStop(&huart6);//暂时停止本次DMA传输，进行数据处理
 //            
-						 Read_Data_first(&ALL_RX , &User_data , data_length_6);//测试函数：待修改
-//            HAL_UART_Receive_DMA(&huart6,(uint8_t *)ALL_RX.Data,sizeof(ALL_RX.Data));  //重启开始DMA传输
 
             data_length_6  = BUFFER_SIZE_6 - __HAL_DMA_GET_COUNTER(&hdma_usart6_rx);//计算接收到的数据长度
 		    memset((uint8_t*)ALL_RX.Data,0,data_length_6);//清零接收缓冲区
+					            HAL_UART_Receive_DMA(&huart6,(uint8_t *)ALL_RX.Data,sizeof(ALL_RX.Data));  //重启开始DMA传输
+
         }
     }
 

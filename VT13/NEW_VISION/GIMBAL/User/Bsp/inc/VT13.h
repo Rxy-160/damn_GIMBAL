@@ -5,6 +5,9 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include "user_lib.h"
+#define RUI_VT_KEY_CLICK     1 // 点按
+#define RUI_VT_KEY_UP        0 // 松开
+#define RUI_VT_KEY_PRESS     2 // 长按
 
 typedef struct
 {

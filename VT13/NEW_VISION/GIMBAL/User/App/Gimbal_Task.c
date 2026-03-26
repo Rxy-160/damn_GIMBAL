@@ -22,7 +22,7 @@ uint8_t MOTOR_PID_Gimbal_INIT(MOTOR_Typdef *MOTOR,TD_t *TDDD)
 	  float PID_F_Pitch[3] = {   0.0f,   0.0f,   0.0f   };
 //    float PID_P_Pitch[3] = {   3.0f,   0.1f,   0.0f   };//{   2.0f,   0.004f,   0.0f   };
 //    float PID_S_Pitch[3] = {   /*150.0f*/67.0f,   0.3f,   0.0f   };//{   /*150.0f*/35.0f,   0.001f,   0.0f   };
-    float PID_P_Pitch[3] = {   1.5f,   0.1f,   0.0f   };//{   2.0f,   0.004f,   0.0f   };
+    float PID_P_Pitch[3] = {   3.0f,   1.0f,   0.0f   };//{   2.0f,   0.004f,   0.0f   };
     float PID_S_Pitch[3] = {   /*150.0f*/40.0f,   0.3f,   0.0f   };//{   /*150.0f*/35.0f,   0.001f,   0.0f   };
 
 		///////////////////////////////////////70
@@ -45,7 +45,7 @@ uint8_t MOTOR_PID_Gimbal_INIT(MOTOR_Typdef *MOTOR,TD_t *TDDD)
 //    float PID_P_Yaw[3] = {   2.6f,   4.0f,   0.0f   };//{   2.0f,   0.8f,   0.0f  };
 //    float PID_S_Yaw[3] = {   /*160.0f*/60,   0.1f,   0.3f   };//{   /*160.0f*/100,   0.0f,   0.0f    };
 		    float PID_F_Yaw[3] = {   0.0f,   0.0f,   0.0f   };
-    float PID_P_Yaw[3] = {   2.5f,   0.01f,   0.0f   };//{   2.0f,   0.8f,   0.0f  };
+    float PID_P_Yaw[3] = {   3.0f,   1.5f,   0.0f   };//{   2.0f,   0.8f,   0.0f  };
     float PID_S_Yaw[3] = {   /*160.0f*/45,   0.1f,   0.3f   };//{   /*160.0f*/100,   0.0f,   0.0f    };
 
 		////////////////////////////78
@@ -171,11 +171,11 @@ uint8_t gimbal_task(CONTAL_Typedef *CONTAL,
     {
 //			  MOTOR->m_dm4310_p_t  .PID_P .IntegralLimit =0;
 //			  MOTOR->m_dm4310_p_t  .PID_S .IntegralLimit =0;
-        MOTOR->m_dm4310_p_t .DATA.Aim = (float)IMU->pitch *22.7555556f - VT13_DBUS.Mouse.Y_Flt * 2.0f;
+        MOTOR->m_dm4310_p_t .DATA.Aim = (float)IMU->pitch *22.7555556f - VT13_DBUS.Mouse.Y_Flt * 0.7f;
 			
 //			  MOTOR->m_dm4310_y_t  .PID_P .IntegralLimit =0;
 //			  MOTOR->m_dm4310_y_t  .PID_S .IntegralLimit =0;
-        MOTOR->m_dm4310_y_t .DATA.Aim = (float)IMU->YawTotalAngle *22.7555556f -(RUI_F_MATH_Limit_float(1, -1, VT13_DBUS.Mouse.X_Flt * 0.3f) +(float) (VT13_DBUS.KeyBoard.E - VT13_DBUS.KeyBoard.Q)*2.8);
+        MOTOR->m_dm4310_y_t .DATA.Aim = (float)IMU->YawTotalAngle *22.7555556f -(RUI_F_MATH_Limit_float(1, -1, VT13_DBUS.Mouse.X_Flt * 1.3f) +(float) (VT13_DBUS.KeyBoard.E - VT13_DBUS.KeyBoard.Q)*2.8);
 			
 //				WHW_V_DBUS.Remote .S1_u8 =0;
 //				WHW_V_DBUS.Remote .S2_u8 =0;
@@ -218,7 +218,7 @@ uint8_t gimbal_task(CONTAL_Typedef *CONTAL,
     tmp_G[1] =/* MOTOR->m_dm4310_p_t .PID_F.Output*/ +
                MOTOR->m_dm4310_p_t .PID_S.Output;
 							 
-		dm4310_current_set(&hcan1,0x3FE,tmp_G[0],/*tmp_G[1]*//*-COS_pitch()*/0,0,0);
+		dm4310_current_set(&hcan1,0x3FE,tmp_G[0],tmp_G[1]/*-COS_pitch()*/,0,0);
 
     /*CAN发送*/
 //    DJI_Current_Ctrl(&hcan1,
@@ -256,37 +256,15 @@ uint8_t GimbalRXResolve(uint8_t * buff,uint16_t CANID)
 		CanCommunit_t.chTOgm.getData[6] = buff[6];
 		CanCommunit_t.chTOgm.getData[7] = buff[7];
 		
-//		if(CANID == df_CHControlAngle_ID && vision_boll == 1){	//处理角度信息
-//				visionData_t.receive.pitchAngle[df_now] = ((float)CanCommunit_t.chTOgm.dataNeaten_angle.pitch / 100.0f);
-//				visionData_t.receive.yawAngle[df_now] = ((float)CanCommunit_t.chTOgm.dataNeaten_angle.yaw / 100.0f);
-//				RunTime = (uint64_t)(CanCommunit_t.chTOgm.dataNeaten_angle.time);
-//		}
-//		else if(CANID == df_CHControlData_ID){	//其余数据处理
-//				//对裁判系统的处理
-//				if(CanCommunit_t.chTOgm.dataNeaten_another.judgeState){
-//						attack_t.muzzle.ammoNumber =CanCommunit_t.chTOgm.dataNeaten_another.muzzleColing / 100;//剩余弹量
-//						twoJudgeData.muzzle.maxShootSpeed = CanCommunit_t.chTOgm.dataNeaten_another.maxSpeed;		//最大射速
-//						
-//						twoJudgeData.muzzle.shootSpeed = CanCommunit_t.chTOgm.dataNeaten_another.nowSpeed;		//当前射速
-//						if( (attack_t.muzzle.adjustLock & 0x01) == 1){		//检测是否是自己上的锁
-//								attack_t.muzzle.adjustLock = df_unClock;		//射速检测开锁
-//						}
-//						root_t.judgeRoot.time = 0;
-//				}
-//				//对视觉的处理
-//				if(CanCommunit_t.chTOgm.dataNeaten_another.visionState){
-//						visionData_t.receive.target = CanCommunit_t.chTOgm.dataNeaten_another.target;		//识别状态
-//						visionData_t.receive.visionState = CanCommunit_t.chTOgm.dataNeaten_another.visionMod;	//视觉的模式
-//						vision_boll = 1;
-//						root_t.visionRoot.time = 0;
-//				}
-//				else{
-//						vision_boll = 0;
-//				}
-////				if(CanCommunit_t.chTOgm.dataNeaten_another.judgeState){
-////						
-////				}
-//		}
+	
+	
+	
+	
+	
+//剩余热量
+	heat_state=CanCommunit_t.chTOgm .dataNeaten_another .heat_last ;
+	//缓冲热量
+	huanchongnengliang =CanCommunit_t.chTOgm .dataNeaten_another .huanchongnengliang ;
 		return 0;
 }
 
@@ -316,33 +294,13 @@ uint8_t GimbalTXResovle( VT13_Typedef *VT13_DBUS)
 //		               ALL_MOTOR.DJI_3508_Shoot_M .DATA .Aim  ,
 //									 /*ALL_MOTOR.m_dm4310_p_t .DATA .Angle_now*/ALL_MOTOR.DJI_3508_Shoot_M .DATA.Angle_Infinite   );/*反馈电流是cur_int16*/
 
-		CanCommunit_t.gmTOch.dataNeaten.vx =  VT13_DBUS->Remote .Channel[0] *2+(VT13_DBUS->KeyBoard .D -VT13_DBUS->KeyBoard .A )*660;//1
+		CanCommunit_t.gmTOch.dataNeaten.vx =  VT13_DBUS->Remote .Channel[0] +(VT13_DBUS->KeyBoard .D -VT13_DBUS->KeyBoard .A )*330;//1
 //		CanCommunit_t.gmTOch.dataNeaten.vx += (DBUS->KeyBoard .W -DBUS->KeyBoard .S )*660;//gimbal_t.Keyboard.vx;//键鼠，还没加
-		CanCommunit_t.gmTOch.dataNeaten.vy =  VT13_DBUS->Remote .Channel[1] *2+(VT13_DBUS->KeyBoard .W -VT13_DBUS->KeyBoard .S )*660;//2
+		CanCommunit_t.gmTOch.dataNeaten.vy =  VT13_DBUS->Remote .Channel[1] +(VT13_DBUS->KeyBoard .W -VT13_DBUS->KeyBoard .S )*330;//2
 //		CanCommunit_t.gmTOch.dataNeaten.vy += (DBUS->KeyBoard .D -DBUS->KeyBoard .A )*660;//gimbal_t.Keyboard.vy;//
-		CanCommunit_t.gmTOch.dataNeaten.vr =  ((VT13_DBUS->Remote .wheel)*2-VT13_DBUS->KeyBoard .Shift *660);//3
+		CanCommunit_t.gmTOch.dataNeaten.vr =  ((VT13_DBUS->Remote .wheel)-VT13_DBUS->KeyBoard .Shift *220);//3
 //		CanCommunit_t.gmTOch.dataNeaten.vr += DBUS->KeyBoard .Shift *660;//gimbal_t.Keyboard.vr;//
-		
-		
-		
-		
-		////英雄
-		//狙击模式底盘上锁
-////		if(DBUS->KeyBoard .G_PreeNumber ==1 || DBUS->KeyBoard.B_PreeNumber ==1)
-////		{	
-////			CanCommunit_t.gmTOch.dataNeaten.vx=0;
-////			CanCommunit_t.gmTOch.dataNeaten.vy=0;
-////			CanCommunit_t.gmTOch.dataNeaten.vr=0;
-//////			chassisMod = 1;
-////		}
-////		
-////		//掉头模式底盘坐标系反转
-////		if(DBUS->KeyBoard .X_PreeNumber==1)
-////		{
-////			CanCommunit_t.gmTOch.dataNeaten.vx *= -1;
-////			CanCommunit_t.gmTOch.dataNeaten.vy *= -1;
-////		}
-		
+				
 		//键位赋值
 		CanCommunit_t.gmTOch.dataNeaten.key_f  = VT13_UNION.DataNeaten .KeyBoard_F ;
 		CanCommunit_t.gmTOch.dataNeaten.key_g  = VT13_UNION.DataNeaten .KeyBoard_G ;
@@ -355,10 +313,15 @@ uint8_t GimbalTXResovle( VT13_Typedef *VT13_DBUS)
 //		CanCommunit_t.gmTOch.dataNeaten.key_ctrl = VT13_UNION.DataNeaten .KeyBoard_Ctrl ;
 				CanCommunit_t .gmTOch .dataNeaten .romoteOnLine =RUI_ROOT_STATUS.RM_DBUS ;
 
-				CanCommunit_t.gmTOch .dataNeaten .S1 =VT13_DBUS->Remote .fn_1 ;
+		CanCommunit_t.gmTOch .dataNeaten .S1 =VT13_DBUS->Remote .fn_1 ;
 		CanCommunit_t.gmTOch .dataNeaten .S2 =VT13_DBUS->Remote .fn_2 ;
 
 		CanCommunit_t.gmTOch.dataNeaten.supUSe = VT13_DBUS->KeyBoard.C ;
+		CanCommunit_t.gmTOch .dataNeaten .pitch =IMU_Data.pitch;
+		CanCommunit_t.gmTOch.dataNeaten.fire_wheel=ATTACK_V_PARAM.fire_wheel_status ;
+
+		CanCommunit_t.gmTOch .dataNeaten .shoot =ATTACK_V_PARAM.COUNT ;
+		CanCommunit_t.gmTOch .dataNeaten.vision =RUI_V_CONTAL.MOD[0];
 //		CanCommunit_t.gmTOch.dataNeaten.chMod = chassisMod;
 //		CanCommunit_t.gmTOch.dataNeaten.romoteOnLine = remoteOnLine;
 //		CanCommunit_t.gmTOch.dataNeaten.topSate = topSate;

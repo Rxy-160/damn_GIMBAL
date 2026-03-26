@@ -2,6 +2,7 @@
 float monitor_X;
 float monitor_Y;
 float monitor_W;
+float xuanzhuan;
 void RobotTask(uint8_t mode,
                DBUS_Typedef *DBUS,
                CONTAL_Typedef *CONTAL,
@@ -42,9 +43,9 @@ void RobotTask(uint8_t mode,
             }
 
             /*目标值传递*/
-            CONTAL->BOTTOM.VY = (float) -( DBUS->Remote.CH0_int16 *2) ;//+ ( DBUS->KeyBoard.D - DBUS->KeyBoard.A ) * 660 );
-            CONTAL->BOTTOM.VX = (float) ( DBUS->Remote.CH1_int16 *2) ;//+ ( DBUS->KeyBoard.W - DBUS->KeyBoard.S ) * 660 );
-            CONTAL->BOTTOM.VW = (float) ( DBUS->Remote.Dial_int16 *2);// + DBUS->KeyBoard.Shift * 660 );
+            CONTAL->BOTTOM.VY = (float) -( DBUS->Remote.CH0_int16 ) ;//+ ( DBUS->KeyBoard.D - DBUS->KeyBoard.A ) * 660 );
+            CONTAL->BOTTOM.VX = (float) ( DBUS->Remote.CH1_int16  ) ;//+ ( DBUS->KeyBoard.W - DBUS->KeyBoard.S ) * 660 );
+            CONTAL->BOTTOM.VW = (float) ( DBUS->Remote.Dial_int16 *1.5);// + DBUS->KeyBoard.Shift * 660 );
 						
 						
 
@@ -69,6 +70,10 @@ void RobotTask(uint8_t mode,
 						monitor_Y=CONTAL->BOTTOM.VY;
 						monitor_W=CONTAL->BOTTOM.VW;
             }
+						if(CONTAL->BOTTOM .VW !=0)
+						{
+							xuanzhuan=1;
+						}
 //            else
 //            {
 //                SLOW_START = 0.0f;
@@ -141,7 +146,7 @@ void RobotTask(uint8_t mode,
 
             /*全向轮解算*/
             CONTAL->BOTTOM.wheel3 = (-ROTATED_VX + ROTATED_VY)+ (CONTAL->BOTTOM.VW*0.5  + FIX_ANGLE + RUI_V_FOLLOW_PREDICT);
-            CONTAL->BOTTOM.wheel4 = (ROTATED_VX + ROTATED_VY)+ (CONTAL->BOTTOM.VW*0.5  + FIX_ANGLE + RUI_V_FOLLOW_PREDICT);
+            CONTAL->BOTTOM.wheel4 = (ROTATED_VX + ROTATED_VY)+ (CONTAL->BOTTOM.VW*0.5 + FIX_ANGLE + RUI_V_FOLLOW_PREDICT);
             CONTAL->BOTTOM.wheel1 = (ROTATED_VX - ROTATED_VY) + (CONTAL->BOTTOM.VW*0.5  + FIX_ANGLE + RUI_V_FOLLOW_PREDICT);
             CONTAL->BOTTOM.wheel2 = (-ROTATED_VX - ROTATED_VY) + (CONTAL->BOTTOM.VW*0.5  + FIX_ANGLE + RUI_V_FOLLOW_PREDICT);
             
@@ -166,17 +171,17 @@ void RobotTask(uint8_t mode,
                
 //                if(DBUS->Remote .S1_u8 ==1||DBUS->Remote .S1_u8 ==2)
 //								{
-									CONTAL->MOD[0] = 1;//云台模式切换///////手瞄模式
-                CONTAL->HEAD.Pitch -= (float) (DBUS->Remote.CH3_int16) * 0.002f +
-                                      DBUS->Mouse.Y_Flt * 0.01f;
+//									CONTAL->MOD[0] = 1;//云台模式切换///////手瞄模式
+//                CONTAL->HEAD.Pitch -= (float) (DBUS->Remote.CH3_int16) * 0.002f +
+//                                      DBUS->Mouse.Y_Flt * 0.01f;
 
-                CONTAL->HEAD.Pitch = RUI_F_MATH_Limit_float(CONTAL->HEAD.Pitch_MAX,
-                                                            CONTAL->HEAD.Pitch_MIN,
-                                                            CONTAL->HEAD.Pitch);
+//                CONTAL->HEAD.Pitch = RUI_F_MATH_Limit_float(CONTAL->HEAD.Pitch_MAX,
+//                                                            CONTAL->HEAD.Pitch_MIN,
+//                                                            CONTAL->HEAD.Pitch);
 
-                CONTAL->HEAD.Yaw  -= (float) (DBUS->Remote.CH2_int16) * 0.02f +
-                                    RUI_F_MATH_Limit_float(1, -1, DBUS->Mouse.X_Flt * 0.01f) +
-                                    (float) (DBUS->KeyBoard.E - DBUS->KeyBoard.Q);
+//                CONTAL->HEAD.Yaw  -= (float) (DBUS->Remote.CH2_int16) * 0.02f +
+//                                    RUI_F_MATH_Limit_float(1, -1, DBUS->Mouse.X_Flt * 0.01f) +
+//                                    (float) (DBUS->KeyBoard.E - DBUS->KeyBoard.Q);
 								                
 //								}
 //								else if(DBUS->Remote .S1_u8 ==3)

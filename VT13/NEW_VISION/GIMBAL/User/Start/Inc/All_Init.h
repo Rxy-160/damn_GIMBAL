@@ -77,5 +77,10 @@ extern VT13_UNION_Typdef VT13_UNION ;
 
 extern struct gimbal_typedef gimbal_t;
 
+extern float vision_state;
+
+extern float heat_state;
+extern float huanchongnengliang;
+
 
 #endif

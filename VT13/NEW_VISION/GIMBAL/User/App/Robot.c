@@ -48,9 +48,9 @@ void RobotTask(uint8_t mode,
             }
 
             /*目标值传递*/
-            CONTAL->BOTTOM.VY = (float) -(( VT13_DBUS->Remote.Channel [0]*6 ) + ( VT13_DBUS->KeyBoard.D - VT13_DBUS->KeyBoard.A ) * 660 );
-            CONTAL->BOTTOM.VX = (float) -(( VT13_DBUS->Remote.Channel [1]*6 ) + ( VT13_DBUS->KeyBoard.W - VT13_DBUS->KeyBoard.S ) * 660 );
-            CONTAL->BOTTOM.VW = (float) -(( VT13_DBUS->Remote.wheel  *6) + VT13_DBUS->KeyBoard.Shift * 660 );
+            CONTAL->BOTTOM.VY = (float) -(( VT13_DBUS->Remote.Channel [0]*3 ) + ( VT13_DBUS->KeyBoard.D - VT13_DBUS->KeyBoard.A ) * 660 );
+            CONTAL->BOTTOM.VX = (float) -(( VT13_DBUS->Remote.Channel [1]*3 ) + ( VT13_DBUS->KeyBoard.W - VT13_DBUS->KeyBoard.S ) * 660 );
+            CONTAL->BOTTOM.VW = (float) -(( VT13_DBUS->Remote.wheel  *2) + VT13_DBUS->KeyBoard.Shift * 330 );
 						
             /*缓启动*/
 //            if(CONTAL->BOTTOM.VX != 0 || CONTAL->BOTTOM.VY != 0 || CONTAL->BOTTOM.VW != 0)
@@ -81,38 +81,24 @@ void RobotTask(uint8_t mode,
 
         case 2://云台
         {
-//            if(DBUS->Mouse.R_State & (int8_t) Vision->Target)//自瞄
-//            {
-//                
-
-//                CONTAL->HEAD.Pitch = Vision->PitchAngle * 22.7555556f;
-
-//                CONTAL->HEAD.Pitch = 100;//RUI_F_MATH_Limit_float(CONTAL->HEAD.Pitch_MAX,
-//                                                           // CONTAL->HEAD.Pitch_MIN,
-//                                                           // CONTAL->HEAD.Pitch);
-
-//                CONTAL->HEAD.Yaw = Vision->YawAngle * 22.7555556f;
-//            }
-//            else//手瞄
-//            {
                
-                if(VT13_DBUS->Remote .mode_sw ==0||(VT13_DBUS->KeyBoard .Ctrl ==0&&VT13_DBUS->Remote .mode_sw ==1))
+                if(VT13_DBUS->Remote .mode_sw ==0||(VT13_DBUS->Mouse.R_State ==0&&VT13_DBUS->Remote .mode_sw ==1))
 								{
-									CONTAL->MOD[0] = 1;//云台模式切换///////手瞄模式
-                CONTAL->HEAD.Pitch -= (float) (VT13_DBUS->Remote.Channel [3]) * 0.04f +
-                                      VT13_DBUS->Mouse.Y_Flt * 0.3f;
+									CONTAL->MOD[0] = 0;//云台模式切换///////手瞄模式
+                CONTAL->HEAD.Pitch -= (float) (VT13_DBUS->Remote.Channel [3]) * 0.006f +
+                                      VT13_DBUS->Mouse.Y_Flt * 0.13f;
 
                 CONTAL->HEAD.Pitch = RUI_F_MATH_Limit_float(CONTAL->HEAD.Pitch_MAX,
                                                             CONTAL->HEAD.Pitch_MIN,
                                                             CONTAL->HEAD.Pitch);
 
                 CONTAL->HEAD.Yaw  -= (float) (VT13_DBUS->Remote.Channel [2]) * 0.006f +
-                                    RUI_F_MATH_Limit_float(1, -1, VT13_DBUS->Mouse.X_Flt * 0.5f) +
+                                    RUI_F_MATH_Limit_float(1, -1, VT13_DBUS->Mouse.X_Flt * 1.0f) +
                                     (float) (VT13_DBUS->KeyBoard.E - VT13_DBUS->KeyBoard.Q)*2.8;
 								}
-								else if(VT13_DBUS->Remote .mode_sw ==2||VT13_DBUS->KeyBoard .Ctrl ==1)
+								else if(VT13_DBUS->Remote .mode_sw ==2||VT13_DBUS->Mouse.R_State ==2)
 								{
-									CONTAL->MOD[0] = 0;//云台模式切换/////////////////////自瞄模式
+									CONTAL->MOD[0] = 1;//云台模式切换/////////////////////自瞄模式
 									//改视觉模式极性
 									if(Vision->RECEIVE  .TARGET ==1)
 									{		

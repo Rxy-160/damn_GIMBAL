@@ -126,8 +126,8 @@ void StartMoveTask(void const * argument)
 
 //    //Pitch轴限幅
 ////	/////////注意p轴初始化
-    RUI_V_CONTAL.HEAD.Pitch_MAX = 548.411;
-    RUI_V_CONTAL.HEAD.Pitch_MIN = -321.443;
+    RUI_V_CONTAL.HEAD.Pitch_MAX = 241.86;
+    RUI_V_CONTAL.HEAD.Pitch_MIN = -265.79;
     for (;;)
     {
         /*底盘*/
@@ -276,32 +276,14 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef* hcan)
 		//CAN1
 		switch (can_rx.StdId)
 		{
-//            case 0x205://拨弹
-//                RUI_F_MOTOR_CAN_RX_3508RM(&ALL_MOTOR.DJI_3508_Shoot_M.DATA, rx_data);
-//				memcpy(test, rx_data, 8);
-//                break;
 
-//            case 0x202://摩擦轮左
-//                RUI_F_MOTOR_CAN_RX_3508RM(&ALL_MOTOR.DJI_3508_Shoot_L.DATA, rx_data);
-//                break;
-
-//            case 0x205://摩擦轮右
-////                RUI_F_MOTOR_CAN_RX_3508RM(&ALL_MOTOR.DJI_3508_Shoot_R.DATA, rx_data);
-//						                WHW_F_MOTOR_CAN_RX_6020RM(&ALL_MOTOR.m_dm4310_y_t, rx_data);
-
-//                break;
             case 0x301://云台Yaw
 						    dm4310_RXdata(&ALL_MOTOR.m_dm4310_y_t,rx_data);
                 break;
 
             case 0x302://云台Pitch
                 dm4310_RXdata(&ALL_MOTOR.m_dm4310_p_t, rx_data);
-//								dm4310_fbdata(&ALL_MOTOR.m_dm4310_p_t ,rx_data);
-//					                WHW_F_MOTOR_CAN_RX_6020RM(&ALL_MOTOR.DJI_6020_Yaw.DATA, rx_data);
                 break;
-//            case 0x07:
-//							dm4310_fbdata(&ALL_MOTOR.m_dm4310_p_t.DATA,rx_data);
-//						break;
 //						////双板 
 						case CHASSIC_kong:
              GimbalRXResolve(rx_data,CHASSIC_kong);
@@ -327,13 +309,6 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef* hcan)
                 break;
 
 
-//            case 0x204://底盘4
-//                RUI_F_MOTOR_CAN_RX_3508RM(&ALL_MOTOR.DJI_3508_Chassis_4.DATA, rx_data);
-//                break;
-
-//            case 0x308://电容
-//                Power_CAP_CAN_RX(&CAPDATE, rx_data);
-//                break;
         }
 	}
 }

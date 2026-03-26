@@ -79,6 +79,9 @@ model_t model;
 
 uint8_t flag2;
 
+
+float vision_state;
+
 struct CanCommunit_typedef CanCommunit_t;
     DBUS_UNION_Typdef RUI_V_DBUS_UNION = { 0 };
 				VT13_UNION_Typdef VT13_UNION = {0};
@@ -88,7 +91,8 @@ struct CanCommunit_typedef CanCommunit_t;
 TYPEDEF_VISION VISION_V_DATA = {0};////普通视觉
 // VisionRxDataUnion VISION_V_DATA ;////加预测视觉
 
-
+float heat_state;
+float huanchongnengliang;
 void Everying_Init(void)
 {
     //DWT初始化

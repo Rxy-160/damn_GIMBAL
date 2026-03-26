@@ -1,4 +1,7 @@
-horizon_infantry/all_init.o: ..\User\Start\All_Init.c \
+horizon_infantry/ui_g.o: ..\User\UI\ui_g.c \
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\string.h ..\User\UI\ui_interface.h \
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\stdio.h ..\User\UI\ui_types.h \
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\stdint.h \
   ..\User\Start\Inc\All_Init.h ..\User\Bsp\inc\can_bsp.h \
   ..\Core\Inc\can.h ..\Core\Inc\main.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
@@ -8,7 +11,6 @@ horizon_infantry/all_init.o: ..\User\Start\All_Init.c \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f407xx.h \
   ..\Drivers\CMSIS\Include\core_cm4.h \
-  D:\Keil\ARM\ARMCLANG\Bin\..\include\stdint.h \
   ..\Drivers\CMSIS\Include\cmsis_version.h \
   ..\Drivers\CMSIS\Include\cmsis_compiler.h \
   ..\Drivers\CMSIS\Include\cmsis_armclang.h \
@@ -42,7 +44,6 @@ horizon_infantry/all_init.o: ..\User\Start\All_Init.c \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pcd.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_ll_usb.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pcd_ex.h \
-  D:\Keil\ARM\ARMCLANG\Bin\..\include\string.h \
   ..\User\Start\Inc\MY_define.h ..\User\Bsp\inc\bsp_dwt.h \
   ..\Core\Inc\tim.h ..\Core\Inc\usart.h ..\User\Bsp\inc\RUI_DBUS.h \
   ..\User\Algorithm\inc\RUI_MATH.h ..\Core\Inc\gpio.h \
@@ -104,11 +105,9 @@ horizon_infantry/all_init.o: ..\User\Start\All_Init.c \
   ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ioreq.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_def.h \
   ..\USB_DEVICE\Target\usbd_conf.h \
-  D:\Keil\ARM\ARMCLANG\Bin\..\include\stdio.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_core.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ctlreq.h \
   D:\Keil\ARM\ARMCLANG\Bin\..\include\stdbool.h ..\User\UI\ui_g.h \
-  ..\User\UI\ui_interface.h ..\User\UI\ui_types.h \
   ..\User\App\inc\Robot.h ..\User\Bsp\inc\CANSPI.h ..\Core\Inc\spi.h \
   ..\User\Bsp\inc\MCP2515.h ..\USB_DEVICE\App\usb_device.h \
   ..\User\Bsp\inc\music.h ..\User\Start\Inc\log.h \

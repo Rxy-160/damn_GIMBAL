@@ -255,10 +255,10 @@ uint8_t chassis_power_control(CONTAL_Typedef *RUI_V_CONTAL_V,
     float chassis_power_buffer = usr_data->power_heat_data.buffer_energy;	// 得到缓冲能量
 
     /*没电容时开启*/     //                           缓冲能量？
-    PID_buffer(&model->PID_Buffer, chassis_power_buffer, 25);  // 缓冲能量闭环
+    PID_buffer(&model->PID_Buffer, chassis_power_buffer, 30);  // 缓冲能量闭环
 		
 ///裁判系统输入功率      最大功率限制（裁）- 缓冲能量闭环输出
-    input_power = (float)max_power_limit - model->PID_Buffer.All_out;  // 加入缓冲能量
+    input_power = (float)max_power_limit ;//- model->PID_Buffer.All_out;  // 加入缓冲能量
 ///////////////电容电压           电容电压最低阈值
     if(CAP_GET->capVolt     >     (float)capValt     )
     {
@@ -269,7 +269,10 @@ uint8_t chassis_power_control(CONTAL_Typedef *RUI_V_CONTAL_V,
         }else
         {
             // 开启电容
+//					if(CanCommunit_t.gmTOch .dataNeaten .key_v ==1)
+//					{
             chassis_max_power = input_power + (float)SuperMaxPower;
+//					}
         }
     }
     else
@@ -298,19 +301,6 @@ uint8_t chassis_power_control(CONTAL_Typedef *RUI_V_CONTAL_V,
     I_cmd[2] = MOTOR->DJI_3508_Chassis_3.PID_S.Output;
     I_cmd[3] = MOTOR->DJI_3508_Chassis_4.PID_S.Output;
 //////////    if (initial_total_power > chassis_max_power) // 确定是否大于最大功率
-//////////			{                   //     最大功率        /总功       （<1）
-//////////        float power_scale = chassis_max_power / initial_total_power;
-
-//////////        for(uint8_t i = 0; i < 4; i++)
-//////////        {
-//////////            model->scaled_give_power[i] = initial_give_power[i] * power_scale; // 获得缩放功率
-//////////        }
-
-//////////        //对每个电机分别进行功率限制
-//////////        chassis_power_limit(&MOTOR->DJI_3508_Chassis_1, 1, model);
-//////////        chassis_power_limit(&MOTOR->DJI_3508_Chassis_2, 2, model);
-//////////        chassis_power_limit(&MOTOR->DJI_3508_Chassis_3, 3, model);
-//////////        chassis_power_limit(&MOTOR->DJI_3508_Chassis_4, 4, model);
 //////////    }
  DJI_MOTOR_Typedef *motor_ptr[4] = {
         &MOTOR->DJI_3508_Chassis_1,

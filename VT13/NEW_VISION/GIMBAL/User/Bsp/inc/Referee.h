@@ -173,7 +173,7 @@ typedef struct __packed
     float chassis_power_reserved;                    //底盘功率（单位：W）
     uint16_t buffer_energy;                 //缓冲能量（单位：J）
     uint16_t shooter_17mm_1_barrel_heat;    //第 1 个 17mm 发射机构的枪口热量
-    uint16_t shooter_17mm_2_barrel_heat;    //第 2 个 17mm 发射机构的枪口热量 
+//    uint16_t shooter_17mm_2_barrel_heat;    //第 2 个 17mm 发射机构的枪口热量 
     uint16_t shooter_42mm_barrel_heat;      //42mm 发射机构的枪口热量 
 
 }power_heat_data_t;

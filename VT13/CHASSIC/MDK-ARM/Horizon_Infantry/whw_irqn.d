@@ -107,14 +107,8 @@ horizon_infantry/whw_irqn.o: ..\User\Start\WHW_IRQN.c \
   D:\Keil\ARM\ARMCLANG\Bin\..\include\stdio.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_core.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ctlreq.h \
-  D:\Keil\ARM\ARMCLANG\Bin\..\include\stdbool.h ..\User\UI\ui.h \
+  D:\Keil\ARM\ARMCLANG\Bin\..\include\stdbool.h ..\User\UI\ui_g.h \
   ..\User\UI\ui_interface.h ..\User\UI\ui_types.h \
-  ..\User\UI\ui_default_init0_0.h ..\User\UI\ui_default_init0_1.h \
-  ..\User\UI\ui_default_init0_2.h ..\User\UI\ui_default_init1_0.h \
-  ..\User\UI\ui_default_init2_0.h ..\User\UI\ui_default_init3_0.h \
-  ..\User\UI\ui_default_init4_0.h ..\User\UI\ui_default_init5_0.h \
-  ..\User\UI\ui_default_init5_1.h ..\User\UI\ui_default_init5_2.h \
-  ..\User\UI\ui_default_init5_3.h ..\User\UI\ui_default_init6_0.h \
   ..\User\App\inc\Robot.h ..\User\Bsp\inc\CANSPI.h ..\Core\Inc\spi.h \
   ..\User\Bsp\inc\MCP2515.h ..\USB_DEVICE\App\usb_device.h \
   ..\User\Bsp\inc\music.h ..\User\Start\Inc\log.h \

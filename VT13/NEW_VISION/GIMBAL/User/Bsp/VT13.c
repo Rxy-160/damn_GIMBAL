@@ -341,11 +341,11 @@ uint8_t VT_F_KEY_STATUS(uint64_t  KEY , uint8_t PRESS_TIME)
 		if (PRESS_TIME <= 20)
 		{
 			PRESS_TIME++;
-			return RUI_DF_KEY_CLICK;
+			return RUI_DF_KEY_CLICK; //短按1
 		}
 		else
 		{
-			return  RUI_DF_KEY_PRESS; // 长按
+			return  RUI_DF_KEY_PRESS; // 长按 2
 		}
 	}
 	else
