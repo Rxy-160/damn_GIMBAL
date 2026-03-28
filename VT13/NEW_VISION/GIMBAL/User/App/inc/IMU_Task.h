@@ -22,7 +22,7 @@ typedef struct
 	float roll;
 	float yaw;
     float YawTotalAngle;
-
+	float guolingjiesuan_yaw;
     uint8_t attitude_flag;
     uint32_t correct_times;
 }IMU_Data_t;

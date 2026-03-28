@@ -2,7 +2,7 @@
 
 void Power_control_init(model_t *model)
 {
-    model->PID_Buffer.Kp = 2;
+    model->PID_Buffer.Kp = 2.0;
     model->PID_Buffer.Ki = 0;
     model->PID_Buffer.Kd = 0;
     model->PID_Buffer.ILt = 0;

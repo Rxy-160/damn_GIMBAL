@@ -460,35 +460,35 @@ void ui_init_g_1() {
     _ui_init_g_1_0();
     _ui_init_g_1_1();
     _ui_init_g_1_2();
-//    _ui_init_g_1_3();
-//    _ui_init_g_1_4();
-//    _ui_init_g_1_5();
-//    _ui_init_g_1_6();
-//    _ui_init_g_1_7();
-//    _ui_init_g_1_8();
+    _ui_init_g_1_3();
+    _ui_init_g_1_4();
+    _ui_init_g_1_5();
+    _ui_init_g_1_6();
+    _ui_init_g_1_7();
+    _ui_init_g_1_8();
 }
 
 void ui_update_g_1() {
     _ui_update_g_1_0();
     _ui_update_g_1_1();
     _ui_update_g_1_2();
-//    _ui_update_g_1_3();
-//    _ui_update_g_1_4();
-//    _ui_update_g_1_5();
-//    _ui_update_g_1_6();
-//    _ui_update_g_1_7();
-//    _ui_update_g_1_8();
+    _ui_update_g_1_3();
+    _ui_update_g_1_4();
+    _ui_update_g_1_5();
+    _ui_update_g_1_6();
+    _ui_update_g_1_7();
+    _ui_update_g_1_8();
 }
 
 void ui_remove_g_1() {
     _ui_remove_g_1_0();
     _ui_remove_g_1_1();
     _ui_remove_g_1_2();
-//    _ui_remove_g_1_3();
-//    _ui_remove_g_1_4();
-//    _ui_remove_g_1_5();
-//    _ui_remove_g_1_6();
-//    _ui_remove_g_1_7();
-//    _ui_remove_g_1_8();
+    _ui_remove_g_1_3();
+    _ui_remove_g_1_4();
+    _ui_remove_g_1_5();
+    _ui_remove_g_1_6();
+    _ui_remove_g_1_7();
+    _ui_remove_g_1_8();
 }
 

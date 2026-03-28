@@ -5,6 +5,7 @@ float monitor_W;
 float yaw_TD;
 float pitch_TD;
 static float counttt=0.0f;
+float VISION_connect;
 void RobotTask(uint8_t mode,
                DBUS_Typedef *DBUS,
                CONTAL_Typedef *CONTAL,
@@ -81,63 +82,45 @@ void RobotTask(uint8_t mode,
 
         case 2://云台
         {
+					VISION_connect=Vision->RECEIVE .YAW_DATA-360.0f * QEKF_INS.YawRoundCount;
                
-                if(VT13_DBUS->Remote .mode_sw ==0||(VT13_DBUS->Mouse.R_State ==0&&VT13_DBUS->Remote .mode_sw ==1))
+                if((VT13_DBUS->Remote .mode_sw ==0&&VT13_DBUS->Remote .pause ==0)||(VT13_DBUS->Mouse.R_State ==0&&VT13_DBUS->Remote .mode_sw ==1))
 								{
 									CONTAL->MOD[0] = 0;//云台模式切换///////手瞄模式
                 CONTAL->HEAD.Pitch -= (float) (VT13_DBUS->Remote.Channel [3]) * 0.006f +
-                                      VT13_DBUS->Mouse.Y_Flt * 0.13f;
+                                      VT13_DBUS->Mouse.Y_Flt * 1.6f;
 
                 CONTAL->HEAD.Pitch = RUI_F_MATH_Limit_float(CONTAL->HEAD.Pitch_MAX,
                                                             CONTAL->HEAD.Pitch_MIN,
                                                             CONTAL->HEAD.Pitch);
 
                 CONTAL->HEAD.Yaw  -= (float) (VT13_DBUS->Remote.Channel [2]) * 0.006f +
-                                    RUI_F_MATH_Limit_float(1, -1, VT13_DBUS->Mouse.X_Flt * 1.0f) +
-                                    (float) (VT13_DBUS->KeyBoard.E - VT13_DBUS->KeyBoard.Q)*2.8;
+                                    RUI_F_MATH_Limit_float(3.0, -3.0, VT13_DBUS->Mouse.X_Flt * 2.1f) +
+                                    (float) (VT13_DBUS->KeyBoard.E - VT13_DBUS->KeyBoard.Q)*4.0f;
 								}
-								else if(VT13_DBUS->Remote .mode_sw ==2||VT13_DBUS->Mouse.R_State ==2)
+								else if(VT13_DBUS->Remote .mode_sw ==2||VT13_DBUS->Mouse.R_State ==2||VT13_DBUS->Mouse .R_State ==1||VT13_DBUS->Remote .pause ==1)
 								{
 									CONTAL->MOD[0] = 1;//云台模式切换/////////////////////自瞄模式
 									//改视觉模式极性
 									if(Vision->RECEIVE  .TARGET ==1)
 									{		
 									counttt++;
-										if(counttt>500)
+										if(counttt>450)
 										{
-//											yaw_TD=TD_Calculate(TDDD, (-Vision->RECEIVE .YAW_DATA   *22.75555555555556f));
-//												pitch_TD=TD_Calculate(TDDD, (-Vision->RECEIVE .PIT_DATA  *22.75555555555556f));
-//											if((-Vision->RECEIVE .PIT_DATA ) - (IMU_Data->pitch ) <=20 )
-//											{
-												CONTAL->HEAD.Pitch =/*-7.1*22.755555555555 ; *//*pitch_TD;*/ (-Vision->RECEIVE  .PIT_DATA   *22.75555555555556f)+Vision->RECEIVE .Pitch_plan* 0.001f*7.0f/360.0f; 
+												CONTAL->HEAD.Pitch =/*-7.1*22.755555555555 ; *//*pitch_TD;*/ (-Vision->RECEIVE  .PIT_DATA *22.75555555555556f);//+Vision->RECEIVE .Pitch_plan* 0.001f*7.0f/360.0f; 
 		//										RUI_F_MATH_Limit_float(CONTAL->HEAD.Pitch_MAX,
 		//																						CONTAL->HEAD.Pitch_MIN,
-		//																						Vision->RECEIVE .PIT_DATA  *22.75555555555556f);
-//											}
-//											else if((-Vision->RECEIVE .PIT_DATA ) - (IMU_Data->pitch ) >20 )
 //											{
-//												CONTAL->HEAD.Pitch =IMU_Data->pitch *22.7555555555555;
-//											}
+												CONTAL->HEAD .Yaw  = /*yaw_TD; *//*-0.08*22.75555555555555;*/ (-( VISION_connect )*22.75555555555556f);
 
-//											if((-Vision->RECEIVE .YAW_DATA  ) - (IMU_Data->YawTotalAngle ) <=35 )
-//											{
-												CONTAL->HEAD .Yaw   = /*yaw_TD; *//*-0.08*22.75555555555555;*/ (-Vision->RECEIVE .YAW_DATA *22.75555555555556f)+Vision->RECEIVE .Yaw_plan * 0.001f*7.0f/360.0f;
-//											}
-//											else if((-Vision->RECEIVE .YAW_DATA  ) - (IMU_Data->YawTotalAngle ) >35 )
-//											{
-//												CONTAL->HEAD .Yaw   =IMU_Data->YawTotalAngle *22.7555555555555;
-//											}
-											
-											
+//											
 										}
 
 									}
-//								else if(Vision->RECEIVE .TARGET ==0)
-//									{
-//											CONTAL->HEAD .Pitch =-5.1 *22.7555555555555;//IMU_Data->pitch *22.75555555555556f;
-//											CONTAL->HEAD .Yaw =IMU_Data ->YawTotalAngle*22.75555555555556f ;
-//									}
+//
+
 								}
+								
 //            }
 
         } break;

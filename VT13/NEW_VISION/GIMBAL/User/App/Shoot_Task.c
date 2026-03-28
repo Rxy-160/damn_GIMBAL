@@ -317,7 +317,7 @@ void ATTACK_F_JAM_Aim(MOTOR_Typdef *MOTOR, VT13_Typedef *VT13_DBUS, uint8_t auto
 		
     // 连发模式处理      
 //		1         遥控的连发模式                        视觉自动开火                                                                   键鼠左键长按
-    else if (VT13_DBUS->Remote .fn_2 == 1 ||(VT13_DBUS->Remote .fn_2 ==0&&VISION_V_DATA.RECEIVE .fire ==1)|| (VT13_DBUS->Mouse .R_State  == 0&&VT13_DBUS->Mouse .L_State  == 2))
+    else if (VT13_DBUS->Remote .fn_2 == 1 ||(VT13_DBUS->Mouse .R_State ==2&&VISION_V_DATA.RECEIVE .fire ==1)|| (VT13_DBUS->Mouse .R_State  == 0&&VT13_DBUS->Mouse .L_State  == 2))
     {
         ATTACK_V_PARAM.COUNT = 1;  // 持续小量增加目标角度，形成连续转动
     }
@@ -330,57 +330,57 @@ void ATTACK_F_JAM_Aim(MOTOR_Typdef *MOTOR, VT13_Typedef *VT13_DBUS, uint8_t auto
     // 计算新的电机目标角度                              摩擦轮开启
     if (ATTACK_V_PARAM.COUNT > 0 && ATTACK_V_PARAM.fire_wheel_status /*&& MOTOR->DATA.ENABLE*/) // @debug  
     {
-			//////在视觉模式与手控模式的简略火控
-			if (RUI_V_CONTAL.MOD [0]==1)//视觉模式
-			{
+//			//////在视觉模式与手控模式的简略火控
+//			if ((RUI_V_CONTAL.MOD [0]==1 ||VT13_DBUS->Mouse .R_State ==2)&& VISION_V_DATA.RECEIVE .fire ==1)//视觉模式
+//			{
+//				if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last >200)
+//				{
+//					MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/55000;//15000---实际4400rpm   7.333333hz
+//				}
+//				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=200&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >140)
+//				{
+//				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/40000;//15000---实际4400rpm   7.333333hz
+//				}
+//				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=140&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >70)
+//				{
+//				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/35000;//15000---实际4400rpm   7.333333hz
+//				}
+//				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=70&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >30)
+//				{
+//				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/14000;//15000---实际4400rpm   7.333333hz
+//				}	
+//				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=13)////停留在当前位置
+//				{
+//				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite;//15000---实际4400rpm   7.333333hz
+//				}	
+//				
+
+//			}
+//			else if(RUI_V_CONTAL.MOD [0]==0)//手控模式
+//			{
 				if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last >200)
 				{
-					MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/55000;//15000---实际4400rpm   7.333333hz
+					MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/60000;//15000---实际4400rpm   7.333333hz
 				}
-				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=200&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >140)
+				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=200&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >170)
 				{
 				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/40000;//15000---实际4400rpm   7.333333hz
 				}
-				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=140&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >70)
+				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=170&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >120)
 				{
-				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/35000;//15000---实际4400rpm   7.333333hz
+				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/20000;//15000---实际4400rpm   7.333333hz
 				}
-				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=70&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >30)
+				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=120&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >40 )
 				{
-				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/14000;//15000---实际4400rpm   7.333333hz
+				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/8000;//15000---实际4400rpm   7.333333hz
 				}	
-				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=13)////停留在当前位置
+				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=40)///停留在当前位置
 				{
 				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite;//15000---实际4400rpm   7.333333hz
 				}	
 				
 
-			}
-			else if(RUI_V_CONTAL.MOD [0]==0)//手控模式
-			{
-				if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last >200)
-				{
-					MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/55000;//15000---实际4400rpm   7.333333hz
-				}
-				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=200&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >140)
-				{
-				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/40000;//15000---实际4400rpm   7.333333hz
-				}
-				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=140&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >70)
-				{
-				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/35000;//15000---实际4400rpm   7.333333hz
-				}
-				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=70&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >12)
-				{
-				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/14000;//15000---实际4400rpm   7.333333hz
-				}	
-				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=13)///停留在当前位置
-				{
-				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite;//15000---实际4400rpm   7.333333hz
-				}	
-				
-
-			}
+//			}
 																																																					//		30000	  		5800			9.66666				
 																																																													 //     50000    ---实际8000rpm   13.33333hz
 			

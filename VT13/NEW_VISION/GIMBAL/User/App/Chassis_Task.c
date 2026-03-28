@@ -208,27 +208,6 @@ uint8_t chassis_task(CONTAL_Typedef *CONTAL,
                   (float)MOTOR->DJI_3508_Chassis_2.DATA.Speed_now,
                   MOTOR->DJI_3508_Chassis_2.DATA.Aim);
 
-    /*Chassis_3*/
-//    Feedforward_Calculate(&MOTOR->DJI_3508_Chassis_3.PID_F,
-//                          MOTOR->DJI_3508_Chassis_3.DATA.Aim);
-    PID_Calculate(&MOTOR->DJI_3508_Chassis_3.PID_S,
-                  (float)MOTOR->DJI_3508_Chassis_3.DATA.Speed_now,
-                  MOTOR->DJI_3508_Chassis_3.DATA.Aim);
-
-    /*Chassis_4*/
-//    Feedforward_Calculate(&MOTOR->DJI_3508_Chassis_4.PID_F,
-//                          MOTOR->DJI_3508_Chassis_4.DATA.Aim);
-    PID_Calculate(&MOTOR->DJI_3508_Chassis_4.PID_S,
-                  (float)MOTOR->DJI_3508_Chassis_4.DATA.Speed_now,
-                  MOTOR->DJI_3508_Chassis_4.DATA.Aim);
-    /*电机动力分配*///    
-//									DJI_Current_Ctrl(&hcan2,
-//                     0x200,
-//                     (int16_t)tmp_C[0],
-//                     (int16_t)tmp_C[1],
-//                     (int16_t)tmp_C[2],
-//                     (int16_t)tmp_C[3]
-
 
     /*功率控制*/
 

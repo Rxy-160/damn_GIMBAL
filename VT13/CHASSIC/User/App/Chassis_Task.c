@@ -37,25 +37,25 @@ uint8_t MOTOR_PID_Chassis_INIT(MOTOR_Typdef *MOTOR)
 //		if(IMU_Data .pitch >-40&&IMU_Data .pitch <5)
 //{
 
-    PID_Init(&MOTOR->DJI_3508_Chassis_1.PID_S, 100000.0f, 1000.0f,
+    PID_Init(&MOTOR->DJI_3508_Chassis_1.PID_S, 16384.0f, 1000.0f,
              PID_S_1, 0, 0,
              0, 0, 0,
              Integral_Limit|ErrorHandle//积分限幅,输出滤波,堵转监测
              //梯形积分,变速积分
              );//微分先行,微分滤波器
-    PID_Init(&MOTOR->DJI_3508_Chassis_2.PID_S, 100000.0f, 1000.0f,
+    PID_Init(&MOTOR->DJI_3508_Chassis_2.PID_S, 16384.0f, 1000.0f,
              PID_S_2, 0, 0,
              0, 0, 0,
              Integral_Limit|ErrorHandle//积分限幅,输出滤波,堵转监测
              //梯形积分,变速积分
              );//微分先行,微分滤波器
-    PID_Init(&MOTOR->DJI_3508_Chassis_3.PID_S, 100000.0f, 1000.0f,
+    PID_Init(&MOTOR->DJI_3508_Chassis_3.PID_S, 16384.0f, 1000.0f,
              PID_S_3, 0, 0,
              0, 0, 0,
              Integral_Limit|ErrorHandle//积分限幅,输出滤波,堵转监测
              //梯形积分,变速积分
              );//微分先行,微分滤波器
-    PID_Init(&MOTOR->DJI_3508_Chassis_4.PID_S, 100000.0f, 1000.0f,
+    PID_Init(&MOTOR->DJI_3508_Chassis_4.PID_S, 16384.0f, 1000.0f,
              PID_S_4, 0, 0,
              0, 0, 0,
              Integral_Limit|ErrorHandle//积分限幅,输出滤波,堵转监测
@@ -260,14 +260,14 @@ uint8_t chassis_task(CONTAL_Typedef *CONTAL,
                MOTOR->DJI_3508_Chassis_4.PID_S.Output;
 
     /*CAN发送*/
-    DJI_Current_Ctrl(&hcan2,
-                     0x200,
-                     (int16_t)tmp_C[0],
-                     (int16_t)tmp_C[1],
-                     (int16_t)tmp_C[2],
-                     (int16_t)tmp_C[3]
-											);
-											
+//    DJI_Current_Ctrl(&hcan2,
+//                     0x200,
+//                     (int16_t)tmp_C[0],
+//                     (int16_t)tmp_C[1],
+//                     (int16_t)tmp_C[2],
+//                     (int16_t)tmp_C[3]
+//											);
+//											
 
 return RUI_DF_READY;
 }

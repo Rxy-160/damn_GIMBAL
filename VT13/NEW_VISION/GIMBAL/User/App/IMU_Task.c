@@ -1,6 +1,6 @@
 #include "IMU_Task.h"
 
-#define correct_Time_define 5000    //上电去0飘 1000次取平均
+#define correct_Time_define 5000    //上电去0飘 5000次取平均
 #define temp_times 300       //探测温度阈值
 #define Destination_TEMPERATURE 40.5f
      static uint32_t temp_Ticks=0;
@@ -53,7 +53,7 @@ void INS_Task(IMU_Data_t *IMU, pid_type_def *imu_temp_pid)
 			IMU->pitch=Get_Pitch();//获得pitch
 			IMU->roll=Get_Roll();//获得roll
 			IMU->yaw=Get_Yaw();//获得yaw
-            IMU->YawTotalAngle=Get_YawTotalAngle();
+      IMU->YawTotalAngle=Get_YawTotalAngle();
 			memcpy(IMU->q, QEKF_INS.q, 16);
 			
 			//==============================================================================
@@ -78,9 +78,9 @@ void INS_Task(IMU_Data_t *IMU, pid_type_def *imu_temp_pid)
 #endif
 //////获得零飘
 #ifdef User_Release
-            IMU->gyro_correct[0] = 4.47411148e-05f;
-            IMU->gyro_correct[1] = 0.00478834286f;
-            IMU->gyro_correct[2] = 0.00109402684f;
+            IMU->gyro_correct[0] = 0.00011803137f;
+            IMU->gyro_correct[1] = 0.00500234775f;
+            IMU->gyro_correct[2] = 0.00121481984f;
             IMU->attitude_flag=2; //go to 2 state
 #endif
         }

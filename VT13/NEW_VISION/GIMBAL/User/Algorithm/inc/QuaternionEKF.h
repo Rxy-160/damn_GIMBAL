@@ -73,7 +73,7 @@ typedef struct
     float ChiSquareTestThreshold; // 卡方检验阈值
     float lambda;                 // 渐消因子
 
-    int16_t YawRoundCount;
+    float YawRoundCount;
 
     float YawAngleLast;
 } QEKF_INS_t;

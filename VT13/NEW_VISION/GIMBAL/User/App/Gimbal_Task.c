@@ -133,7 +133,7 @@ uint8_t gimbal_task(CONTAL_Typedef *CONTAL,
     {
         CONTAL->CG.RELATIVE_ANGLE += 8192;
     }
-
+//150   -150
     /*目标值赋值*/
 
     MOTOR->m_dm4310_p_t .DATA.Aim = CONTAL->HEAD.Pitch;
@@ -163,8 +163,8 @@ uint8_t gimbal_task(CONTAL_Typedef *CONTAL,
 //				PID_set(&MOTOR->m_dm4310_p_t  .PID_P, PID_P_Pitch_hand);
 //        PID_set(&MOTOR->m_dm4310_p_t  .PID_S, PID_S_Pitch_hand);
 //    }
-//    CONTAL->MOD[1] = CONTAL->MOD[0];
-
+//纯过零解算
+			
 
     /*遥控离线保护*/
     if(!Root->RM_DBUS)
@@ -175,7 +175,7 @@ uint8_t gimbal_task(CONTAL_Typedef *CONTAL,
 			
 //			  MOTOR->m_dm4310_y_t  .PID_P .IntegralLimit =0;
 //			  MOTOR->m_dm4310_y_t  .PID_S .IntegralLimit =0;
-        MOTOR->m_dm4310_y_t .DATA.Aim = (float)IMU->YawTotalAngle *22.7555556f -(RUI_F_MATH_Limit_float(1, -1, VT13_DBUS.Mouse.X_Flt * 1.3f) +(float) (VT13_DBUS.KeyBoard.E - VT13_DBUS.KeyBoard.Q)*2.8);
+        MOTOR->m_dm4310_y_t .DATA.Aim = (float)IMU->YawTotalAngle*22.7555556f -(RUI_F_MATH_Limit_float(1, -1, VT13_DBUS.Mouse.X_Flt * 1.3f) +(float) (VT13_DBUS.KeyBoard.E - VT13_DBUS.KeyBoard.Q)*2.8);
 			
 //				WHW_V_DBUS.Remote .S1_u8 =0;
 //				WHW_V_DBUS.Remote .S2_u8 =0;
@@ -203,12 +203,25 @@ uint8_t gimbal_task(CONTAL_Typedef *CONTAL,
     /*Yaw计算*/
 //    Feedforward_Calculate(&MOTOR->DJI_6020_Yaw.PID_F,
 //                          MOTOR->DJI_6020_Yaw.DATA.Aim);
+//		if(CONTAL->MOD[0] ==0)//手控模式
+//		{
     PID_Calculate(&MOTOR->m_dm4310_y_t .PID_P,
-                  IMU->YawTotalAngle * 22.75555555555556f,
+                  (IMU->YawTotalAngle * 22.75555555555556f),
                   MOTOR->m_dm4310_y_t .DATA.Aim);
     PID_Calculate(&MOTOR->m_dm4310_y_t .PID_S,
                   IMU->gyro[2] * 100.0f,
                   MOTOR->m_dm4310_y_t .PID_P.Output);
+//		}
+//		else //视觉模式
+//		{
+//			    PID_Calculate(&MOTOR->m_dm4310_y_t .PID_P,
+//                  IMU->yaw  * 22.75555555555556f,
+//                  MOTOR->m_dm4310_y_t .DATA.Aim);
+//    PID_Calculate(&MOTOR->m_dm4310_y_t .PID_S,
+//                  IMU->gyro[2] * 100.0f,
+//                  MOTOR->m_dm4310_y_t .PID_P.Output);
+
+//		}
 
     /*总输出计算*/
 
@@ -221,13 +234,6 @@ uint8_t gimbal_task(CONTAL_Typedef *CONTAL,
 		dm4310_current_set(&hcan1,0x3FE,tmp_G[0],tmp_G[1]/*-COS_pitch()*/,0,0);
 
     /*CAN发送*/
-//    DJI_Current_Ctrl(&hcan1,
-//                     0x1FF,
-//                     (int16_t)tmp_G[0],
-//                     (int16_t)tmp_G[0],
-//                     0,
-//                     0);
-//	dm4310_current_set(&hcan1,0x4FE,0,/*cos_caculate(IMU_Data)*/0,0,tmp_G[1]);
 //dm4310_current_set(&hcan1,0x4FE,0,0,0,tmp_G[0]);
 //dm4310_current_set(&hcan1,0x3FE,0,0,0,tmp_G[0]);
 
@@ -298,7 +304,7 @@ uint8_t GimbalTXResovle( VT13_Typedef *VT13_DBUS)
 //		CanCommunit_t.gmTOch.dataNeaten.vx += (DBUS->KeyBoard .W -DBUS->KeyBoard .S )*660;//gimbal_t.Keyboard.vx;//键鼠，还没加
 		CanCommunit_t.gmTOch.dataNeaten.vy =  VT13_DBUS->Remote .Channel[1] +(VT13_DBUS->KeyBoard .W -VT13_DBUS->KeyBoard .S )*330;//2
 //		CanCommunit_t.gmTOch.dataNeaten.vy += (DBUS->KeyBoard .D -DBUS->KeyBoard .A )*660;//gimbal_t.Keyboard.vy;//
-		CanCommunit_t.gmTOch.dataNeaten.vr =  ((VT13_DBUS->Remote .wheel)-VT13_DBUS->KeyBoard .Shift *220);//3
+		CanCommunit_t.gmTOch.dataNeaten.vr =  ((VT13_DBUS->Remote .wheel)-VT13_DBUS->KeyBoard .Shift *660);//3
 //		CanCommunit_t.gmTOch.dataNeaten.vr += DBUS->KeyBoard .Shift *660;//gimbal_t.Keyboard.vr;//
 				
 		//键位赋值

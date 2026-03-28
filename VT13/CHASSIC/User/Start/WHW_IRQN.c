@@ -79,7 +79,7 @@ void StartRobotUITask(void const * argument)
     {
         RobotUI_Dynamic();
 
-        osDelay( 40);
+        osDelay( 10);
     }
 }
 
