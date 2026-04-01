@@ -206,7 +206,7 @@ uint8_t gimbal_task(CONTAL_Typedef *CONTAL,
 //		if(CONTAL->MOD[0] ==0)//手控模式
 //		{
     PID_Calculate(&MOTOR->m_dm4310_y_t .PID_P,
-                  (IMU->YawTotalAngle * 22.75555555555556f),
+                  IMU->YawTotalAngle * 22.75555555555556f,
                   MOTOR->m_dm4310_y_t .DATA.Aim);
     PID_Calculate(&MOTOR->m_dm4310_y_t .PID_S,
                   IMU->gyro[2] * 100.0f,
@@ -289,16 +289,16 @@ uint8_t GimbalTXResovle( VT13_Typedef *VT13_DBUS)
 //		int16_t pitchAngle = (int16_t)SectionLimit_f(500.0f, -500.0f, (TopData_t.pitchAgnle_f * 10.0f) );
 		
 //		KeyboardResolve();		//键盘模式底盘速度的解算
-//			VOFA_justfloat(ALL_MOTOR.DJI_3508_Shoot_L.DATA .Speed_now   /*ALL_MOTOR .m_dm4310_p_t .DATA .Aim*/   ,
-//											-ALL_MOTOR.DJI_3508_Shoot_R .DATA .Speed_now /**22.75555555555*/  ,
-//		               IMU_Data.YawTotalAngle             /*ALL_MOTOR .m_dm4310_y_t .DATA .Aim*/  ,
-//		              IMU_Data .pitch ,
-//		              ALL_MOTOR .DJI_3508_Shoot_M .DATA .Speed_now ,
-//		               VISION_V_DATA.RECEIVE  .fire *20 ,
-//									 ALL_MOTOR.m_dm4310_y_t .PID_S .Output ,
-//									 /*IMU_Data.pitch*/IMU_Data.gyro_correct  [2] ,
-//		               ALL_MOTOR.DJI_3508_Shoot_M .DATA .Aim  ,
-//									 /*ALL_MOTOR.m_dm4310_p_t .DATA .Angle_now*/ALL_MOTOR.DJI_3508_Shoot_M .DATA.Angle_Infinite   );/*反馈电流是cur_int16*/
+			VOFA_justfloat(ALL_MOTOR.DJI_3508_Shoot_L .DATA .current    /*ALL_MOTOR .m_dm4310_p_t .DATA .Aim*/   ,
+											ALL_MOTOR.DJI_3508_Shoot_R .DATA .current  /**22.75555555555*/  ,
+		               ALL_MOTOR.DJI_3508_Shoot_L .DATA .Speed_now              /*ALL_MOTOR .m_dm4310_y_t .DATA .Aim*/  ,
+		              ALL_MOTOR.DJI_3508_Shoot_R .DATA .Speed_now  ,
+		              ALL_MOTOR .DJI_3508_Shoot_M .DATA .Speed_now ,
+		               VISION_V_DATA.RECEIVE  .fire *20 ,
+									 ALL_MOTOR.m_dm4310_y_t .PID_S .Output ,
+									 /*IMU_Data.pitch*/IMU_Data.gyro_correct  [2] ,
+		               ALL_MOTOR.DJI_3508_Shoot_M .DATA .Aim  ,
+									 /*ALL_MOTOR.m_dm4310_p_t .DATA .Angle_now*/ALL_MOTOR.DJI_3508_Shoot_M .DATA.Angle_Infinite   );/*反馈电流是cur_int16*/
 
 		CanCommunit_t.gmTOch.dataNeaten.vx =  VT13_DBUS->Remote .Channel[0] +(VT13_DBUS->KeyBoard .D -VT13_DBUS->KeyBoard .A )*330;//1
 //		CanCommunit_t.gmTOch.dataNeaten.vx += (DBUS->KeyBoard .W -DBUS->KeyBoard .S )*660;//gimbal_t.Keyboard.vx;//键鼠，还没加

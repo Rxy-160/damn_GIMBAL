@@ -253,10 +253,10 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef* hcan)
                 RUI_F_MOTOR_CAN_RX_2006RM(&ALL_MOTOR.DJI_3508_Shoot_M.DATA, rx_data);
                 break;
 
-						case 0x252:////超电
-							Power_CAP_CAN_RX(&CAPDATE, rx_data);
+//						case 0x252:////超电
+//							Power_CAP_CAN_RX(&CAPDATE, rx_data);
 
-						break;
+//						break;
 
      }
 			

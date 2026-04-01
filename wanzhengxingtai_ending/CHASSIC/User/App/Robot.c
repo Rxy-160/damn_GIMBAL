@@ -2,6 +2,7 @@
 float monitor_X;
 float monitor_Y;
 float monitor_W;
+float xuanzhuan;
 void RobotTask(uint8_t mode,
                DBUS_Typedef *DBUS,
                CONTAL_Typedef *CONTAL,
@@ -32,7 +33,7 @@ void RobotTask(uint8_t mode,
             //最大功率
             float MAX_POWER;
 
-            if(DBUS->KeyBoard.V_PreeNumber && (CAP_DATA->GET.CAP_VOLT > 180.0f || Root->Power == RUI_DF_OFFLINE))
+            if(DBUS->KeyBoard.V_PreeNumber && (CAP_DATA->GET.capVolt  > 180.0f || Root->Power == RUI_DF_OFFLINE))
             {   //V键开电容,写死最大功率
                 MAX_POWER = 250.0f;
             }
@@ -42,14 +43,16 @@ void RobotTask(uint8_t mode,
             }
 
             /*目标值传递*/
-            CONTAL->BOTTOM.VY = (float) -( DBUS->Remote.CH0_int16 ) ;//+ ( DBUS->KeyBoard.D - DBUS->KeyBoard.A ) * 660 );
-            CONTAL->BOTTOM.VX = (float) ( DBUS->Remote.CH1_int16) ;//+ ( DBUS->KeyBoard.W - DBUS->KeyBoard.S ) * 660 );
-            CONTAL->BOTTOM.VW = (float) -( DBUS->Remote.Dial_int16 );// + DBUS->KeyBoard.Shift * 660 );
+            CONTAL->BOTTOM.VY = (float) -( DBUS->Remote.CH0_int16 ) ;
+            CONTAL->BOTTOM.VX = (float) ( DBUS->Remote.CH1_int16  ) ;
+            CONTAL->BOTTOM.VW = (float) ( DBUS->Remote.Dial_int16 *1.5);
 						
+						
+
             /*缓启动*/
             if(CONTAL->BOTTOM.VX != 0 || CONTAL->BOTTOM.VY != 0 || CONTAL->BOTTOM.VW != 0)
             {
-                SLOW_START += 0.0015f;//0.002f;
+                SLOW_START += 0.001f;//0.002f;
                 float SLOW_START_MAX = RUI_F_CHASSIS_GET_MAX_TARGET(MAX_POWER);
                 if(SLOW_START > SLOW_START_MAX)
                 {
@@ -67,6 +70,10 @@ void RobotTask(uint8_t mode,
 						monitor_Y=CONTAL->BOTTOM.VY;
 						monitor_W=CONTAL->BOTTOM.VW;
             }
+						if(CONTAL->BOTTOM .VW !=0)
+						{
+							xuanzhuan=1;
+						}
 //            else
 //            {
 //                SLOW_START = 0.0f;
@@ -79,29 +86,29 @@ void RobotTask(uint8_t mode,
 ////					else if(CONTAL->BOTTOM.VX == 0 && CONTAL->BOTTOM.VY == 0 && CONTAL->BOTTOM.VW == 0)
 //						{
 
-							if(SLOW_BLACK>=0&&SLOW_BLACK<=1.5)
-							{
-							SLOW_BLACK -=0.00000001;
+//							if(SLOW_BLACK>=0&&SLOW_BLACK<=1.5)
+//							{
+//							SLOW_BLACK -=0.00000001;
 
-						CONTAL->BOTTOM.VX *= ( 1 - RUI_F_MATH_Limit_float(2750, 0, RUI_F_MATH_ABS_float(FIX_ANGLE)) / 2750.0f );
-            CONTAL->BOTTOM.VY *= ( 1 - RUI_F_MATH_Limit_float(2750, 0, RUI_F_MATH_ABS_float(FIX_ANGLE)) / 2750.0f );
+//						CONTAL->BOTTOM.VX *= ( 1 - RUI_F_MATH_Limit_float(2750, 0, RUI_F_MATH_ABS_float(FIX_ANGLE)) / 2750.0f );
+//            CONTAL->BOTTOM.VY *= ( 1 - RUI_F_MATH_Limit_float(2750, 0, RUI_F_MATH_ABS_float(FIX_ANGLE)) / 2750.0f );
 
-//            CONTAL->BOTTOM.VX /=SLOW_BLACK;//+=0.1;//-=0.001;//*= 1.3;//SLOW_BLACK;
-//            CONTAL->BOTTOM.VY /=SLOW_BLACK;//+=0.1;//-=0.001;//*= 1.3;//SLOW_BLACK;
-//            CONTAL->BOTTOM.VW /=SLOW_BLACK;//+=0.1;//-=0.001;//*= 1.3;//SLOW_BLACK;
-								
-					  CONTAL->BOTTOM.VX *= SLOW_BLACK;
-            CONTAL->BOTTOM.VY *= SLOW_BLACK;
-            CONTAL->BOTTOM.VW *= SLOW_BLACK;
+////            CONTAL->BOTTOM.VX /=SLOW_BLACK;//+=0.1;//-=0.001;//*= 1.3;//SLOW_BLACK;
+////            CONTAL->BOTTOM.VY /=SLOW_BLACK;//+=0.1;//-=0.001;//*= 1.3;//SLOW_BLACK;
+////            CONTAL->BOTTOM.VW /=SLOW_BLACK;//+=0.1;//-=0.001;//*= 1.3;//SLOW_BLACK;
+//								
+//					  CONTAL->BOTTOM.VX *= SLOW_BLACK;
+//            CONTAL->BOTTOM.VY *= SLOW_BLACK;
+//            CONTAL->BOTTOM.VW *= SLOW_BLACK;
 
-							}
-							else
-							{
-		        CONTAL->BOTTOM.VX = 0;
-            CONTAL->BOTTOM.VY = 0;
-            CONTAL->BOTTOM.VW = 0;
+//							}
+//							else
+//							{
+//		        CONTAL->BOTTOM.VX = 0;
+//            CONTAL->BOTTOM.VY = 0;
+//            CONTAL->BOTTOM.VW = 0;
 
-							}
+//							}
 //						}
 
 						
@@ -118,8 +125,8 @@ void RobotTask(uint8_t mode,
             }
             else
             {/*-*/
-                float KP = 1.0f - (((float) DBUS->Remote.CH2_int16 + RUI_F_MATH_Limit_float(660, -660, DBUS->Mouse.X_Flt)) / 220.0f );
-                KP = RUI_F_MATH_Limit_float(/*3.0f*/1.0f, 0.3f, KP);
+                float KP = 0.5f - (((float) DBUS->Remote.CH2_int16 + RUI_F_MATH_Limit_float(660, -660, DBUS->Mouse.X_Flt)) / 220.0f );
+                KP = RUI_F_MATH_Limit_float(/*3.0f*/1.0f, 0.11f, KP);
                 //PID
                 FIX_ANGLE = (RUI_F_CHASSIS_PID(CONTAL->CG.RELATIVE_ANGLE, KP, 0.0f, 0.0f));
                 //FFC
@@ -138,10 +145,10 @@ void RobotTask(uint8_t mode,
             float ROTATED_VY = CONTAL->BOTTOM.VX * SIN_ANGLE + CONTAL->BOTTOM.VY * COS_ANGLE;
 
             /*全向轮解算*/
-            CONTAL->BOTTOM.wheel3 = (-ROTATED_VX + ROTATED_VY)+ (CONTAL->BOTTOM.VW*0.5  + FIX_ANGLE + RUI_V_FOLLOW_PREDICT);
-            CONTAL->BOTTOM.wheel4 = (ROTATED_VX + ROTATED_VY)+ (CONTAL->BOTTOM.VW*0.5  + FIX_ANGLE + RUI_V_FOLLOW_PREDICT);
-            CONTAL->BOTTOM.wheel1 = (ROTATED_VX - ROTATED_VY) + (CONTAL->BOTTOM.VW*0.5  + FIX_ANGLE + RUI_V_FOLLOW_PREDICT);
-            CONTAL->BOTTOM.wheel2 = (-ROTATED_VX - ROTATED_VY) + (CONTAL->BOTTOM.VW*0.5  + FIX_ANGLE + RUI_V_FOLLOW_PREDICT);
+            CONTAL->BOTTOM.wheel3 = (-ROTATED_VX + ROTATED_VY)+ (CONTAL->BOTTOM.VW*0.13  + FIX_ANGLE + RUI_V_FOLLOW_PREDICT);
+            CONTAL->BOTTOM.wheel4 = (ROTATED_VX + ROTATED_VY)+ (CONTAL->BOTTOM.VW*0.13 + FIX_ANGLE + RUI_V_FOLLOW_PREDICT);
+            CONTAL->BOTTOM.wheel1 = (ROTATED_VX - ROTATED_VY) + (CONTAL->BOTTOM.VW*0.13  + FIX_ANGLE + RUI_V_FOLLOW_PREDICT);
+            CONTAL->BOTTOM.wheel2 = (-ROTATED_VX - ROTATED_VY) + (CONTAL->BOTTOM.VW*0.13  + FIX_ANGLE + RUI_V_FOLLOW_PREDICT);
             
         } break;
 
@@ -164,17 +171,17 @@ void RobotTask(uint8_t mode,
                
 //                if(DBUS->Remote .S1_u8 ==1||DBUS->Remote .S1_u8 ==2)
 //								{
-									CONTAL->MOD[0] = 1;//云台模式切换///////手瞄模式
-                CONTAL->HEAD.Pitch -= (float) (DBUS->Remote.CH3_int16) * 0.002f +
-                                      DBUS->Mouse.Y_Flt * 0.01f;
+//									CONTAL->MOD[0] = 1;//云台模式切换///////手瞄模式
+//                CONTAL->HEAD.Pitch -= (float) (DBUS->Remote.CH3_int16) * 0.002f +
+//                                      DBUS->Mouse.Y_Flt * 0.01f;
 
-                CONTAL->HEAD.Pitch = RUI_F_MATH_Limit_float(CONTAL->HEAD.Pitch_MAX,
-                                                            CONTAL->HEAD.Pitch_MIN,
-                                                            CONTAL->HEAD.Pitch);
+//                CONTAL->HEAD.Pitch = RUI_F_MATH_Limit_float(CONTAL->HEAD.Pitch_MAX,
+//                                                            CONTAL->HEAD.Pitch_MIN,
+//                                                            CONTAL->HEAD.Pitch);
 
-                CONTAL->HEAD.Yaw  -= (float) (DBUS->Remote.CH2_int16) * 0.02f +
-                                    RUI_F_MATH_Limit_float(1, -1, DBUS->Mouse.X_Flt * 0.01f) +
-                                    (float) (DBUS->KeyBoard.E - DBUS->KeyBoard.Q);
+//                CONTAL->HEAD.Yaw  -= (float) (DBUS->Remote.CH2_int16) * 0.02f +
+//                                    RUI_F_MATH_Limit_float(1, -1, DBUS->Mouse.X_Flt * 0.01f) +
+//                                    (float) (DBUS->KeyBoard.E - DBUS->KeyBoard.Q);
 								                
 //								}
 //								else if(DBUS->Remote .S1_u8 ==3)
@@ -337,7 +344,7 @@ static int64_t RUI_F_GET_FIRE_AIM(DBUS_Typedef *DBUS,
         if (MOD == 2)//连发,简陋的火控
         {   //上限热量-当前热量<10,停火
             if(User_data->robot_status.shooter_barrel_heat_limit -
-                    User_data->power_heat_data.shooter_17mm_barrel_heat < 10)
+                    User_data->power_heat_data.shooter_17mm_barrel_heat  < 10)
             {
                 AIM = (int64_t)CONTAL->SHOOT_Bask.Angle;
             }

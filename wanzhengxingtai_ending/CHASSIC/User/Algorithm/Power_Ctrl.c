@@ -4,7 +4,7 @@ float P_predict;//
 
 void Power_control_init(model_t *model)
 {
-    model->PID_Buffer.Kp = 2;
+    model->PID_Buffer.Kp = 0.3;
     model->PID_Buffer.Ki = 0;
     model->PID_Buffer.Kd = 0;
     model->PID_Buffer.ILt = 0;
@@ -255,7 +255,7 @@ uint8_t chassis_power_control(CONTAL_Typedef *RUI_V_CONTAL_V,
     float chassis_power_buffer = usr_data->power_heat_data.buffer_energy;	// 得到缓冲能量
 
     /*没电容时开启*/     //                           缓冲能量？
-    PID_buffer(&model->PID_Buffer, chassis_power_buffer, 25);  // 缓冲能量闭环
+    PID_buffer(&model->PID_Buffer, chassis_power_buffer, 37 );  // 缓冲能量闭环
 		
 ///裁判系统输入功率      最大功率限制（裁）- 缓冲能量闭环输出
     input_power = (float)max_power_limit - model->PID_Buffer.All_out;  // 加入缓冲能量

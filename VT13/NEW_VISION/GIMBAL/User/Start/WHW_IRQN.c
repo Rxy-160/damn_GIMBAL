@@ -247,10 +247,17 @@ void BSP_TIM_IRQHandler(TIM_HandleTypeDef *htim)
 ///加预测视觉发送
 //	 Vision_Tx_Data(&ALL_MOTOR,&IMU_Data,&RUI_V_CONTAL);
 		CANSPI_SEND(&hspi2, 0x201, TX);
-	}
+	}	
 
 }
+////////////	void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+////////////{
+////////////			if(htim->Instance ==TIM9)
+////////////	{
+////////////		abcdefgf=1;
+////////////	}
 
+////////////}
 /************************************************************万能分隔符**************************************************************
  * 	@author:			//小瑞
  *	@performance:	    //CAN接收函数

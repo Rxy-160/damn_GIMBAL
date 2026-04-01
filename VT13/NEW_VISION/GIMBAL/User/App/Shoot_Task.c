@@ -317,7 +317,7 @@ void ATTACK_F_JAM_Aim(MOTOR_Typdef *MOTOR, VT13_Typedef *VT13_DBUS, uint8_t auto
 		
     // 连发模式处理      
 //		1         遥控的连发模式                        视觉自动开火                                                                   键鼠左键长按
-    else if (VT13_DBUS->Remote .fn_2 == 1 ||(VT13_DBUS->Mouse .R_State ==2&&VISION_V_DATA.RECEIVE .fire ==1)|| (VT13_DBUS->Mouse .R_State  == 0&&VT13_DBUS->Mouse .L_State  == 2))
+    else if (VT13_DBUS->Remote .fn_2 == 1 ||((VT13_DBUS->Mouse .R_State ==2||VT13_DBUS->Mouse .R_State ==1||VT13_DBUS->Remote .mode_sw ==2)&&VISION_V_DATA.RECEIVE .fire ==1)|| (VT13_DBUS->Mouse .R_State  == 0&&VT13_DBUS->Mouse .L_State  == 2))
     {
         ATTACK_V_PARAM.COUNT = 1;  // 持续小量增加目标角度，形成连续转动
     }
@@ -370,11 +370,11 @@ void ATTACK_F_JAM_Aim(MOTOR_Typdef *MOTOR, VT13_Typedef *VT13_DBUS, uint8_t auto
 				{
 				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/20000;//15000---实际4400rpm   7.333333hz
 				}
-				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=120&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >40 )
+				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=120&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >65 )
 				{
 				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/8000;//15000---实际4400rpm   7.333333hz
 				}	
-				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=40)///停留在当前位置
+				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=65)///停留在当前位置
 				{
 				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite;//15000---实际4400rpm   7.333333hz
 				}	
@@ -723,7 +723,7 @@ uint8_t ATTACK_F_JAM_Check(MOTOR_Typdef *MOTOR)
     }
 }
 float last_G=0.0f;
-int abcdefg=0.0f;
+int16_t abcdefg=0.0f;
 float qqqqqqq =0.0f;
 //标志位函数
 void static_word(VT13_Typedef *VT13_DBUS)
@@ -746,3 +746,9 @@ void static_word(VT13_Typedef *VT13_DBUS)
 
 }
 
+int16_t nummmm;////
+
+void shoot_number_caculate()
+{
+	
+}

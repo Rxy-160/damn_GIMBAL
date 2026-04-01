@@ -3,7 +3,7 @@
 uint8_t RobotUI_Static_Init()
 {	
 		ui_init_g_1();
-	osDelay(10);
+	osDelay(200);
 	return RUI_DF_READY;
 }
 

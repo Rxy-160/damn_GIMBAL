@@ -611,12 +611,12 @@ I (..\User\Start\Inc\MY_Define.h)(0x69C2DCB4)
 I (..\User\Bsp\inc\can_bsp.h)(0x69C44679)
 I (..\Core\Inc\can.h)(0x683DA6E8)
 I (D:\Keil\ARM\ARMCLANG\include\string.h)(0x625260D6)
-I (..\User\Bsp\inc\Referee.h)(0x69C16FCC)
+I (..\User\Bsp\inc\Referee.h)(0x69C8D71B)
 I (..\Core\Inc\usart.h)(0x683DA6E8)
 I (..\User\Algorithm\inc\CRC_DJI.h)(0x683DA6E9)
 F (..\User\Bsp\inc\Power_CAP.h)(0x69C5600A)()
-F (..\User\Bsp\Referee.c)(0x69C16FCC)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/CMSIS/Core/Inc -I ../Middlewares/CMSIS/DSP/Inc/dsp -I ../Middlewares/CMSIS/DSP/Inc -I ../Middlewares/CMSIS/DSP/PrivateInclude -I ../User/Bsp/inc -I ../User/Algorithm/inc -I ../User/App/inc -I ../User/UI -I ../User/Start/Inc -I ../Middlewares/SEGGER_RTT/Config -I ../Middlewares/SEGGER_RTT/RTT-D__UVISION_VERSION="537" -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_HAL_DRIVER -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING -DUser_Release-o horizon_infantry/referee.o -MD)
-I (..\User\Bsp\inc\Referee.h)(0x69C16FCC)
+F (..\User\Bsp\Referee.c)(0x69C8D71B)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/CMSIS/Core/Inc -I ../Middlewares/CMSIS/DSP/Inc/dsp -I ../Middlewares/CMSIS/DSP/Inc -I ../Middlewares/CMSIS/DSP/PrivateInclude -I ../User/Bsp/inc -I ../User/Algorithm/inc -I ../User/App/inc -I ../User/UI -I ../User/Start/Inc -I ../Middlewares/SEGGER_RTT/Config -I ../Middlewares/SEGGER_RTT/RTT-D__UVISION_VERSION="537" -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_HAL_DRIVER -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING -DUser_Release-o horizon_infantry/referee.o -MD)
+I (..\User\Bsp\inc\Referee.h)(0x69C8D71B)
 I (..\Core\Inc\usart.h)(0x683DA6E8)
 I (..\Core\Inc\main.h)(0x683DA6E8)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h)(0x68764095)
@@ -662,7 +662,7 @@ I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_ll_usb.h)(0x68764095)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pcd_ex.h)(0x68764095)
 I (D:\Keil\ARM\ARMCLANG\include\string.h)(0x625260D6)
 I (..\User\Algorithm\inc\CRC_DJI.h)(0x683DA6E9)
-F (..\User\Bsp\inc\Referee.h)(0x69C16FCC)()
+F (..\User\Bsp\inc\Referee.h)(0x69C8D71B)()
 F (..\User\Bsp\RGBctrl.c)(0x683DA6E9)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/CMSIS/Core/Inc -I ../Middlewares/CMSIS/DSP/Inc/dsp -I ../Middlewares/CMSIS/DSP/Inc -I ../Middlewares/CMSIS/DSP/PrivateInclude -I ../User/Bsp/inc -I ../User/Algorithm/inc -I ../User/App/inc -I ../User/UI -I ../User/Start/Inc -I ../Middlewares/SEGGER_RTT/Config -I ../Middlewares/SEGGER_RTT/RTT-D__UVISION_VERSION="537" -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_HAL_DRIVER -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING -DUser_Release-o horizon_infantry/rgbctrl.o -MD)
 I (..\User\Bsp\inc\RGBctrl.h)(0x683DA6E9)
 I (..\User\Bsp\inc\bsp_dwt.h)(0x683DA6E9)
@@ -912,7 +912,7 @@ I (..\Middlewares\CMSIS\DSP\Inc\dsp\window_functions.h)(0x683DA6E9)
 I (..\User\Bsp\inc\can_bsp.h)(0x69C44679)
 I (..\Core\Inc\can.h)(0x683DA6E8)
 I (..\User\Bsp\inc\DM_Motor.h)(0x683DA6E9)
-I (..\User\Bsp\inc\Referee.h)(0x69C16FCC)
+I (..\User\Bsp\inc\Referee.h)(0x69C8D71B)
 I (..\User\Algorithm\inc\CRC_DJI.h)(0x683DA6E9)
 I (..\User\App\inc\IMU_Task.h)(0x683DA6E9)
 I (..\Core\Inc\tim.h)(0x683DA6E8)
@@ -1535,7 +1535,7 @@ I (..\Middlewares\CMSIS\DSP\Inc\dsp\quaternion_math_functions.h)(0x683DA6E9)
 I (..\Middlewares\CMSIS\DSP\Inc\dsp\window_functions.h)(0x683DA6E9)
 I (..\User\Bsp\inc\can_bsp.h)(0x69C44679)
 I (..\Core\Inc\can.h)(0x683DA6E8)
-I (..\User\Bsp\inc\Referee.h)(0x69C16FCC)
+I (..\User\Bsp\inc\Referee.h)(0x69C8D71B)
 I (..\Core\Inc\usart.h)(0x683DA6E8)
 I (..\User\Algorithm\inc\CRC_DJI.h)(0x683DA6E9)
 I (..\User\Bsp\inc\Power_CAP.h)(0x69C5600A)
@@ -1771,7 +1771,7 @@ I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_ll_usb.h)(0x68764095)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pcd_ex.h)(0x68764095)
 I (..\User\Start\Inc\MY_Define.h)(0x69C2DCB4)
 F (..\User\Algorithm\inc\Bottom.h)(0x68498A31)()
-F (..\User\App\Chassis_Task.c)(0x69C7EF10)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/CMSIS/Core/Inc -I ../Middlewares/CMSIS/DSP/Inc/dsp -I ../Middlewares/CMSIS/DSP/Inc -I ../Middlewares/CMSIS/DSP/PrivateInclude -I ../User/Bsp/inc -I ../User/Algorithm/inc -I ../User/App/inc -I ../User/UI -I ../User/Start/Inc -I ../Middlewares/SEGGER_RTT/Config -I ../Middlewares/SEGGER_RTT/RTT-D__UVISION_VERSION="537" -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_HAL_DRIVER -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING -DUser_Release-o horizon_infantry/chassis_task.o -MD)
+F (..\User\App\Chassis_Task.c)(0x69C82905)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/CMSIS/Core/Inc -I ../Middlewares/CMSIS/DSP/Inc/dsp -I ../Middlewares/CMSIS/DSP/Inc -I ../Middlewares/CMSIS/DSP/PrivateInclude -I ../User/Bsp/inc -I ../User/Algorithm/inc -I ../User/App/inc -I ../User/UI -I ../User/Start/Inc -I ../Middlewares/SEGGER_RTT/Config -I ../Middlewares/SEGGER_RTT/RTT-D__UVISION_VERSION="537" -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_HAL_DRIVER -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING -DUser_Release-o horizon_infantry/chassis_task.o -MD)
 I (..\User\App\inc\Chassis_Task.h)(0x69C44769)
 I (..\User\Bsp\inc\DJI_Motor.h)(0x68A8631E)
 I (..\User\Algorithm\inc\RUI_MATH.h)(0x68C67EEE)
@@ -1880,7 +1880,7 @@ I (..\User\Bsp\inc\BMI088driver.h)(0x683DA6E9)
 I (..\User\Bsp\inc\BMI088reg.h)(0x683DA6E9)
 I (..\User\Bsp\inc\BMI088Middleware.h)(0x683DA6E9)
 I (..\User\Start\Inc\All_Init.h)(0x69C56029)
-I (..\User\Bsp\inc\Referee.h)(0x69C16FCC)
+I (..\User\Bsp\inc\Referee.h)(0x69C8D71B)
 I (..\User\Algorithm\inc\CRC_DJI.h)(0x683DA6E9)
 I (..\User\Bsp\inc\RGBctrl.h)(0x683DA6E9)
 I (..\User\App\inc\Shoot_Task.h)(0x68724307)
@@ -2012,7 +2012,7 @@ I (..\Core\Inc\usart.h)(0x683DA6E8)
 I (..\User\Start\Inc\Motors.h)(0x683DA6E9)
 I (..\User\Bsp\inc\RGBctrl.h)(0x683DA6E9)
 I (..\User\Bsp\inc\Power_CAP.h)(0x69C5600A)
-I (..\User\Bsp\inc\Referee.h)(0x69C16FCC)
+I (..\User\Bsp\inc\Referee.h)(0x69C8D71B)
 I (..\User\Algorithm\inc\CRC_DJI.h)(0x683DA6E9)
 I (..\User\App\inc\IMU_Task.h)(0x683DA6E9)
 I (..\Core\Inc\tim.h)(0x683DA6E8)
@@ -2217,7 +2217,7 @@ I (..\User\Bsp\inc\can_bsp.h)(0x69C44679)
 I (..\Core\Inc\can.h)(0x683DA6E8)
 I (..\User\Bsp\inc\DM_Motor.h)(0x683DA6E9)
 I (..\User\Bsp\inc\Power_CAP.h)(0x69C5600A)
-I (..\User\Bsp\inc\Referee.h)(0x69C16FCC)
+I (..\User\Bsp\inc\Referee.h)(0x69C8D71B)
 I (..\User\Algorithm\inc\CRC_DJI.h)(0x683DA6E9)
 I (..\User\Bsp\inc\Vision.h)(0x68C6CFE3)
 I (..\USB_DEVICE\App\usbd_cdc_if.h)(0x683DA6E9)
@@ -2239,7 +2239,7 @@ I (..\User\Bsp\inc\BMI088driver.h)(0x683DA6E9)
 I (..\User\Bsp\inc\BMI088reg.h)(0x683DA6E9)
 I (..\User\Bsp\inc\BMI088Middleware.h)(0x683DA6E9)
 F (..\User\App\inc\Robot.h)(0x69C2CC69)()
-F (..\User\App\RobotUI_Ctrl.c)(0x69C7570B)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/CMSIS/Core/Inc -I ../Middlewares/CMSIS/DSP/Inc/dsp -I ../Middlewares/CMSIS/DSP/Inc -I ../Middlewares/CMSIS/DSP/PrivateInclude -I ../User/Bsp/inc -I ../User/Algorithm/inc -I ../User/App/inc -I ../User/UI -I ../User/Start/Inc -I ../Middlewares/SEGGER_RTT/Config -I ../Middlewares/SEGGER_RTT/RTT-D__UVISION_VERSION="537" -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_HAL_DRIVER -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING -DUser_Release-o horizon_infantry/robotui_ctrl.o -MD)
+F (..\User\App\RobotUI_Ctrl.c)(0x69C85EE6)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/CMSIS/Core/Inc -I ../Middlewares/CMSIS/DSP/Inc/dsp -I ../Middlewares/CMSIS/DSP/Inc -I ../Middlewares/CMSIS/DSP/PrivateInclude -I ../User/Bsp/inc -I ../User/Algorithm/inc -I ../User/App/inc -I ../User/UI -I ../User/Start/Inc -I ../Middlewares/SEGGER_RTT/Config -I ../Middlewares/SEGGER_RTT/RTT-D__UVISION_VERSION="537" -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_HAL_DRIVER -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING -DUser_Release-o horizon_infantry/robotui_ctrl.o -MD)
 I (..\User\App\inc\RobotUI_Ctrl.h)(0x69C28C9A)
 I (..\User\Bsp\inc\RUI_DBUS.h)(0x683DA6E9)
 I (D:\Keil\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
@@ -2346,7 +2346,7 @@ I (D:\Keil\ARM\ARMCLANG\include\stdio.h)(0x625260D6)
 I (..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_core.h)(0x68764096)
 I (..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ctlreq.h)(0x68764096)
 I (D:\Keil\ARM\ARMCLANG\include\stdbool.h)(0x625260D6)
-I (..\User\Bsp\inc\Referee.h)(0x69C16FCC)
+I (..\User\Bsp\inc\Referee.h)(0x69C8D71B)
 I (..\User\Algorithm\inc\CRC_DJI.h)(0x683DA6E9)
 I (..\User\App\inc\IMU_Task.h)(0x683DA6E9)
 I (..\Core\Inc\tim.h)(0x683DA6E8)
@@ -2488,7 +2488,7 @@ I (..\User\Bsp\inc\BMI088driver.h)(0x683DA6E9)
 I (..\User\Bsp\inc\BMI088reg.h)(0x683DA6E9)
 I (..\User\Bsp\inc\BMI088Middleware.h)(0x683DA6E9)
 I (..\User\Start\Inc\All_Init.h)(0x69C56029)
-I (..\User\Bsp\inc\Referee.h)(0x69C16FCC)
+I (..\User\Bsp\inc\Referee.h)(0x69C8D71B)
 I (..\User\Algorithm\inc\CRC_DJI.h)(0x683DA6E9)
 I (..\User\Bsp\inc\RGBctrl.h)(0x683DA6E9)
 I (..\User\App\inc\Shoot_Task.h)(0x68724307)
@@ -2630,7 +2630,7 @@ I (..\User\Bsp\inc\BMI088driver.h)(0x683DA6E9)
 I (..\User\Bsp\inc\BMI088reg.h)(0x683DA6E9)
 I (..\User\Bsp\inc\BMI088Middleware.h)(0x683DA6E9)
 I (..\User\Start\Inc\All_Init.h)(0x69C56029)
-I (..\User\Bsp\inc\Referee.h)(0x69C16FCC)
+I (..\User\Bsp\inc\Referee.h)(0x69C8D71B)
 I (..\User\Algorithm\inc\CRC_DJI.h)(0x683DA6E9)
 I (..\User\Bsp\inc\RGBctrl.h)(0x683DA6E9)
 I (..\User\App\inc\Chassis_Task.h)(0x69C44769)
@@ -2663,7 +2663,7 @@ I (..\Middlewares\SEGGER_RTT\RTT\..\Config\SEGGER_RTT_Conf.h)(0x683DA6E9)
 I (D:\Keil\ARM\ARMCLANG\include\stdarg.h)(0x625260D8)
 F (..\User\App\inc\Shoot_Task.h)(0x68724307)()
 F (..\User\Start\Inc\log.h)(0x683DA6E9)()
-F (..\User\Start\All_Init.c)(0x69C55FF2)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/CMSIS/Core/Inc -I ../Middlewares/CMSIS/DSP/Inc/dsp -I ../Middlewares/CMSIS/DSP/Inc -I ../Middlewares/CMSIS/DSP/PrivateInclude -I ../User/Bsp/inc -I ../User/Algorithm/inc -I ../User/App/inc -I ../User/UI -I ../User/Start/Inc -I ../Middlewares/SEGGER_RTT/Config -I ../Middlewares/SEGGER_RTT/RTT-D__UVISION_VERSION="537" -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_HAL_DRIVER -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING -DUser_Release-o horizon_infantry/all_init.o -MD)
+F (..\User\Start\All_Init.c)(0x69C8D71B)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/CMSIS/Core/Inc -I ../Middlewares/CMSIS/DSP/Inc/dsp -I ../Middlewares/CMSIS/DSP/Inc -I ../Middlewares/CMSIS/DSP/PrivateInclude -I ../User/Bsp/inc -I ../User/Algorithm/inc -I ../User/App/inc -I ../User/UI -I ../User/Start/Inc -I ../Middlewares/SEGGER_RTT/Config -I ../Middlewares/SEGGER_RTT/RTT-D__UVISION_VERSION="537" -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_HAL_DRIVER -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING -DUser_Release-o horizon_infantry/all_init.o -MD)
 I (..\User\Start\Inc\All_Init.h)(0x69C56029)
 I (..\User\Bsp\inc\can_bsp.h)(0x69C44679)
 I (..\Core\Inc\can.h)(0x683DA6E8)
@@ -2761,7 +2761,7 @@ I (..\Middlewares\CMSIS\DSP\Inc\dsp\filtering_functions.h)(0x683DA6E9)
 I (..\Middlewares\CMSIS\DSP\Inc\dsp\quaternion_math_functions.h)(0x683DA6E9)
 I (..\Middlewares\CMSIS\DSP\Inc\dsp\window_functions.h)(0x683DA6E9)
 I (..\User\Bsp\inc\DM_Motor.h)(0x683DA6E9)
-I (..\User\Bsp\inc\Referee.h)(0x69C16FCC)
+I (..\User\Bsp\inc\Referee.h)(0x69C8D71B)
 I (..\User\Algorithm\inc\CRC_DJI.h)(0x683DA6E9)
 I (..\User\App\inc\RUI_ROOT_INIT.h)(0x683DA6E9)
 I (..\User\App\inc\Gimbal_Task.h)(0x68C81B92)
@@ -2805,7 +2805,7 @@ I (..\Middlewares\SEGGER_RTT\RTT\..\Config\SEGGER_RTT_Conf.h)(0x683DA6E9)
 I (D:\Keil\ARM\ARMCLANG\include\stdarg.h)(0x625260D8)
 F (..\User\Start\Inc\All_Init.h)(0x69C56029)()
 F (..\User\Start\Inc\MY_Define.h)(0x69C2DCB4)()
-F (..\User\Start\WHW_IRQN.c)(0x69C61378)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/CMSIS/Core/Inc -I ../Middlewares/CMSIS/DSP/Inc/dsp -I ../Middlewares/CMSIS/DSP/Inc -I ../Middlewares/CMSIS/DSP/PrivateInclude -I ../User/Bsp/inc -I ../User/Algorithm/inc -I ../User/App/inc -I ../User/UI -I ../User/Start/Inc -I ../Middlewares/SEGGER_RTT/Config -I ../Middlewares/SEGGER_RTT/RTT-D__UVISION_VERSION="537" -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_HAL_DRIVER -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING -DUser_Release-o horizon_infantry/whw_irqn.o -MD)
+F (..\User\Start\WHW_IRQN.c)(0x69CA969B)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/CMSIS/Core/Inc -I ../Middlewares/CMSIS/DSP/Inc/dsp -I ../Middlewares/CMSIS/DSP/Inc -I ../Middlewares/CMSIS/DSP/PrivateInclude -I ../User/Bsp/inc -I ../User/Algorithm/inc -I ../User/App/inc -I ../User/UI -I ../User/Start/Inc -I ../Middlewares/SEGGER_RTT/Config -I ../Middlewares/SEGGER_RTT/RTT-D__UVISION_VERSION="537" -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_HAL_DRIVER -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING -DUser_Release-o horizon_infantry/whw_irqn.o -MD)
 I (..\User\Start\Inc\WHW_IRQN.h)(0x68C6BAB8)
 I (..\User\Start\Inc\All_Init.h)(0x69C56029)
 I (..\User\Bsp\inc\can_bsp.h)(0x69C44679)
@@ -2904,7 +2904,7 @@ I (..\Middlewares\CMSIS\DSP\Inc\dsp\filtering_functions.h)(0x683DA6E9)
 I (..\Middlewares\CMSIS\DSP\Inc\dsp\quaternion_math_functions.h)(0x683DA6E9)
 I (..\Middlewares\CMSIS\DSP\Inc\dsp\window_functions.h)(0x683DA6E9)
 I (..\User\Bsp\inc\DM_Motor.h)(0x683DA6E9)
-I (..\User\Bsp\inc\Referee.h)(0x69C16FCC)
+I (..\User\Bsp\inc\Referee.h)(0x69C8D71B)
 I (..\User\Algorithm\inc\CRC_DJI.h)(0x683DA6E9)
 I (..\User\App\inc\RUI_ROOT_INIT.h)(0x683DA6E9)
 I (..\User\App\inc\Gimbal_Task.h)(0x68C81B92)
@@ -3384,7 +3384,7 @@ I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h)(0x68764095)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pcd.h)(0x68764095)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_ll_usb.h)(0x68764095)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pcd_ex.h)(0x68764095)
-F (../Core/Src/usart.c)(0x69C3AAB6)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/CMSIS/Core/Inc -I ../Middlewares/CMSIS/DSP/Inc/dsp -I ../Middlewares/CMSIS/DSP/Inc -I ../Middlewares/CMSIS/DSP/PrivateInclude -I ../User/Bsp/inc -I ../User/Algorithm/inc -I ../User/App/inc -I ../User/UI -I ../User/Start/Inc -I ../Middlewares/SEGGER_RTT/Config -I ../Middlewares/SEGGER_RTT/RTT-D__UVISION_VERSION="537" -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_HAL_DRIVER -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING -DUser_Release-o horizon_infantry/usart.o -MD)
+F (../Core/Src/usart.c)(0x69C8C963)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/CMSIS/Core/Inc -I ../Middlewares/CMSIS/DSP/Inc/dsp -I ../Middlewares/CMSIS/DSP/Inc -I ../Middlewares/CMSIS/DSP/PrivateInclude -I ../User/Bsp/inc -I ../User/Algorithm/inc -I ../User/App/inc -I ../User/UI -I ../User/Start/Inc -I ../Middlewares/SEGGER_RTT/Config -I ../Middlewares/SEGGER_RTT/RTT-D__UVISION_VERSION="537" -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_HAL_DRIVER -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING -DUser_Release-o horizon_infantry/usart.o -MD)
 I (..\Core\Inc\usart.h)(0x683DA6E8)
 I (..\Core\Inc\main.h)(0x683DA6E8)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h)(0x68764095)
@@ -3528,7 +3528,7 @@ I (..\Middlewares\CMSIS\DSP\Inc\dsp\filtering_functions.h)(0x683DA6E9)
 I (..\Middlewares\CMSIS\DSP\Inc\dsp\quaternion_math_functions.h)(0x683DA6E9)
 I (..\Middlewares\CMSIS\DSP\Inc\dsp\window_functions.h)(0x683DA6E9)
 I (..\User\Bsp\inc\DM_Motor.h)(0x683DA6E9)
-I (..\User\Bsp\inc\Referee.h)(0x69C16FCC)
+I (..\User\Bsp\inc\Referee.h)(0x69C8D71B)
 I (..\User\Algorithm\inc\CRC_DJI.h)(0x683DA6E9)
 I (..\User\App\inc\RUI_ROOT_INIT.h)(0x683DA6E9)
 I (..\User\App\inc\Gimbal_Task.h)(0x68C81B92)
@@ -3655,7 +3655,7 @@ I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h)(0x68764095)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pcd.h)(0x68764095)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_ll_usb.h)(0x68764095)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pcd_ex.h)(0x68764095)
-F (startup_stm32f407xx.s)(0x69C3AABA)(--target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -masm=auto -c-gdwarf-4 -I ../Core/Inc -I ../Core/Inc -I ../Drivers/CMSIS/Include-Wa,armasm,--pd,"__UVISION_VERSION SETA 537" -Wa,armasm,--pd,"STM32F407xx SETA 1"-o horizon_infantry/startup_stm32f407xx.o)
+F (startup_stm32f407xx.s)(0x69C8C96A)(--target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -masm=auto -c-gdwarf-4 -I ../Core/Inc -I ../Core/Inc -I ../Drivers/CMSIS/Include-Wa,armasm,--pd,"__UVISION_VERSION SETA 537" -Wa,armasm,--pd,"STM32F407xx SETA 1"-o horizon_infantry/startup_stm32f407xx.o)
 F (../USB_DEVICE/App/usb_device.c)(0x683DA6E9)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/CMSIS/Core/Inc -I ../Middlewares/CMSIS/DSP/Inc/dsp -I ../Middlewares/CMSIS/DSP/Inc -I ../Middlewares/CMSIS/DSP/PrivateInclude -I ../User/Bsp/inc -I ../User/Algorithm/inc -I ../User/App/inc -I ../User/UI -I ../User/Start/Inc -I ../Middlewares/SEGGER_RTT/Config -I ../Middlewares/SEGGER_RTT/RTT-D__UVISION_VERSION="537" -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_HAL_DRIVER -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING -DUser_Release-o horizon_infantry/usb_device.o -MD)
 I (..\USB_DEVICE\App\usb_device.h)(0x683DA6E9)
 I (..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h)(0x68764091)
@@ -3869,7 +3869,7 @@ I (..\Middlewares\CMSIS\DSP\Inc\dsp\filtering_functions.h)(0x683DA6E9)
 I (..\Middlewares\CMSIS\DSP\Inc\dsp\quaternion_math_functions.h)(0x683DA6E9)
 I (..\Middlewares\CMSIS\DSP\Inc\dsp\window_functions.h)(0x683DA6E9)
 I (..\User\Bsp\inc\DM_Motor.h)(0x683DA6E9)
-I (..\User\Bsp\inc\Referee.h)(0x69C16FCC)
+I (..\User\Bsp\inc\Referee.h)(0x69C8D71B)
 I (..\User\Algorithm\inc\CRC_DJI.h)(0x683DA6E9)
 I (..\User\App\inc\RUI_ROOT_INIT.h)(0x683DA6E9)
 I (..\User\App\inc\Gimbal_Task.h)(0x68C81B92)
@@ -6292,7 +6292,7 @@ I (..\Middlewares\CMSIS\DSP\Inc\dsp\filtering_functions.h)(0x683DA6E9)
 I (..\Middlewares\CMSIS\DSP\Inc\dsp\quaternion_math_functions.h)(0x683DA6E9)
 I (..\Middlewares\CMSIS\DSP\Inc\dsp\window_functions.h)(0x683DA6E9)
 I (..\User\Bsp\inc\DM_Motor.h)(0x683DA6E9)
-I (..\User\Bsp\inc\Referee.h)(0x69C16FCC)
+I (..\User\Bsp\inc\Referee.h)(0x69C8D71B)
 I (..\User\Algorithm\inc\CRC_DJI.h)(0x683DA6E9)
 I (..\User\App\inc\RUI_ROOT_INIT.h)(0x683DA6E9)
 I (..\User\App\inc\Gimbal_Task.h)(0x68C81B92)
@@ -6432,7 +6432,7 @@ I (..\Middlewares\CMSIS\DSP\Inc\dsp\filtering_functions.h)(0x683DA6E9)
 I (..\Middlewares\CMSIS\DSP\Inc\dsp\quaternion_math_functions.h)(0x683DA6E9)
 I (..\Middlewares\CMSIS\DSP\Inc\dsp\window_functions.h)(0x683DA6E9)
 I (..\User\Bsp\inc\DM_Motor.h)(0x683DA6E9)
-I (..\User\Bsp\inc\Referee.h)(0x69C16FCC)
+I (..\User\Bsp\inc\Referee.h)(0x69C8D71B)
 I (..\User\Algorithm\inc\CRC_DJI.h)(0x683DA6E9)
 I (..\User\App\inc\RUI_ROOT_INIT.h)(0x683DA6E9)
 I (..\User\App\inc\Gimbal_Task.h)(0x68C81B92)

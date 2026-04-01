@@ -79,7 +79,7 @@ void StartRobotUITask(void const * argument)
     {
         RobotUI_Dynamic();
 
-        osDelay( 10);
+        osDelay( 100);
     }
 }
 
@@ -339,8 +339,6 @@ void BSP_UART_IRQHandler(UART_HandleTypeDef *huart)
             data_length_6  = BUFFER_SIZE_6 - __HAL_DMA_GET_COUNTER(&hdma_usart6_rx);//计算接收到的数据长度
 		    memset((uint8_t*)ALL_RX.Data,0,data_length_6);//清零接收缓冲区
 					            HAL_UART_Receive_DMA(&huart6,(uint8_t *)ALL_RX.Data,sizeof(ALL_RX.Data));  //重启开始DMA传输
-
-        }
     }
 
     if(huart->Instance ==USART1)//调试串口
@@ -363,4 +361,4 @@ void BSP_UART_IRQHandler(UART_HandleTypeDef *huart)
         }
     }
 }
-
+}

@@ -42,7 +42,6 @@ DBUS_Typedef WHW_V_DBUS = { 0 };
 //裁判系统相关变量
 ALL_RX_Data_T ALL_RX;
 User_Data_T User_data;
-
 //测试
 uint8_t RX[20];
 struct CanCommunit_typedef CanCommunit_t;//双板
@@ -120,7 +119,6 @@ void Everying_Init(void)
     HAL_UART_DMAStop(&huart6);
     __HAL_UART_ENABLE_IT(&huart6, UART_IT_IDLE);//裁判系统串口
     HAL_UART_Receive_DMA(&huart6,(uint8_t *)ALL_RX.Data,sizeof(ALL_RX.Data));
-	
 	//USB初始化
 	MX_USB_DEVICE_Init();
 

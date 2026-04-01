@@ -111,14 +111,17 @@ void RobotTask(uint8_t mode,
 		//										RUI_F_MATH_Limit_float(CONTAL->HEAD.Pitch_MAX,
 		//																						CONTAL->HEAD.Pitch_MIN,
 //											{
-												CONTAL->HEAD .Yaw  = /*yaw_TD; *//*-0.08*22.75555555555555;*/ (-( VISION_connect )*22.75555555555556f);
+												CONTAL->HEAD .Yaw  = /*yaw_TD; *//*-0.08*22.75555555555555;*/ (-( VISION_connect )*22.75555555555556f);//-Vision->RECEIVE .Yaw_plan * 0.001f*7.0f/360.0f;
 
-//											
+											
 										}
 
 									}
-//
-
+//									else
+//									{
+//										CONTAL->HEAD.Pitch=IMU_Data ->pitch ;
+//										CONTAL->HEAD .Yaw =IMU_Data ->YawTotalAngle ;
+//									}
 								}
 								
 //            }

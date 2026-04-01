@@ -37,25 +37,25 @@ uint8_t MOTOR_PID_Chassis_INIT(MOTOR_Typdef *MOTOR)
 //		if(IMU_Data .pitch >-40&&IMU_Data .pitch <5)
 //{
 
-    PID_Init(&MOTOR->DJI_3508_Chassis_1.PID_S, 100000.0f, 1000.0f,
+    PID_Init(&MOTOR->DJI_3508_Chassis_1.PID_S, 16384.0f, 1000.0f,
              PID_S_1, 0, 0,
              0, 0, 0,
              Integral_Limit|ErrorHandle//积分限幅,输出滤波,堵转监测
              //梯形积分,变速积分
              );//微分先行,微分滤波器
-    PID_Init(&MOTOR->DJI_3508_Chassis_2.PID_S, 100000.0f, 1000.0f,
+    PID_Init(&MOTOR->DJI_3508_Chassis_2.PID_S, 16384.0f, 1000.0f,
              PID_S_2, 0, 0,
              0, 0, 0,
              Integral_Limit|ErrorHandle//积分限幅,输出滤波,堵转监测
              //梯形积分,变速积分
              );//微分先行,微分滤波器
-    PID_Init(&MOTOR->DJI_3508_Chassis_3.PID_S, 100000.0f, 1000.0f,
+    PID_Init(&MOTOR->DJI_3508_Chassis_3.PID_S, 16384.0f, 1000.0f,
              PID_S_3, 0, 0,
              0, 0, 0,
              Integral_Limit|ErrorHandle//积分限幅,输出滤波,堵转监测
              //梯形积分,变速积分
              );//微分先行,微分滤波器
-    PID_Init(&MOTOR->DJI_3508_Chassis_4.PID_S, 100000.0f, 1000.0f,
+    PID_Init(&MOTOR->DJI_3508_Chassis_4.PID_S, 16384.0f, 1000.0f,
              PID_S_4, 0, 0,
              0, 0, 0,
              Integral_Limit|ErrorHandle//积分限幅,输出滤波,堵转监测
@@ -160,38 +160,38 @@ uint8_t chassis_task(CONTAL_Typedef *CONTAL,
 
 		
 		
-		//飞坡检测
-		
-    /*目标值赋值*/
-		if(IMU_Data .roll  >=5&&IMU_Data .roll  <=13)
-		{
-		//靶车前
-    MOTOR->DJI_3508_Chassis_3.DATA.Aim = CONTAL->BOTTOM.wheel1*2.5f;
-    MOTOR->DJI_3508_Chassis_4.DATA.Aim = CONTAL->BOTTOM.wheel2*2.5f;
-    MOTOR->DJI_3508_Chassis_1.DATA.Aim = CONTAL->BOTTOM.wheel3*3.5f;
-    MOTOR->DJI_3508_Chassis_2.DATA.Aim = CONTAL->BOTTOM.wheel4*3.5f;
-////		//靶车后
-//////		MOTOR->DJI_3508_Chassis_1.DATA.Aim = CONTAL->BOTTOM.wheel1*0.98f;
-//////    MOTOR->DJI_3508_Chassis_2.DATA.Aim = CONTAL->BOTTOM.wheel2*0.98f;
-//////    MOTOR->DJI_3508_Chassis_3.DATA.Aim = CONTAL->BOTTOM.wheel3*0.98f;
-//////    MOTOR->DJI_3508_Chassis_4.DATA.Aim = CONTAL->BOTTOM.wheel4*0.98f;
+//		//飞坡检测
+//		
+//    /*目标值赋值*/
+//		if(IMU_Data .roll  >=5&&IMU_Data .roll  <=13)
+//		{
+//		//靶车前
+//    MOTOR->DJI_3508_Chassis_3.DATA.Aim = CONTAL->BOTTOM.wheel1*2.5f;
+//    MOTOR->DJI_3508_Chassis_4.DATA.Aim = CONTAL->BOTTOM.wheel2*2.5f;
+//    MOTOR->DJI_3508_Chassis_1.DATA.Aim = CONTAL->BOTTOM.wheel3*3.5f;
+//    MOTOR->DJI_3508_Chassis_2.DATA.Aim = CONTAL->BOTTOM.wheel4*3.5f;
+//////		//靶车后
+////////		MOTOR->DJI_3508_Chassis_1.DATA.Aim = CONTAL->BOTTOM.wheel1*0.98f;
+////////    MOTOR->DJI_3508_Chassis_2.DATA.Aim = CONTAL->BOTTOM.wheel2*0.98f;
+////////    MOTOR->DJI_3508_Chassis_3.DATA.Aim = CONTAL->BOTTOM.wheel3*0.98f;
+////////    MOTOR->DJI_3508_Chassis_4.DATA.Aim = CONTAL->BOTTOM.wheel4*0.98f;
 
-  	}
-		else if(IMU_Data. roll>=13&&IMU_Data.roll <=30)
-		{
-		MOTOR->DJI_3508_Chassis_3.DATA.Aim = CONTAL->BOTTOM.wheel1*3.0f;
-    MOTOR->DJI_3508_Chassis_4.DATA.Aim = CONTAL->BOTTOM.wheel2*3.0f;
-    MOTOR->DJI_3508_Chassis_1.DATA.Aim = CONTAL->BOTTOM.wheel3*5.0f;
-    MOTOR->DJI_3508_Chassis_2.DATA.Aim = CONTAL->BOTTOM.wheel4*5.0f;
+//  	}
+//		else if(IMU_Data. roll>=13&&IMU_Data.roll <=30)
+//		{
+//		MOTOR->DJI_3508_Chassis_3.DATA.Aim = CONTAL->BOTTOM.wheel1*3.0f;
+//    MOTOR->DJI_3508_Chassis_4.DATA.Aim = CONTAL->BOTTOM.wheel2*3.0f;
+//    MOTOR->DJI_3508_Chassis_1.DATA.Aim = CONTAL->BOTTOM.wheel3*5.0f;
+//    MOTOR->DJI_3508_Chassis_2.DATA.Aim = CONTAL->BOTTOM.wheel4*5.0f;
 
-		}
-		else
-		{
-	  MOTOR->DJI_3508_Chassis_3.DATA.Aim = CONTAL->BOTTOM.wheel1*2.0f;
-    MOTOR->DJI_3508_Chassis_4.DATA.Aim = CONTAL->BOTTOM.wheel2*2.0f;
-    MOTOR->DJI_3508_Chassis_1.DATA.Aim = CONTAL->BOTTOM.wheel3*2.0f;
-    MOTOR->DJI_3508_Chassis_2.DATA.Aim = CONTAL->BOTTOM.wheel4*2.0f;
-		}
+//		}
+//		else
+//		{
+	  MOTOR->DJI_3508_Chassis_3.DATA.Aim = CONTAL->BOTTOM.wheel1*4.0f;
+    MOTOR->DJI_3508_Chassis_4.DATA.Aim = CONTAL->BOTTOM.wheel2*4.0f;
+    MOTOR->DJI_3508_Chassis_1.DATA.Aim = CONTAL->BOTTOM.wheel3*4.0f;
+    MOTOR->DJI_3508_Chassis_2.DATA.Aim = CONTAL->BOTTOM.wheel4*4.0f;
+//		}
 //    /*遥控离线保护
    if(Root->RM_DBUS==0)
     {
@@ -239,11 +239,11 @@ uint8_t chassis_task(CONTAL_Typedef *CONTAL,
     /*电机动力分配*/
 
     /*功率控制*/
-//    chassis_power_control(CONTAL,
-//                          User_data,
-//                          model,
-//                          CAP_GET,
-//                          MOTOR);
+    chassis_power_control(CONTAL,
+                          User_data,
+                          model,
+                          CAP_GET,
+                          MOTOR);
 
     /*总输出计算*/
     float tmp_C[4];
@@ -298,8 +298,8 @@ uint8_t ChassisRXResolve(uint8_t * data,DBUS_Typedef *DBUS,RUI_ROOT_STATUS_Typed
 	DBUS->Remote.Dial_int16  = CanCommunit_t.gmTOch.dataNeaten.vr;
 	
 	
-	//F切换单发连发   G开关摩擦轮       C开启超电     Shift小陀螺
-	//Q左转 				 E右转						Ctrl视觉模式
+	//   G开关摩擦轮 （自动开）      C开启超电     Shift小陀螺  √
+	//Q左转 	√			 E右转	√					右键长按视觉模式√    单连发/鼠标 √  电容电量（未加）
 	
 	
 	DBUS->KeyBoard .F  = CanCommunit_t.gmTOch.dataNeaten.key_f  ;
@@ -317,6 +317,10 @@ uint8_t ChassisRXResolve(uint8_t * data,DBUS_Typedef *DBUS,RUI_ROOT_STATUS_Typed
 	DBUS->Remote .S2_u8 =CanCommunit_t.gmTOch .dataNeaten .S2 ;
 
 	RUI_ROOT_STATUS.Power =CanCommunit_t.gmTOch .dataNeaten .supUSe ;
+	pitch_state=CanCommunit_t.gmTOch.dataNeaten.pitch;
+	fire_wheel_state=CanCommunit_t.gmTOch.dataNeaten.fire_wheel;
+	shoot_sta=CanCommunit_t.gmTOch.dataNeaten.shoot;
+	vision_state=CanCommunit_t.gmTOch.dataNeaten.vision;
 //	RUI_ROOT_STATUS.RM_MOD  =CanCommunit_t.gmTOch .dataNeaten .topSate ;
 //	RUI_ROOT_STATUS.RM_MOD =	CanCommunit_t.gmTOch .dataNeaten .target;
 
@@ -348,50 +352,8 @@ uint8_t ChassisRXResolve(uint8_t * data,DBUS_Typedef *DBUS,RUI_ROOT_STATUS_Typed
 ************************************************************************************************************************************/
 uint8_t ChassisTXResolve(User_Data_T *User_data)
 {	
-		static uint16_t heatlimit = 200;
-		if(User_data->robot_status.robot_level == 1){
-			heatlimit = 200;
-		}else if(User_data->robot_status.robot_level == 2){
-			heatlimit = 230;
-		}else if(User_data->robot_status.robot_level == 3){
-			heatlimit = 260;
-		}else if(User_data->robot_status.robot_level == 4){
-			heatlimit = 290;
-		}else if(User_data->robot_status.robot_level == 5){
-			heatlimit = 320;
-		}else if(User_data->robot_status.robot_level == 6){
-			heatlimit = 350;
-		}else if(User_data->robot_status.robot_level == 7){
-			heatlimit = 380;
-		}else if(User_data->robot_status.robot_level == 8){
-			heatlimit = 420;
-		}else if(User_data->robot_status.robot_level == 9){
-			heatlimit = 450;
-		}else if(User_data->robot_status.robot_level ==10){
-			heatlimit = 500;
-		}
-		//新协议
-//		if(boll == 0){
-//			//第一帧
-////			CanCommunit_t.chTOgm.dataNeaten_angle.pitch = SectionLimit_i(30000, -30000, (visionData_t.receive.pitchAngle[df_now] * 100));
-////			CanCommunit_t.chTOgm.dataNeaten_angle.yaw 	= SectionLimit_i(30000, -30000, (visionData_t.receive.yawAngle[df_now] * 100));
-////			CanCommunit_t.chTOgm.dataNeaten_angle.time	= (float)RunTime;
-//		}
-//		else {
-			//第二帧
-			CanCommunit_t.chTOgm.dataNeaten_another.muzzleColing = heatlimit - User_data->power_heat_data.shooter_42mm_barrel_heat;	//剩余枪口热量
-			CanCommunit_t.chTOgm.dataNeaten_another.maxSpeed = 16;	//最大射速
-			CanCommunit_t.chTOgm.dataNeaten_another.nowSpeed = User_data->shoot_data.initial_speed; //当前射速
-//			CanCommunit_t.chTOgm.dataNeaten_another.nowSpeed = 0;		//底盘锁
-//			CanCommunit_t.chTOgm.dataNeaten_another.target = visionData_t.receive.target;		//视觉是否识别到目标
-//			CanCommunit_t.chTOgm.dataNeaten_another.visionMod = visionData_t.receive.visionState;		//视觉的当前状态
-//			CanCommunit_t.chTOgm.dataNeaten_another.visionState = root_t.visionRoot.communicat;		//视觉离线信息
-//			CanCommunit_t.chTOgm.dataNeaten_another.judgeState = root_t.judgeRoot.communicat;		//裁判系统离线信息
-//		}
-//		can_send(&hcan1,df_CHControlData_ID,CanCommunit_t.chTOgm.sendData[0],\
-//				CanCommunit_t.chTOgm.sendData[1],\
-//				CanCommunit_t.chTOgm.sendData[2],\
-//				CanCommunit_t.chTOgm.sendData[3]);
-//	DJI_Current_Ctrl(&hcan1,GIMBAL_kong,100,100,100,100);
+			CanCommunit_t.chTOgm.dataNeaten_another.heat_last  = 230 - User_data->power_heat_data.shooter_17mm_barrel_heat ;	//剩余枪口热量
+			CanCommunit_t.chTOgm.dataNeaten_another.huanchongnengliang  = User_data->power_heat_data .buffer_energy ;	//缓冲能量
+	canx_send_data(&hcan1, CHASSIC_kong, CanCommunit_t.chTOgm .sendData );		//新协议
 		return 1;
 }
