@@ -182,7 +182,8 @@ void SystemClock_Config(void)
 
 /* USER CODE BEGIN 4 */
 float abcdefgf;
-
+float heat_all=230;
+float asdf=0;
 /* USER CODE END 4 */
 
 /**
@@ -204,7 +205,20 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   /* USER CODE BEGIN Callback 1 */
 		if(htim->Instance ==TIM9)
 	{
-		abcdefgf+=1;
+		asdf +=0.14;
+		if(heat_all<230)
+		{
+			heat_all+=0.14;
+		}
+		
+		if(shoot_stateee==1)
+		{
+			heat_all-=10;
+		}
+		else
+		{
+			heat_all=230;
+		}
 	}
 
   /* USER CODE END Callback 1 */

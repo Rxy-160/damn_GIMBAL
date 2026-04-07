@@ -95,10 +95,11 @@ horizon_infantry/rui_root_init.o: ..\User\App\RUI_ROOT_INIT.c \
   ..\User\Bsp\inc\BMI088reg.h ..\User\Bsp\inc\BMI088Middleware.h \
   ..\User\Start\Inc\All_Init.h ..\User\Bsp\inc\Referee.h \
   ..\User\Algorithm\inc\CRC_DJI.h ..\User\Bsp\inc\RGBctrl.h \
-  ..\User\App\inc\Shoot_Task.h ..\User\App\inc\Chassis_Task.h \
-  ..\User\Algorithm\inc\Power_Ctrl.h ..\User\Bsp\inc\Power_CAP.h \
-  ..\User\Bsp\inc\bsp_adc.h ..\User\App\inc\RobotUI_Ctrl.h \
-  ..\User\Bsp\inc\Vision.h ..\USB_DEVICE\App\usbd_cdc_if.h \
+  ..\User\App\inc\Shoot_Task.h ..\User\App\inc\iir.h \
+  ..\User\App\inc\Chassis_Task.h ..\User\Algorithm\inc\Power_Ctrl.h \
+  ..\User\Bsp\inc\Power_CAP.h ..\User\Bsp\inc\bsp_adc.h \
+  ..\User\App\inc\RobotUI_Ctrl.h ..\User\Bsp\inc\Vision.h \
+  ..\USB_DEVICE\App\usbd_cdc_if.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc\usbd_cdc.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ioreq.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_def.h \

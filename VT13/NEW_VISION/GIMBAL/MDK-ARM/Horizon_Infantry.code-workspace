@@ -4,6 +4,10 @@
             "path": "."
         }
     ],
-    "settings": {},
+    "settings": {
+        "python.analysis.extraPaths": [
+            "c:\\Users\\R0602\\.vcpkg\\artifacts\\2139c4c6\\debuggers.arm.armdbg\\6.5.0\\sw\\osgi\\plugins\\com.arm.debug.interpreter.jython.api_6.5.0.202503271750"
+        ]
+    },
     "extensions": {}
 }

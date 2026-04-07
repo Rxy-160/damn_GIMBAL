@@ -2,7 +2,7 @@
 
 #define ATTACK_D_TIMEOUT 300
 #define ATTACK_D_SPEED  30
-
+LowPassFilter LowPass={0};
 TYPEDEF_ATTACK_PARAM ATTACK_V_PARAM = {0};
 float app;
 float acceleration_fire;
@@ -330,55 +330,70 @@ void ATTACK_F_JAM_Aim(MOTOR_Typdef *MOTOR, VT13_Typedef *VT13_DBUS, uint8_t auto
     // 计算新的电机目标角度                              摩擦轮开启
     if (ATTACK_V_PARAM.COUNT > 0 && ATTACK_V_PARAM.fire_wheel_status /*&& MOTOR->DATA.ENABLE*/) // @debug  
     {
-//			//////在视觉模式与手控模式的简略火控
-//			if ((RUI_V_CONTAL.MOD [0]==1 ||VT13_DBUS->Mouse .R_State ==2)&& VISION_V_DATA.RECEIVE .fire ==1)//视觉模式
-//			{
+////			//////在视觉模式与手控模式的简略火控
+////			if ((RUI_V_CONTAL.MOD [0]==1 ||VT13_DBUS->Mouse .R_State ==2)&& VISION_V_DATA.RECEIVE .fire ==1)//视觉模式
+////			{
+////				if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last >200)
+////				{
+////					MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/55000;//15000---实际4400rpm   7.333333hz
+////				}
+////				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=200&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >140)
+////				{
+////				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/40000;//15000---实际4400rpm   7.333333hz
+////				}
+////				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=140&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >70)
+////				{
+////				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/35000;//15000---实际4400rpm   7.333333hz
+////				}
+////				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=70&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >30)
+////				{
+////				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/14000;//15000---实际4400rpm   7.333333hz
+////				}	
+////				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=13)////停留在当前位置
+////				{
+////				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite;//15000---实际4400rpm   7.333333hz
+////				}	
+////				
+
+////			}
+////			else if(RUI_V_CONTAL.MOD [0]==0)//手控模式
+////			{
 //				if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last >200)
 //				{
-//					MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/55000;//15000---实际4400rpm   7.333333hz
+//					MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/60000;//15000---实际4400rpm   7.333333hz
 //				}
-//				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=200&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >140)
+//				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=200&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >170)
 //				{
-//				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/40000;//15000---实际4400rpm   7.333333hz
+			if(heat_all>160)
+			{
+				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/50000;//15000---实际4400rpm   7.333333hz
+				
+			}
+			else if(heat_all<150&&heat_all>90)
+			{
+								MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/25000;//15000---实际4400rpm   7.333333hz
+
+			}
+						else if(heat_all<90&&heat_all>30)
+			{
+								MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/10000;//15000---实际4400rpm   7.333333hz
+
+			}
+
+//	}
+//				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=170&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >120)
+//				{
+//				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/20000;//15000---实际4400rpm   7.333333hz
 //				}
-//				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=140&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >70)
+//				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=120&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >65 )
 //				{
-//				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/35000;//15000---实际4400rpm   7.333333hz
-//				}
-//				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=70&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >30)
-//				{
-//				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/14000;//15000---实际4400rpm   7.333333hz
+//				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/8000;//15000---实际4400rpm   7.333333hz
 //				}	
-//				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=13)////停留在当前位置
+//				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=65)///停留在当前位置
 //				{
 //				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite;//15000---实际4400rpm   7.333333hz
 //				}	
 //				
-
-//			}
-//			else if(RUI_V_CONTAL.MOD [0]==0)//手控模式
-//			{
-				if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last >200)
-				{
-					MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/60000;//15000---实际4400rpm   7.333333hz
-				}
-				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=200&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >170)
-				{
-				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/40000;//15000---实际4400rpm   7.333333hz
-				}
-				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=170&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >120)
-				{
-				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/20000;//15000---实际4400rpm   7.333333hz
-				}
-				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=120&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >65 )
-				{
-				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/8000;//15000---实际4400rpm   7.333333hz
-				}	
-				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=65)///停留在当前位置
-				{
-				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite;//15000---实际4400rpm   7.333333hz
-				}	
-				
 
 //			}
 																																																					//		30000	  		5800			9.66666				
@@ -486,6 +501,10 @@ void ATTACK_F_FIRE_Aim(MOTOR_Typdef *MOTOR,VT13_Typedef *VT13_DBUS)
 // 总控制函数
 void ATTACK_F_Ctl(VT13_Typedef *VT13_DBUS,MOTOR_Typdef *MOTOR)
 {
+	    filler_motor_L=butterOrdF(MOTOR->DJI_3508_Shoot_L .DATA .Speed_now  );
+	filler_motor_R=butterOrdF(MOTOR->DJI_3508_Shoot_R .DATA .Speed_now  );
+	filler_motor_M=butterOrdF(MOTOR->DJI_3508_Shoot_M .DATA .Speed_now );
+
 	static_word(VT13_DBUS);
 //    if (!MOTOR[MOTOR_D_ATTACK_G].is_off[NOW] && MOTOR[MOTOR_D_ATTACK_G].is_off[LAST]) 
 //		{
@@ -722,6 +741,11 @@ uint8_t ATTACK_F_JAM_Check(MOTOR_Typdef *MOTOR)
         return ROOT_READY;
     }
 }
+double filler_motor_L;
+
+double filler_motor_R;
+
+double filler_motor_M;
 float last_G=0.0f;
 int16_t abcdefg=0.0f;
 float qqqqqqq =0.0f;
@@ -745,10 +769,117 @@ void static_word(VT13_Typedef *VT13_DBUS)
 	}
 
 }
+uint16_t statues=0;//检测弹丸累计
+uint8_t shoot_stateee;////
+uint8_t current_trigger = 0;
+uint8_t last_trigger = 0;///////上一次触发状态
 
-int16_t nummmm;////
+//拨盘电机的各种标志位
+uint8_t motor_M_state=0;
+uint8_t motot_M_laststate=0;
+uint8_t all_M=0;
 
-void shoot_number_caculate()
+//摩擦轮电机的各种标志位
+uint8_t motor_F_state=0;
+uint8_t motot_F_laststate=0;
+uint8_t all_F=0;
+
+
+
+void shoot_status(MOTOR_Typdef *MOTOR)
 {
-	
+	float i;
+
+//	if(MOTOR->DJI_3508_Shoot_M .DATA .Speed_now  <-1500)//////////不如不加
+	{
+//		if((filler_motor_L   >-6000&&MOTOR->DJI_3508_Shoot_R .DATA .Speed_now  <5900)&&VT13_DBUS.Remote .mode_sw ==1)//////不加拨弹检测：连发  30检测20    50-35  100-86 /74 /77
+
+		if((filler_motor_L   <-2600&&filler_motor_R <-2000)&&VT13_DBUS.Remote .mode_sw ==1)///滤波后把检测误差过大
+//		if((motor_M_state==1)&&(motor_F_state==1))/////减速状态
+	{
+		{
+////			for(i=0;i<30;i++)
+////			{
+////				
+////			}
+			current_trigger=1;
+
+		}
+	}
+	else
+	{
+		current_trigger=0;
+	}
+		if(current_trigger == 1 )
+    {
+			if(last_trigger == 0)
+			{
+					shoot_stateee = 1;   // 产生一个脉冲
+					statues+=1;
+			}
+    }
+    else
+    {
+        shoot_stateee = 0;
+    }
+		last_trigger = current_trigger;
+	}
+}
+void motor_m_reduce(MOTOR_Typdef *MOTOR)//拨盘电机持续减速状态捕捉
+{
+	if(MOTOR->DJI_3508_Shoot_M .DATA .Speed_now -MOTOR->DJI_3508_Shoot_M .DATA .Speed_last <0)
+	{
+		motor_M_state=1;
+	}
+	else
+	{
+		motor_M_state=0;
+	}
+}
+
+void mocalun_reduce(MOTOR_Typdef *MOTOR)//////摩擦轮减速瞬间状态捕捉
+{
+	if((MOTOR->DJI_3508_Shoot_L .DATA .Speed_now -MOTOR->DJI_3508_Shoot_L .DATA .Speed_last <0)/*&&(MOTOR->DJI_3508_Shoot_R .DATA .Speed_now-MOTOR->DJI_3508_Shoot_R .DATA .Speed_last <0 )*/)
+	{
+		motor_F_state=1;
+	}
+	else
+	{
+		motor_F_state=0;
+	}
+	if(motor_F_state==1)
+	{
+		if(motot_F_laststate==0)
+		{
+			all_F=1;
+		}
+		else 
+		{
+			all_F=0;
+		}
+	}
+	motot_F_laststate=motor_F_state;
+}
+
+
+
+/////////自己写的滤波器
+
+void lpf_init(LowPassFilter *f, float alpha) 
+{
+    f->alpha = alpha;
+    f->last_output = 0;
+    f->initialized = 0;
+}
+
+float lpf_process(LowPassFilter *f, float input) 
+{
+    if (!f->initialized) 
+    {
+        f->last_output = input;
+        f->initialized = 1;
+    }
+    // 公式: Y(n) = α * X(n) + (1-α) * Y(n-1)
+    f->last_output = f->alpha * input + (1.0f - f->alpha) * f->last_output;
+    return f->last_output;
 }

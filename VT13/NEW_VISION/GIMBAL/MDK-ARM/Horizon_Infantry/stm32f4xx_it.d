@@ -98,9 +98,9 @@ horizon_infantry/stm32f4xx_it.o: ..\Core\Src\stm32f4xx_it.c \
   ..\User\Bsp\inc\BMI088reg.h ..\User\Bsp\inc\BMI088Middleware.h \
   ..\User\Bsp\inc\RGBctrl.h ..\User\Bsp\inc\Power_CAP.h \
   ..\User\Bsp\inc\bsp_adc.h ..\User\App\inc\Shoot_Task.h \
-  ..\User\App\inc\Chassis_Task.h ..\User\Algorithm\inc\Power_Ctrl.h \
-  ..\User\App\inc\RobotUI_Ctrl.h ..\User\Bsp\inc\Vision.h \
-  ..\USB_DEVICE\App\usbd_cdc_if.h \
+  ..\User\App\inc\iir.h ..\User\App\inc\Chassis_Task.h \
+  ..\User\Algorithm\inc\Power_Ctrl.h ..\User\App\inc\RobotUI_Ctrl.h \
+  ..\User\Bsp\inc\Vision.h ..\USB_DEVICE\App\usbd_cdc_if.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc\usbd_cdc.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ioreq.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_def.h \

@@ -106,9 +106,9 @@ horizon_infantry/usbd_cdc_if.o: ..\USB_DEVICE\App\usbd_cdc_if.c \
   ..\User\Start\Inc\WHW_IRQN.h ..\User\Bsp\inc\Vision.h \
   ..\User\Bsp\inc\RGBctrl.h ..\User\Bsp\inc\Power_CAP.h \
   ..\User\Bsp\inc\bsp_adc.h ..\User\App\inc\Shoot_Task.h \
-  ..\User\App\inc\Chassis_Task.h ..\User\Algorithm\inc\Power_Ctrl.h \
-  ..\User\App\inc\RobotUI_Ctrl.h ..\User\UI\ui.h \
-  ..\User\UI\ui_interface.h ..\User\UI\ui_types.h \
+  ..\User\App\inc\iir.h ..\User\App\inc\Chassis_Task.h \
+  ..\User\Algorithm\inc\Power_Ctrl.h ..\User\App\inc\RobotUI_Ctrl.h \
+  ..\User\UI\ui.h ..\User\UI\ui_interface.h ..\User\UI\ui_types.h \
   ..\User\UI\ui_default_init0_0.h ..\User\UI\ui_default_init0_1.h \
   ..\User\UI\ui_default_init0_2.h ..\User\UI\ui_default_init1_0.h \
   ..\User\UI\ui_default_init2_0.h ..\User\UI\ui_default_init3_0.h \

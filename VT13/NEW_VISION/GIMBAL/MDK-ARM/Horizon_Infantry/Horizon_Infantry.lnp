@@ -36,6 +36,7 @@
 "horizon_infantry\robotui_ctrl.o"
 "horizon_infantry\rui_root_init.o"
 "horizon_infantry\shoot_task.o"
+"horizon_infantry\iir.o"
 "horizon_infantry\all_init.o"
 "horizon_infantry\whw_irqn.o"
 "horizon_infantry\main.o"

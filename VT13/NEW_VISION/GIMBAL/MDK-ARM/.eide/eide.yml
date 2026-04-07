@@ -270,7 +270,7 @@ targets:
         - __FPU_PRESENT=1U
         - ARM_MATH_MATRIX_CHECK
         - ARM_MATH_ROUNDING
-        - User_Debug
+        - User_Release
       incList:
         - ../Core/Inc
         - ../USB_DEVICE/App
@@ -299,6 +299,7 @@ targets:
         - RTE/_Horizon_Infantry
       libList: []
     excludeList: []
+    settings: {}
     toolchain: AC6
     toolchainConfigMap:
       AC6:

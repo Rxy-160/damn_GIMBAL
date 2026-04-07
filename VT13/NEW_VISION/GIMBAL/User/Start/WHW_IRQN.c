@@ -170,6 +170,7 @@ void StartDefiantTask(void const * argument)
         /*电容*/
 //        Power_CAP_CAN_TX(&hcan2, 0x308, &CAPDATE.SET, &User_data);
 					ATTACK_F_Ctl( &VT13_DBUS ,&ALL_MOTOR );
+			shoot_status(&ALL_MOTOR );
 //        /*发射*/
 //        RobotTask(4, &WHW_V_DBUS, &RUI_V_CONTAL, &User_data,
 //                  &CAPDATE, &VISION_V_DATA, &RUI_ROOT_STATUS, &ALL_MOTOR,&IMU_Data);
@@ -219,7 +220,7 @@ void StartRootTask(void const * argument)
 {
     portTickType currentTimeRoot;
     currentTimeRoot = xTaskGetTickCount();
-
+    lpf_init(&LowPass,0.8);
     //使用基准电压来校准
 //    init_vrefint_reciprocal();
 

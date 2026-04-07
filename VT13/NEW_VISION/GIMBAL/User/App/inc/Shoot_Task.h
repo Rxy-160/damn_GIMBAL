@@ -7,6 +7,9 @@
 #include "RUI_ROOT_INIT.h"
 #include "Motors.h"
 #include "RUI_DBUS.h"
+#include "iir.h"
+
+
 #define DBUS_D_MOD_SINGLE 2    //单发
 #define DBUS_D_MOD_CONSIST 1   //连发
 #define DBUS_D_MOD_SHUT 3      //拨盘在中间
@@ -42,6 +45,32 @@ uint8_t MOTOR_PID_Shoot_INIT(MOTOR_Typdef *MOTOR);
 //float ATTACK_F_FireRate_Control(TYPEDEF_MOTOR *motor, float hz, uint8_t type);
 uint8_t ATTACK_F_HeatControl(MOTOR_Typdef *MOTOR, uint8_t type,User_Data_T *User_Data) ;
 void static_word(VT13_Typedef *VT13_DBUS);
+void shoot_status(MOTOR_Typdef *MOTOR);
+extern uint8_t shoot_stateee;////
+extern uint8_t motor_F_state;
+extern uint8_t motor_M_state;
+
+extern uint16_t statues;//检测弹丸累计
+
+extern double filler_motor_L;
+
+extern double filler_motor_R;
+extern double filler_motor_M;
+
+typedef struct {
+    float alpha;        // 滤波系数 (0-1)，越小越平滑，越大响应越快
+    float last_output;  // 上次输出值
+    int initialized;    // 是否已初始化
+} LowPassFilter;
+
+extern LowPassFilter LowPass;
+void lpf_init(LowPassFilter *f, float alpha) ;
+float lpf_process(LowPassFilter *f, float input) ;
+
+
+
+
+
 
 
 #endif

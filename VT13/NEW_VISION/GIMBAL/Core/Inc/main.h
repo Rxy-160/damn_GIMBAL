@@ -84,6 +84,8 @@ void Error_Handler(void);
 #define CS1_GYRO_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
+extern float heat_all;
+extern float asdf;
 
 /* USER CODE END Private defines */
 

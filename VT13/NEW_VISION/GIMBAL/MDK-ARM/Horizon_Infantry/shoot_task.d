@@ -120,4 +120,4 @@ horizon_infantry/shoot_task.o: ..\User\App\Shoot_Task.c \
   ..\Middlewares\SEGGER_RTT\RTT\SEGGER_RTT.h \
   ..\Middlewares\SEGGER_RTT\RTT\..\Config\SEGGER_RTT_Conf.h \
   D:\Keil\ARM\ARMCLANG\Bin\..\include\stdarg.h \
-  ..\User\Start\Inc\WHW_IRQN.h
+  ..\User\Start\Inc\WHW_IRQN.h ..\User\App\inc\iir.h

@@ -37,7 +37,7 @@ void RUI_F_MOTOR_CAN_RX_3508RM(DJI_MOTOR_DATA_Typedef* DATA , uint8_t* can_data)
 
     DATA->Angle_now = (int16_t) (((can_data[0] << 8) | can_data[1]) & 0xFFFF);
 
-    DATA->Speed_last = DATA->Speed_now;
+   
 
     DATA->Speed_now = (int16_t) (((can_data[2] << 8) | can_data[3]) & 0xFFFF);
 
@@ -63,7 +63,7 @@ void RUI_F_MOTOR_CAN_RX_3508RM(DJI_MOTOR_DATA_Typedef* DATA , uint8_t* can_data)
     DATA->ONLINE_JUDGE_TIME = RUI_DF_MOTOR_OFFLINE_TIME;
 
     DATA->Angle_Infinite = (int32_t) ((DATA->Laps << 13)+ DATA->Angle_now);
-
+		////上一次的速度放到rtos里面传
 }
 
 /************************************************************万能分隔符**************************************************************
