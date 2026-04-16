@@ -170,14 +170,15 @@ void StartDefiantTask(void const * argument)
         /*电容*/
 //        Power_CAP_CAN_TX(&hcan2, 0x308, &CAPDATE.SET, &User_data);
 					ATTACK_F_Ctl( &VT13_DBUS ,&ALL_MOTOR );
-			shoot_status(&ALL_MOTOR );
+					
+
 //        /*发射*/
 //        RobotTask(4, &WHW_V_DBUS, &RUI_V_CONTAL, &User_data,
 //                  &CAPDATE, &VISION_V_DATA, &RUI_ROOT_STATUS, &ALL_MOTOR,&IMU_Data);
 //        move_S = shoot_task(&RUI_V_CONTAL, &RUI_ROOT_STATUS,&ALL_MOTOR);
 //        DWT_Delay(/*&currentTimeRobotUI,*/ 50);
 //					vTaskDelayUntil(&currentTimeDefiant,1);
-        osDelayUntil(&currentTimeDefiant, 2);
+        osDelayUntil(&currentTimeDefiant, 1);
 //			vTaskDelay (1);
     }
 }
@@ -206,10 +207,6 @@ void StartIMUTask(void const * argument)
         INS_Task(&IMU_Data, &imu_temp);
         dt_pc = (uint32_t)DWT_GetDeltaT(&INS_DWT_Count);
 				Quaternion_testing(&IMU_Data);
-			//视觉发送
-//        ControltoVision(&VISION_V_DATA.SEND ,sd_v_buff, 1,&User_data,&WHW_V_DBUS,&IMU_Data ,&VISION_V_DATA);
-//        DWT_Delay(/*&currentTimeRobotUI,*/ 50);
-//				vTaskDelayUntil(&currentTimeIMU,1);
         osDelayUntil(&currentTimeIMU, 1);
 //			vTaskDelay(1);
     }
@@ -242,6 +239,7 @@ void BSP_TIM_IRQHandler(TIM_HandleTypeDef *htim)
 	if (htim->Instance == TIM7) {
 		TX[0]++;
 		dt_pc = DWT_GetDeltaT(&INS_DWT_Count);
+		g_det.last_cnt =g_det.cnt ;
 //		motor_mode(&hcan1, 2, 0x00, 0xFC);
 		//		///////普通视觉发送//////////////////////////////////这个DBUS不影响
 	 ControltoVision(&VISION_V_DATA.SEND ,sd_v_buff, 1,&User_data,&VT13_DBUS,&IMU_Data ,&VISION_V_DATA,&ALL_MOTOR );

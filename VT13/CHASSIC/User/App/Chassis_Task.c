@@ -334,7 +334,7 @@ uint8_t ChassisRXResolve(uint8_t * data,DBUS_Typedef *DBUS,RUI_ROOT_STATUS_Typed
 	
 	return 1;
 }
-
+uint64_t self_color;
 
 /************************************************************万能分隔符**************************************************************
 *	@author:			//赵澍
@@ -352,8 +352,18 @@ uint8_t ChassisRXResolve(uint8_t * data,DBUS_Typedef *DBUS,RUI_ROOT_STATUS_Typed
 ************************************************************************************************************************************/
 uint8_t ChassisTXResolve(User_Data_T *User_data)
 {	
+	if(User_data->robot_status .robot_id ==3)//红方
+	
+	{
+		self_color=0;
+	}
+	else if(User_data->robot_status .robot_id  ==103)//蓝方
+	{
+		self_color=1;
+	}
 			CanCommunit_t.chTOgm.dataNeaten_another.heat_last  = 230 - User_data->power_heat_data.shooter_17mm_barrel_heat ;	//剩余枪口热量
 			CanCommunit_t.chTOgm.dataNeaten_another.huanchongnengliang  = User_data->power_heat_data .buffer_energy ;	//缓冲能量
+			CanCommunit_t.chTOgm .dataNeaten_another .self_color =self_color;
 	canx_send_data(&hcan1, CHASSIC_kong, CanCommunit_t.chTOgm .sendData );		//新协议
 		return 1;
 }

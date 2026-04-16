@@ -64,6 +64,9 @@ void RUI_F_MOTOR_CAN_RX_3508RM(DJI_MOTOR_DATA_Typedef* DATA , uint8_t* can_data)
 
     DATA->Angle_Infinite = (int32_t) ((DATA->Laps << 13)+ DATA->Angle_now);
 		////上一次的速度放到rtos里面传
+		
+		
+
 }
 
 /************************************************************万能分隔符**************************************************************

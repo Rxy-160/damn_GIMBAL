@@ -4,7 +4,7 @@ float P_predict;//
 
 void Power_control_init(model_t *model)
 {
-    model->PID_Buffer.Kp = 0.3;
+    model->PID_Buffer.Kp = 0.0;
     model->PID_Buffer.Ki = 0;
     model->PID_Buffer.Kd = 0;
     model->PID_Buffer.ILt = 0;
@@ -288,7 +288,7 @@ uint8_t chassis_power_control(CONTAL_Typedef *RUI_V_CONTAL_V,
 	initial_give_power[1] = get_initial_power(&MOTOR->DJI_3508_Chassis_2, model);
 	initial_give_power[2] = get_initial_power(&MOTOR->DJI_3508_Chassis_3, model);
 	initial_give_power[3] = get_initial_power(&MOTOR->DJI_3508_Chassis_4, model);
-		
+
 
 	for(uint8_t i = 0; i < 4; i++)
     {
@@ -303,12 +303,13 @@ uint8_t chassis_power_control(CONTAL_Typedef *RUI_V_CONTAL_V,
     I_cmd[3] = MOTOR->DJI_3508_Chassis_4.PID_S.Output;
 //////////    if (initial_total_power > chassis_max_power) // 确定是否大于最大功率
 //////////    }
- DJI_MOTOR_Typedef *motor_ptr[4] = {
-        &MOTOR->DJI_3508_Chassis_1,
-        &MOTOR->DJI_3508_Chassis_2,
-        &MOTOR->DJI_3508_Chassis_3,
-        &MOTOR->DJI_3508_Chassis_4
-    };
+		 DJI_MOTOR_Typedef *motor_ptr[4] = 
+			{
+						&MOTOR->DJI_3508_Chassis_1,
+						&MOTOR->DJI_3508_Chassis_2,
+						&MOTOR->DJI_3508_Chassis_3,
+						&MOTOR->DJI_3508_Chassis_4
+			};
 
 		chassis_power_distribute(motor_ptr,I_cmd,chassis_max_power ,model);
 		MOTOR->DJI_3508_Chassis_1.PID_S.Output = I_cmd[0];

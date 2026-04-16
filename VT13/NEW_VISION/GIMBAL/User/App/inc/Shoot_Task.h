@@ -69,7 +69,37 @@ float lpf_process(LowPassFilter *f, float input) ;
 
 
 
+///////////以下是火控的弹丸检测部分
 
+//这下面是射击检测的
+#define K_UP             0.673//0.360f   // 上升系数
+#define K_DN             0.142//0.059f   // 下降系数
+#define TH_FIRE          200.0f   // 触发阈值
+#define TH_FIRE_MAX      1200.0f  // 最大触发阈值
+#define MIN_SLOPE        80.0f    // 最小斜率阈值
+#define RELATIVE_RECOVER 0.25f    // 回升比例
+#define TH_RST_SAFE      100.0f   // 复位阈值
+#define TIMEOUT_TICKS    14//35       // 超时上限
+#define COOL_DOWN_TICKS  2//5        // 冷却周期
+
+// 重新定义的结构体
+typedef struct {
+    float base;              // 动态基准线
+    float last_val;          // 记录上一次的转速，用于算斜率
+    float max_drop_in_round; // 记录单次触发过程中的最大跌落深度
+    bool  armed;             // 触发状态
+    uint32_t cnt;            // 计数器
+		uint32_t last_cnt;     //上一次的计数器
+    uint8_t  t_out;          // 超时计数器
+    uint8_t  cool_down_cnt;  // 冷却计数器
+    bool  init;              // 初始化标志
+} ShootDet_t;
+
+
+bool Update_Shoot_Det(float speed1, float speed2, ShootDet_t *det);
+
+extern bool text_shoot_cnt;
+extern ShootDet_t g_det;
 
 
 

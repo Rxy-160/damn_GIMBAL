@@ -65,6 +65,7 @@ union chTOgm_typdef		//使用共用体整合数据
 	struct{
 		uint64_t heat_last:16;	//剩余热量
 		uint64_t huanchongnengliang:8;		//最大射速
+		uint64_t self_color:16;
 		uint64_t nowSpeed:8;		//当前射速
 		uint64_t target:1;			//是否识别成功标志位
 		uint64_t visionMod:3;		//视觉的状态

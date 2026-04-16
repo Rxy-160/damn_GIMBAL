@@ -3,7 +3,7 @@
 uint8_t RobotUI_Static_Init()
 {	
 		ui_init_g_1();
-	osDelay(200);
+	osDelay(2);
 	return RUI_DF_READY;
 }
 
@@ -22,7 +22,9 @@ void RobotUI_Dynamic()
     { 
         UI_Init = RobotUI_Static_Init();
     }
+		ui_init_g_1();
 		ui_update_g_1();
+//		ui_remove_g_1();
 //osDelay(20);
 		
 }

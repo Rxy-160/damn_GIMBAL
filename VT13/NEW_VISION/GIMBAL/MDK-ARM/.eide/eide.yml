@@ -91,6 +91,8 @@ virtualFolder:
         - path: ../User/App/inc/RUI_ROOT_INIT.h
         - path: ../User/App/Shoot_Task.c
         - path: ../User/App/inc/Shoot_Task.h
+        - path: ../User/App/inc/iir.h
+        - path: ../User/App/iir.c
       folders: []
     - name: Start
       files:

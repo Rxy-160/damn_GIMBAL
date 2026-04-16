@@ -4,6 +4,7 @@
 #define ATTACK_D_SPEED  30
 LowPassFilter LowPass={0};
 TYPEDEF_ATTACK_PARAM ATTACK_V_PARAM = {0};
+
 float app;
 float acceleration_fire;
 /************************************************************万能分隔符**************************************************************
@@ -364,20 +365,30 @@ void ATTACK_F_JAM_Aim(MOTOR_Typdef *MOTOR, VT13_Typedef *VT13_DBUS, uint8_t auto
 //				}
 //				else if(CanCommunit_t.chTOgm .dataNeaten_another .heat_last <=200&&CanCommunit_t.chTOgm .dataNeaten_another .heat_last >170)
 //				{
+//			if(heat_all==0)
+//			{
+//								MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/50000;//15000---实际4400rpm   7.333333hz
+
+//			}
 			if(heat_all>160)
 			{
-				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/50000;//15000---实际4400rpm   7.333333hz
+				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/70000;//15000---实际4400rpm   7.333333hz
 				
 			}
 			else if(heat_all<150&&heat_all>90)
 			{
-								MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/25000;//15000---实际4400rpm   7.333333hz
+				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/50000;//15000---实际4400rpm   7.333333hz
 
 			}
-						else if(heat_all<90&&heat_all>30)
+			else if(heat_all<45&&heat_all>15)
 			{
-								MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/10000;//15000---实际4400rpm   7.333333hz
+				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite-/*36864*/7000;//15000---实际4400rpm   7.333333hz
 
+			}
+			else if(heat_all==0)
+			{
+				MOTOR->DJI_3508_Shoot_M.DATA.Aim =(float )MOTOR->DJI_3508_Shoot_M .DATA .Angle_Infinite;//15000---实际4400rpm   7.333333hz
+        ATTACK_V_PARAM.COUNT = 0;
 			}
 
 //	}
@@ -501,7 +512,7 @@ void ATTACK_F_FIRE_Aim(MOTOR_Typdef *MOTOR,VT13_Typedef *VT13_DBUS)
 // 总控制函数
 void ATTACK_F_Ctl(VT13_Typedef *VT13_DBUS,MOTOR_Typdef *MOTOR)
 {
-	    filler_motor_L=butterOrdF(MOTOR->DJI_3508_Shoot_L .DATA .Speed_now  );
+	filler_motor_L=butterOrdF(MOTOR->DJI_3508_Shoot_L .DATA .Speed_now  );
 	filler_motor_R=butterOrdF(MOTOR->DJI_3508_Shoot_R .DATA .Speed_now  );
 	filler_motor_M=butterOrdF(MOTOR->DJI_3508_Shoot_M .DATA .Speed_now );
 
@@ -596,7 +607,6 @@ float ATTACK_F_FireRate_Control(MOTOR_Typdef *motor, float hz, uint8_t type)
         motor->DJI_3508_Shoot_M .PID_P .MaxOut = y;
         break;
     }
-       
     case 2: {// 二次拟合
         float a = 0.0f, b = 0.0f, c = 0.0f;
         float y = a * hz * hz + b * hz + c;
@@ -785,45 +795,47 @@ uint8_t motot_F_laststate=0;
 uint8_t all_F=0;
 
 
-
+bool text_shoot_cnt;
+uint32_t cntttttttt;
 void shoot_status(MOTOR_Typdef *MOTOR)
 {
-	float i;
+	text_shoot_cnt=Update_Shoot_Det(MOTOR->DJI_3508_Shoot_L.DATA .Speed_now  ,MOTOR->DJI_3508_Shoot_R.DATA .Speed_now ,&g_det );
+//	float i;
 
-//	if(MOTOR->DJI_3508_Shoot_M .DATA .Speed_now  <-1500)//////////不如不加
-	{
-//		if((filler_motor_L   >-6000&&MOTOR->DJI_3508_Shoot_R .DATA .Speed_now  <5900)&&VT13_DBUS.Remote .mode_sw ==1)//////不加拨弹检测：连发  30检测20    50-35  100-86 /74 /77
+//	//	if(MOTOR->DJI_3508_Shoot_M .DATA .Speed_now  <-1500)//////////不如不加
+//		{
+//	//		if((filler_motor_L   >-6000&&MOTOR->DJI_3508_Shoot_R .DATA .Speed_now  <5900)&&VT13_DBUS.Remote .mode_sw ==1)//////不加拨弹检测：连发  30检测20    50-35  100-86 /74 /77
+//				if(VT13_DBUS.Remote .mode_sw ==1)
+//	//		if((filler_motor_L   <-2600&&filler_motor_R <-2000)&&VT13_DBUS.Remote .mode_sw ==1)///滤波后把检测误差过大
+//	//		if((motor_M_state==1)&&(motor_F_state==1))/////减速状态
+//		{
+//			{
+//	////			for(i=0;i<30;i++)
+//	////			{
+//	////				
+//	////			}
+//				current_trigger=1;
 
-		if((filler_motor_L   <-2600&&filler_motor_R <-2000)&&VT13_DBUS.Remote .mode_sw ==1)///滤波后把检测误差过大
-//		if((motor_M_state==1)&&(motor_F_state==1))/////减速状态
-	{
-		{
-////			for(i=0;i<30;i++)
-////			{
-////				
-////			}
-			current_trigger=1;
-
-		}
-	}
-	else
-	{
-		current_trigger=0;
-	}
-		if(current_trigger == 1 )
-    {
-			if(last_trigger == 0)
-			{
-					shoot_stateee = 1;   // 产生一个脉冲
-					statues+=1;
-			}
-    }
-    else
-    {
-        shoot_stateee = 0;
-    }
-		last_trigger = current_trigger;
-	}
+//			}
+//		}
+//		else
+//		{
+//			current_trigger=0;
+//		}
+//			if(current_trigger == 1 )
+//			{
+//				if(last_trigger == 0)
+//				{
+//						shoot_stateee = 1;   // 产生一个脉冲
+//						statues+=1;
+//				}
+//			}
+//			else
+//			{
+//					shoot_stateee = 0;
+//			}
+//			last_trigger = current_trigger;
+//	}
 }
 void motor_m_reduce(MOTOR_Typdef *MOTOR)//拨盘电机持续减速状态捕捉
 {
@@ -862,6 +874,7 @@ void mocalun_reduce(MOTOR_Typdef *MOTOR)//////摩擦轮减速瞬间状态捕捉
 }
 
 
+ShootDet_t g_det ={0};
 
 /////////自己写的滤波器
 
@@ -882,4 +895,61 @@ float lpf_process(LowPassFilter *f, float input)
     // 公式: Y(n) = α * X(n) + (1-α) * Y(n-1)
     f->last_output = f->alpha * input + (1.0f - f->alpha) * f->last_output;
     return f->last_output;
+}
+/////火控部分在main里，以下是对弹丸是否发出的检测函数
+
+bool Update_Shoot_Det(float speed1, float speed2, ShootDet_t *det) {
+    float val = (fabsf(speed1) + fabsf(speed2)) / 2.0f;
+    if (!det->init) {
+        det->base = val;
+        det->last_val = val;
+        det->max_drop_in_round = 0;
+        det->cool_down_cnt = 0;
+        det->init = true;
+        return false;
+    }
+    float slope = det->last_val - val;
+    det->last_val = val;
+    if (val > det->base) {
+        det->base = (K_UP * val) + (1.0f - K_UP) * det->base;
+    } else {
+        det->base = (K_DN * val) + (1.0f - K_DN) * det->base;
+    }
+    float drop = det->base - val;
+    bool shoot_done = false;
+    if (det->cool_down_cnt > 0) {
+        det->cool_down_cnt--;
+        det->armed = false;
+        return false;
+    }
+    if (!det->armed) {
+        if (drop > TH_FIRE && drop < TH_FIRE_MAX && slope > MIN_SLOPE && val>4000 ) {
+            det->armed = true;
+            det->max_drop_in_round = drop;
+            det->t_out = 0;
+        }
+    } else {
+        det->t_out++;
+        if (drop > det->max_drop_in_round) {
+            det->max_drop_in_round = drop;
+        }
+        bool condition_relative = (drop < det->max_drop_in_round * (1.0f - RELATIVE_RECOVER));
+        bool condition_absolute = (drop < TH_RST_SAFE);
+        if (condition_relative || condition_absolute) {
+            det->armed = false;
+            det->cnt++;
+            det->cool_down_cnt = COOL_DOWN_TICKS;
+            det->max_drop_in_round = 0;
+            shoot_done = true;
+        }
+        else if (det->t_out >= TIMEOUT_TICKS) {
+            det->armed = false;
+            det->max_drop_in_round = 0;
+        }
+    }
+		
+		
+		
+
+    return shoot_done;
 }

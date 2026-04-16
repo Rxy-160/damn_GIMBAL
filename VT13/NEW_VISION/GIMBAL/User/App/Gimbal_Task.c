@@ -22,8 +22,8 @@ uint8_t MOTOR_PID_Gimbal_INIT(MOTOR_Typdef *MOTOR,TD_t *TDDD)
 	  float PID_F_Pitch[3] = {   0.0f,   0.0f,   0.0f   };
 //    float PID_P_Pitch[3] = {   3.0f,   0.1f,   0.0f   };//{   2.0f,   0.004f,   0.0f   };
 //    float PID_S_Pitch[3] = {   /*150.0f*/67.0f,   0.3f,   0.0f   };//{   /*150.0f*/35.0f,   0.001f,   0.0f   };
-    float PID_P_Pitch[3] = {   3.0f,   1.0f,   0.0f   };//{   2.0f,   0.004f,   0.0f   };
-    float PID_S_Pitch[3] = {   /*150.0f*/40.0f,   0.3f,   0.0f   };//{   /*150.0f*/35.0f,   0.001f,   0.0f   };
+    float PID_P_Pitch[3] = {   4.0f,   1.0f,   0.0f   };//{   2.0f,   0.004f,   0.0f   };
+    float PID_S_Pitch[3] = {   /*150.0f*/50.0f,   0.3f,   0.0f   };//{   /*150.0f*/35.0f,   0.001f,   0.0f   };
 
 		///////////////////////////////////////70
 //    Feedforward_Init(&MOTOR->m_dm4310_p_t .PID_F, 3000, PID_F_Pitch,
@@ -45,8 +45,8 @@ uint8_t MOTOR_PID_Gimbal_INIT(MOTOR_Typdef *MOTOR,TD_t *TDDD)
 //    float PID_P_Yaw[3] = {   2.6f,   4.0f,   0.0f   };//{   2.0f,   0.8f,   0.0f  };
 //    float PID_S_Yaw[3] = {   /*160.0f*/60,   0.1f,   0.3f   };//{   /*160.0f*/100,   0.0f,   0.0f    };
 		    float PID_F_Yaw[3] = {   0.0f,   0.0f,   0.0f   };
-    float PID_P_Yaw[3] = {   3.0f,   1.5f,   0.0f   };//{   2.0f,   0.8f,   0.0f  };
-    float PID_S_Yaw[3] = {   /*160.0f*/45,   0.1f,   0.3f   };//{   /*160.0f*/100,   0.0f,   0.0f    };
+    float PID_P_Yaw[3] = {   3.5f,   1.0f,   0.0f   };//{   2.0f,   0.8f,   0.0f  };
+    float PID_S_Yaw[3] = {   /*160.0f*/55,   0.1f,   0.3f   };//{   /*160.0f*/100,   0.0f,   0.0f    };
 
 		////////////////////////////78
 //    Feedforward_Init(&MOTOR->m_dm4310_y_t .PID_F, 3000, PID_F_Yaw,
@@ -90,10 +90,10 @@ uint8_t gimbal_task(CONTAL_Typedef *CONTAL,
                     TD_t *TDDDD
                     )
 {
-	////////3508速度传递放在这
-	MOTOR->DJI_3508_Shoot_L .DATA .Speed_last =MOTOR->DJI_3508_Shoot_L .DATA .Speed_now ;
+	////////3508速度计数传递放在这
+				MOTOR->DJI_3508_Shoot_L .DATA .Speed_last =MOTOR->DJI_3508_Shoot_L .DATA .Speed_now ;
 	MOTOR->DJI_3508_Shoot_R .DATA .Speed_last =MOTOR->DJI_3508_Shoot_R .DATA .Speed_now ;
-		MOTOR->DJI_3508_Shoot_M .DATA .Speed_last =MOTOR->DJI_3508_Shoot_M .DATA .Speed_now ;
+	MOTOR->DJI_3508_Shoot_M .DATA .Speed_last =MOTOR->DJI_3508_Shoot_M .DATA .Speed_now ;
 
     static uint8_t PID_INIT = RUI_DF_ERROR;
     static uint8_t AIM_INIT = RUI_DF_ERROR;
@@ -275,6 +275,7 @@ uint8_t GimbalRXResolve(uint8_t * buff,uint16_t CANID)
 	heat_state=CanCommunit_t.chTOgm .dataNeaten_another .heat_last ;
 	//缓冲热量
 	huanchongnengliang =CanCommunit_t.chTOgm .dataNeaten_another .huanchongnengliang ;
+	self_color=CanCommunit_t.chTOgm .dataNeaten_another .self_color ;//0是己方为红色，1是己方为蓝色
 		return 0;
 }
 
@@ -291,18 +292,18 @@ uint8_t GimbalTXResovle( VT13_Typedef *VT13_DBUS)
 {
 	
 //		int16_t pitchAngle = (int16_t)SectionLimit_f(500.0f, -500.0f, (TopData_t.pitchAgnle_f * 10.0f) );
-		
+	
 //		KeyboardResolve();		//键盘模式底盘速度的解算
 			VOFA_justfloat(filler_motor_L    /*ALL_MOTOR .m_dm4310_p_t .DATA .Aim*/   ,
 											filler_motor_R  /**22.75555555555*/  ,
-		               filler_motor_M     /*ALL_MOTOR .m_dm4310_y_t .DATA .Aim*/  ,
-		              ALL_MOTOR.DJI_3508_Shoot_L .DATA .Speed_now    ,
-		              ALL_MOTOR.DJI_3508_Shoot_L  .DATA .Speed_last  ,
-		              ALL_MOTOR .DJI_3508_Shoot_M .DATA .Speed_now   ,
-									asdf,
-									 /*IMU_Data.pitch*/statues,
-		               motor_M_state  ,
-									 /*ALL_MOTOR.m_dm4310_p_t .DATA .Angle_now*/motor_F_state  );/*反馈电流是cur_int16*/
+										  filler_motor_M     /*ALL_MOTOR .m_dm4310_y_t .DATA .Aim*/  ,
+											ALL_MOTOR.DJI_3508_Shoot_L .DATA .Speed_now    ,
+											ALL_MOTOR.DJI_3508_Shoot_L  .DATA .Speed_last  ,
+											ALL_MOTOR .DJI_3508_Shoot_M .DATA .Speed_now   ,
+										g_det.cnt ,
+										 /*IMU_Data.pitch*/g_det.last_cnt ,
+										 heat_all  ,
+									 /*ALL_MOTOR.m_dm4310_p_t .DATA .Angle_now*/g_det.cnt  );/*反馈电流是cur_int16*/
 
 		CanCommunit_t.gmTOch.dataNeaten.vx =  VT13_DBUS->Remote .Channel[0] +(VT13_DBUS->KeyBoard .D -VT13_DBUS->KeyBoard .A )*330;//1
 //		CanCommunit_t.gmTOch.dataNeaten.vx += (DBUS->KeyBoard .W -DBUS->KeyBoard .S )*660;//gimbal_t.Keyboard.vx;//键鼠，还没加

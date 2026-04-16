@@ -17,7 +17,8 @@ ui_interface_number_t *ui_g_1_max_heat = (ui_interface_number_t*)&(ui_g_1_0.data
 ui_interface_number_t *ui_g_1_now_heat = (ui_interface_number_t*)&(ui_g_1_0.data[5]);
 ui_interface_line_t *ui_g_1_heng = (ui_interface_line_t*)&(ui_g_1_0.data[6]);
 
-void _ui_init_g_1_0() {
+void _ui_init_g_1_0() 
+	{
     for (int i = 0; i < 7; i++) {
         ui_g_1_0.data[i].figure_name[0] = 0;
         ui_g_1_0.data[i].figure_name[1] = 0;
@@ -435,7 +436,7 @@ void _ui_init_g_1_8() {
     ui_g_1_xiaoxiaobu->width = 4;
     ui_g_1_xiaoxiaobu->font_size = 40;
     ui_g_1_xiaoxiaobu->str_length = 23;
-    strcpy(ui_g_1_xiaoxiaobu->string, "(๑•̀ㅂ•́)و✧");
+    strcpy(ui_g_1_xiaoxiaobu->string, "d\\(  > _ <  )//b ");
 
 
     ui_proc_string_frame(&ui_g_1_8);

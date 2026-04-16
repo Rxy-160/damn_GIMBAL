@@ -65,7 +65,7 @@ RUI_ROOT_STATUS_Typedef RUI_ROOT_STATUS;
 
 //视觉
 uint8_t VisionRx[30];
-uint8_t sd_v_buff[24]; 
+uint8_t sd_v_buff[20]; 
 //uint8_t sd_v_buff[20];
 
 //电容
@@ -94,8 +94,8 @@ struct CanCommunit_typedef CanCommunit_t;
 TYPEDEF_VISION VISION_V_DATA = {0};////普通视觉
 // VisionRxDataUnion VISION_V_DATA ;////加预测视觉
 
-float heat_state;
-float huanchongnengliang;
+uint64_t heat_state;
+uint64_t huanchongnengliang;
 void Everying_Init(void)
 {
     //DWT初始化

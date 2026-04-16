@@ -45,28 +45,30 @@ uint8_t VISION_F_Cal(uint8_t *RxData, uint8_t type,TYPEDEF_VISION *VISION_DATA)
 				data_tackle.U [1]=VISION_DATA->OriginData[11];
 				data_tackle.U [2]=VISION_DATA->OriginData[12];
 				data_tackle.U [3]=VISION_DATA->OriginData[13];
-				VISION_DATA->RECEIVE.Yaw_plan=data_tackle.F/57.3;
+				VISION_DATA->RECEIVE.Pitch_plan =data_tackle.F/57.3;
 				data_tackle.U [0]=VISION_DATA->OriginData[14];
 				data_tackle.U [1]=VISION_DATA->OriginData[15];
 				data_tackle.U [2]=VISION_DATA->OriginData[16];
 				data_tackle.U [3]=VISION_DATA->OriginData[17]; 
-				VISION_DATA->RECEIVE .Pitch_plan =data_tackle.F /57.3;
+				VISION_DATA->RECEIVE .Yaw_plan =data_tackle.F /57.3;
         VISION_DATA->RECV_FLAG[NOW] = ROOT_READY;
         return ROOT_READY;
     }
     return ROOT_ERROR;
 }
+     uint8_t buff_flag = 0;
+		uint8_t vision_sta;
+uint64_t self_color;
 
 void VisionSendInit(union RUI_U_VISION_SEND*  Send_t,TYPEDEF_VISION *VISION_DATA,User_Data_T*User_Data_aaa,VT13_Typedef *DBUS_sss,IMU_Data_t *IMU_Data,MOTOR_Typdef*Motor_t)
 {
-    static uint8_t buff_flag = 0;
 
 //注意正负
     Send_t->PIT_DATA = -IMU_Data ->pitch ;     // @note c板侧放，如果想用pitch建议改imu_temp...c中的IMU_QuaternionEKF_Update参数顺序和正负
 	
     Send_t->YAW_DATA =  -IMU_Data ->yaw ;
 	Send_t->ROLL_DATA =IMU_Data ->roll ;
-	
+
 	
 	
 	
@@ -75,17 +77,27 @@ void VisionSendInit(union RUI_U_VISION_SEND*  Send_t,TYPEDEF_VISION *VISION_DATA
     Send_t->FLAG = VISION_DATA->SEND.FLAG;
     Send_t->COLOR = VISION_DATA->SEND.COLOR;
     Send_t->TIME = VISION_DATA->SEND.TIME;
-	  Send_t->bulletSpeed = 20;//(uint8_t)User_Data_aaa->shoot_data.initial_speed;
+	  Send_t->bulletSpeed = (uint8_t)roundf(User_Data_aaa->shoot_data.initial_speed*10);
 
 	Send_t->YawOmega  =Motor_t->m_dm4310_y_t .DATA .Speed_now *6;
 	Send_t->PitchOmega=Motor_t->m_dm4310_p_t .DATA .Speed_now *6;
 	//发弹速的
+			if(self_color==0)
+		{
+			vision_sta=0b000;
+		}
+		else if(self_color==1)
+		{
+				vision_sta =0b100 ;
 
-    if (DBUS_sss->KeyBoard .B && !DBUS_sss->KeyBoard .B_PreeNumber ) // 按下B键
-        buff_flag = 2;//!buff_flag; // 切换打小符模式
+		}
+
+			buff_flag=vision_sta;
+//    if (DBUS_sss->KeyBoard .B && !DBUS_sss->KeyBoard .B_PreeNumber ) // 按下B键
+//        buff_flag = 1+vision_sta;//!buff_flag; // 切换打小符模式
 //		if (DBUS_sss->KeyBoard .R  && !DBUS_sss->KeyBoard .R_PreeNumber)//暂定大符模式是R
-//				buff_flag = 3;      //大符模式
-    DBUS_sss->KeyBoard .B_PreeNumber  =DBUS_sss->KeyBoard .B ;
+//				buff_flag = 2+vision_sta;      //大符模式
+//    DBUS_sss->KeyBoard .B_PreeNumber  =DBUS_sss->KeyBoard .B ;
 //		DBUS_sss->KeyBoard .R_PreeNumber  =DBUS_sss->KeyBoard .R ;
     Send_t->is_buff = buff_flag;
 }
@@ -125,30 +137,34 @@ int ControltoVision(union RUI_U_VISION_SEND*  Send_t , uint8_t *buff, uint8_t ty
 	// setbit(&buff[9] , 3 , Send_t->COLOR >> 4);
 	
 	
-    // 自瞄1  打小符2  大符3
+    // 自瞄1  打小符2  大符3   蓝色自瞄4
     buff[9] = Send_t->is_buff;
-    data_tackle.I = (uint32_t)Send_t->TIME; // 视觉自瞄和能量机关切换标志位
-	buff[10] = data_tackle.U[0];
-	buff[11] = data_tackle.U[1];
-	buff[12] = data_tackle.U[2];
-	buff[13] = data_tackle.U[3];
-    buff[14] = Send_t->bulletSpeed;
-		data_tackle.F=Send_t->YawOmega;
-		buff[15]=data_tackle.U [0];
-		buff[16]=data_tackle.U [1];
-		buff[17]=data_tackle.U [2];
-		buff[18]=data_tackle.U [3];
-		data_tackle.F =Send_t->PitchOmega;
-		buff[19]=data_tackle.U [0];
-		buff[20]=data_tackle.U [1];
-		buff[21]=data_tackle.U [2];
-		buff[22]=data_tackle.U [3];
-    buff[23] = 0xdc;
+		
+//    data_tackle.I = (uint32_t)Send_t->TIME; // 视觉自瞄和能量机关切换标志位
+//	buff[10] = data_tackle.U[0];
+//	buff[11] = data_tackle.U[1];
+//	buff[12] = data_tackle.U[2];
+//	buff[13] = data_tackle.U[3];
+
+
+
+	buff[10] = Send_t->bulletSpeed;
+	data_tackle.F=Send_t->YawOmega;
+	buff[11]=data_tackle.U [0];
+	buff[12]=data_tackle.U [1];
+	buff[13]=data_tackle.U [2];
+	buff[14]=data_tackle.U [3];
+	data_tackle.F =Send_t->PitchOmega;
+	buff[15]=data_tackle.U [0];
+	buff[16]=data_tackle.U [1];
+	buff[17]=data_tackle.U [2];
+	buff[18]=data_tackle.U [3];
+	buff[19] = 0xdc;
 //49    57
     if (type == 0)
-        status = CDC_Transmit_FS(buff, 24);
+        status = CDC_Transmit_FS(buff, 19);
     else if (type == 1)
-        status = HAL_UART_Transmit_DMA(&huart1, buff, 24);
+        status = HAL_UART_Transmit_DMA(&huart1, buff, 20);
 
     return ROOT_READY;
 }

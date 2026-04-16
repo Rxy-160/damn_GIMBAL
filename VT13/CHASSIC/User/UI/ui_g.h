@@ -30,5 +30,6 @@ void ui_init_g_1();
 void ui_update_g_1();
 void ui_remove_g_1();
 
+void _ui_init_g_1_0() ;
 
 #endif // UI_g_H

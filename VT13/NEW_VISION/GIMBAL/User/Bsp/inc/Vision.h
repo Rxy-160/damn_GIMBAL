@@ -9,7 +9,7 @@
 #include "RUI_DBUS.h"
 #include "Referee.h"
 #include "IMU_Task.h"
-
+extern uint64_t self_color;
 
 union RUI_U_VISION_RECEIVE
 {
@@ -38,7 +38,7 @@ union RUI_U_VISION_SEND
     float INIT_FIRING_RATE; // 弹速
     int FLAG;            // 自瞄和能量机关切换标志位
     bool COLOR;             // TRUE是蓝色，FALSE是红色
-		 uint8_t is_buff; // 0:自瞄 1:打符
+		 uint8_t is_buff; // 0:己方是红方，自瞄 1:小符 2：大符  3：己方是蓝方
 
     uint32_t TIME;
     uint8_t bulletSpeed;//

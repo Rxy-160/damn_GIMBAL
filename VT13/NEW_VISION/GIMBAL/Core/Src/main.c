@@ -205,19 +205,18 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   /* USER CODE BEGIN Callback 1 */
 		if(htim->Instance ==TIM9)
 	{
-		asdf +=0.14;
+	shoot_status(&ALL_MOTOR );
+
+		asdf +=0.14;/////≤‚ ‘Œª
 		if(heat_all<230)
 		{
 			heat_all+=0.14;
 		}
-		
-		if(shoot_stateee==1)
+
+		if(g_det.cnt!=g_det.last_cnt )
+//		if(Update_Shoot_Det(ALL_MOTOR.DJI_3508_Shoot_L.DATA .Speed_now  ,ALL_MOTOR.DJI_3508_Shoot_R.DATA .Speed_now ,&g_det )==1)
 		{
 			heat_all-=10;
-		}
-		else
-		{
-			heat_all=230;
 		}
 	}
 

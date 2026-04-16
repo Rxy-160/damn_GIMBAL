@@ -48,7 +48,6 @@ extern User_Data_T User_data;
 
 extern uint8_t RX[20];
 extern  TYPEDEF_VISION VISION_V_DATA;////普通视觉
-//extern  VisionRxDataUnion VISION_V_DATA ;////加预测视觉
 extern TD_t TDDDD;
 
 
@@ -59,7 +58,7 @@ extern pid_type_def imu_temp;
 extern IMU_Data_t IMU_Data;
 
 extern RUI_ROOT_STATUS_Typedef RUI_ROOT_STATUS;
-extern uint8_t sd_v_buff[24];
+extern uint8_t sd_v_buff[20];
 //extern uint8_t sd_v_buff[20];
 
 extern uint8_t VisionRx[30];
@@ -79,8 +78,8 @@ extern struct gimbal_typedef gimbal_t;
 
 extern float vision_state;
 
-extern float heat_state;
-extern float huanchongnengliang;
+extern uint64_t heat_state;
+extern uint64_t huanchongnengliang;
 
 
 #endif

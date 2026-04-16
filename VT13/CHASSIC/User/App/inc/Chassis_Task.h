@@ -60,6 +60,7 @@ union chTOgm_typdef		//使用共用体整合数据
 	struct{
 		uint64_t heat_last:16;	//剩余热量
 		uint64_t huanchongnengliang:8;	//缓冲能量
+		uint64_t self_color:8;
 		uint64_t nowSpeed:8;	//当前射速
 		uint64_t target:1;	//是否识别成功标志位
 		uint64_t visionMod:3;		//视觉的状态
@@ -80,5 +81,6 @@ uint8_t ChassisRXResolve(uint8_t * data,DBUS_Typedef *DBUS,RUI_ROOT_STATUS_Typed
 uint8_t ChassisTXResolve(User_Data_T *User_data);
 
 extern uint16_t ralati;
+extern uint64_t self_color;
 
 #endif
